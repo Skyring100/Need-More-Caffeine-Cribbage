@@ -1,5 +1,10 @@
 package src;
 
-public class Bot {
-// im bot
+public class Bot extends Player{
+
+	public Bot(String name, int score) {
+		super(name, score);
+	}
+	
+
 }
