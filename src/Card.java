@@ -26,8 +26,13 @@ public class Card implements CardInterface {
             //AC is highest and KS is the lowest
             //modulus 4 to get the suit
             //modulus 13 to get the rank
-            Rank[] ranks = Rank.ACE.getClass().getEnumConstants();
-            Suit[] suits = Suit.DIAMONDS.getClass().getEnumConstants();
+            //we have to remove the joker due to us adding it so the ranks
+            Rank[] rawRanks = Rank.values();
+            Rank[] ranks = new Rank[13];
+            for(int j = 0; j < ranks.length; j++){
+                ranks[j] = rawRanks[j+1];
+            }
+            Suit[] suits = Suit.values();
             this.rank = ranks[i%13];
             this.suit = suits[i%4];
         }
