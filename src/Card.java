@@ -65,6 +65,9 @@ public class Card implements CardInterface {
     public int getCribCount() {
         return cribCount;
     }
+    public int getValue() {
+    	return this.rank.ordinal() + 1;
+    }
 
     @Override
     public String toString() {
