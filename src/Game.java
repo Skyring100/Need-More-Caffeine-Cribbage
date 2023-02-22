@@ -10,8 +10,12 @@ public class Game {
     public Game() {
     	
     }
-    
-    public static ArrayList<ArrayList<Card>> makeSubset(ArrayList<Card> list) {
+    /**
+     * 
+     * @param list is the hand which will be sorted into subsets
+     * @return the arraylist containing all the arraylists of possible hand combinations
+     */
+    private static ArrayList<ArrayList<Card>> makeSubset(ArrayList<Card> list) {
 		ArrayList<ArrayList<Card>> sets = new ArrayList<>();
 		    for(int i=0; i<(1<<list.size()); i++) {
 		    	ArrayList<Card> temp = new ArrayList<>();
@@ -25,8 +29,12 @@ public class Game {
 		    }
 		    return sets;
 	}
-    
-    public static int countPairs(ArrayList<Card> list) {
+    /**
+     * 
+     * @param list is the hand which will be counted for pairs
+     * @return the number of pairs which are in the hand
+     */
+    private static int countPairs(ArrayList<Card> list) {
 		
     	ArrayList<ArrayList<Card>> sets = makeSubset(list);
     	int count = 0;
@@ -46,8 +54,12 @@ public class Game {
     			    
     			    return count;
     		}
-    
-    public static int countFlush(ArrayList<Card> list) {
+    /**
+     * 
+     * @param list the hand which will be checked for a flush
+     * @return the number of points for the flush, either 4, 5, or 0
+     */
+    private static int countFlush(ArrayList<Card> list) {
     	if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit() && list.get(4).getSuit() == list.get(1).getSuit()) {
     		return 5;
     	}else if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit()) {
@@ -56,8 +68,12 @@ public class Game {
     		return 0;
     	}
     }
-    
-    public static int count15(ArrayList<Card> list) {
+    /**
+     * 
+     * @param list the hand which will be checked for possible 15s
+     * @return the number of 15s which are in the hand
+     */
+    private static int count15(ArrayList<Card> list) {
 		ArrayList<ArrayList<Card>> sets = new ArrayList<>();
 		sets = makeSubset(list);
 		int count = 0;
@@ -76,5 +92,11 @@ if(c == 15) {
 		
 		
 	}
+    
+    public static int countPoints(ArrayList<Card> list) {
+    	return count15(list) * 2 + countFlush(list) + countPairs(list) * 2;
+    }
+    
+    
   }
   
