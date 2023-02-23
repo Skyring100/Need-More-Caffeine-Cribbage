@@ -131,7 +131,7 @@ if(c == 15) {
 	}
     
     public static int countPoints(ArrayList<Card> list) {
-    	return count15(list) * 2 + countFlush(list) + countPairs(list) * 2;
+    	return count15(list) * 2 + countFlush(list) + countPairs(list) * 2 + countStraight(list);
     }
     
     
