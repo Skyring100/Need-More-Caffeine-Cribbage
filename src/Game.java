@@ -1,6 +1,10 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
+import Card1.Card;
+
 
 public class Game {
     private static final int WINDOW_WIDTH = 1000;
@@ -91,6 +95,39 @@ if(c == 15) {
 		    return count;
 		
 		
+	}
+    public static int countStraight(ArrayList<Card> list) {
+		int total = 0;
+		ArrayList<ArrayList<Card>> sets = makeSubset(list); // an arraylist containing all the possible card combinations
+		Collections.reverse(sets); // reverses the order of the sets so the length 5 sets will be conted before length 4 and 3 sets
+		
+		for(int i = 0;i<sets.size();i++) {
+			ArrayList<Integer> Hand = new ArrayList<>(); // new hand to store integer values of each card
+			for(int j = 0;j<sets.get(i).size();j++) {
+				Hand.add(sets.get(i).get(j).getValue());
+				
+			}
+			Collections.sort(Hand); // sorting the cards by value
+			
+			if(Hand.size() == 5) { // checking if it is a 5 length straight
+				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4)) {
+					return 5;
+				}
+			}
+			if(Hand.size() == 4) { // checking if it is a 4 length straight
+				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3)) {
+					return 4;
+				}
+			}
+			if(Hand.size() == 3) { // checking if it is a 3 length straight
+				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2)) {
+					total += 3;
+				}
+			}
+		}
+		
+		
+		return total;
 	}
     
     public static int countPoints(ArrayList<Card> list) {
