@@ -74,7 +74,7 @@ public class Game {
     private static int count15(ArrayList<Card> list) {
 		ArrayList<ArrayList<Card>> sets = makeSubset(list);
 		int count = 0;
-		int c = 0;
+		int c;
 		for(int i = 0;i<sets.size();i++) {
 			c = 0;
 			for(int j = 0;j<sets.get(i).size();j++) {
@@ -90,7 +90,7 @@ public class Game {
     public static int countStraight(ArrayList<Card> list) {
 		int total = 0;
 		ArrayList<ArrayList<Card>> sets = makeSubset(list); // an arraylist containing all the possible card combinations
-		Collections.reverse(sets); // reverses the order of the sets so the length 5 sets will be conted before length 4 and 3 sets
+		Collections.reverse(sets); // reverses the order of the sets so the length 5 sets will be counted before length 4 and 3 sets
 		
 		for(int i = 0;i<sets.size();i++) {
 			ArrayList<Integer> Hand = new ArrayList<>(); // new hand to store integer values of each card
