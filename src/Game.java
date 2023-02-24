@@ -87,15 +87,16 @@ public class Game {
 			for(int j = 0;j<sets.get(i).size();j++) {
 				c += sets.get(i).get(j).getCribCount();
 			}
-if(c == 15) {
-	count++;
-}
+			if(c == 15) {
+				count++;
+			}
 		}
 
 		    return count;
 		
 		
 	}
+	
     public static int countStraight(ArrayList<Card> list) {
 		int total = 0;
 		ArrayList<ArrayList<Card>> sets = makeSubset(list); // an arraylist containing all the possible card combinations
@@ -135,5 +136,5 @@ if(c == 15) {
     }
     
     
-  }
+}
   

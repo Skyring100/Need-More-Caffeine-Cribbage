@@ -7,30 +7,30 @@ private String name;
 private int score;
 private ArrayList<Card> hand;
 
-public Player(String name,int score) {
-	this.name = name;
-	this.score = score;
-}
-public int getScore() {
-	return this.score;
-}
-public void addScore(int points) {
-	this.score += points;
-}
-public void setHand(ArrayList cards) {
-	
-	this.hand = cards;
-	
-}
-public ArrayList getHand() {
-	return this.hand;
-}
-public void discard(Card c) {
-	hand.remove(hand.indexOf(c));
-}
-public void addCard(Card c) {
-	hand.add(c);
-}
+	public Player(String name,int score) {
+		this.name = name;
+		this.score = score;
+	}
+	public int getScore() {
+		return this.score;
+	}
+	public void addScore(int points) {
+		this.score += points;
+	}
+	public void setHand(ArrayList cards) {
+		
+		this.hand = cards;
+		
+	}
+	public ArrayList getHand() {
+		return this.hand;
+	}
+	public void discard(Card c) {
+		hand.remove(hand.indexOf(c));
+	}
+	public void addCard(Card c) {
+		hand.add(c);
+	}
 
 }
 

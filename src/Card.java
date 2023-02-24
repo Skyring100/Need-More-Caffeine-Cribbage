@@ -9,7 +9,6 @@ public class Card implements CardInterface {
     private final int cribCount;
     private final String symbol;
 
-
     /**
      * Creates a card in chronological order, suits being ordered alphabetically and rank ordered from ace to king
      * @param i
