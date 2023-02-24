@@ -3,9 +3,6 @@ package src;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import Card1.Card;
-
-
 public class Game {
     private static final int WINDOW_WIDTH = 1000;
     private static final int WINDOW_HEIGHT = 500;
@@ -39,25 +36,22 @@ public class Game {
      * @return the number of pairs which are in the hand
      */
     private static int countPairs(ArrayList<Card> list) {
-		
     	ArrayList<ArrayList<Card>> sets = makeSubset(list);
     	int count = 0;
-    			    for(int i = 0;i<sets.size();i++) {
-    					
-    					for(int j = 0;j<sets.get(i).size();j++) {
-    						
-    						if(sets.get(i).size() == 2 && (sets.get(i).get(0).getRank() == sets.get(i).get(1).getRank())) {
-    							count++;
-    							break;
-    							
-    						}
-    					
-    					}
-    		
-    				}
-    			    
-    			    return count;
-    		}
+		//goes through every subset
+		for(int i = 0;i<sets.size();i++) {
+			//per subset, loop through all their elements
+			for(int j = 0;j<sets.get(i).size();j++) {
+				if(sets.get(i).size() == 2 && (sets.get(i).get(0).getRank() == sets.get(i).get(1).getRank())) {
+					count++;
+					break;
+				}
+
+			}
+
+		}
+		return count;
+	}
     /**
      * 
      * @param list the hand which will be checked for a flush
@@ -78,8 +72,7 @@ public class Game {
      * @return the number of 15s which are in the hand
      */
     private static int count15(ArrayList<Card> list) {
-		ArrayList<ArrayList<Card>> sets = new ArrayList<>();
-		sets = makeSubset(list);
+		ArrayList<ArrayList<Card>> sets = makeSubset(list);
 		int count = 0;
 		int c = 0;
 		for(int i = 0;i<sets.size();i++) {
@@ -91,10 +84,7 @@ public class Game {
 				count++;
 			}
 		}
-
-		    return count;
-		
-		
+		return count;
 	}
 	
     public static int countStraight(ArrayList<Card> list) {
