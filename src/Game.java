@@ -41,11 +41,11 @@ public class Game {
 		//goes through every subset
 		for(int i = 0;i<sets.size();i++) {
 			//per subset, loop through all their elements
-			for(int j = 0;j<sets.get(i).size();j++) {
+			
 				if(sets.get(i).size() == 2 && (sets.get(i).get(0).getRank() == sets.get(i).get(1).getRank())) {
 					count++;
 					break;
-				}
+				
 
 			}
 
