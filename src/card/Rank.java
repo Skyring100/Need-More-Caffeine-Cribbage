@@ -1,4 +1,4 @@
-package src;
+package src.card;
 
 /**
  * Has all the card types present in a standard deck of cards, from numbers 1-10 to kings and aces.

@@ -1,16 +1,25 @@
 package src;
 
+import src.card.Card;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class Game {
     private static final int WINDOW_WIDTH = 1000;
     private static final int WINDOW_HEIGHT = 500;
+	private Player currentDealer;
     
     
-    public Game() {
-    	
+    public Game(Player one, Player two) {
+		//this is an EXTREMELY compact way of getting a random dealer
+		//this creates an array of the players and uses a random number generator to choose an index from that list
+		currentDealer = new Player[]{one,two}[new Random().nextInt()];
     }
+	private void run(){
+		//TODO
+	}
     /**
      * 
      * @param list is the hand which will be sorted into subsets
@@ -41,14 +50,11 @@ public class Game {
 		//goes through every subset
 		for(int i = 0;i<sets.size();i++) {
 			//per subset, loop through all their elements
-			
-				if(sets.get(i).size() == 2 && (sets.get(i).get(0).getRank() == sets.get(i).get(1).getRank())) {
-					count++;
-					break;
-				
-
+			//check all subsets of size 2 and compare their face cards
+			if(sets.get(i).size() == 2 && (sets.get(i).get(0).getRank() == sets.get(i).get(1).getRank())) {
+				count++;
+				break;
 			}
-
 		}
 		return count;
 	}
@@ -58,14 +64,21 @@ public class Game {
      * @return the number of points for the flush, either 4, 5, or 0
      */
     private static int countFlush(ArrayList<Card> list) {
+		//might want to review this: might be some edge cases missed and could be cleaner
+		//if all cards are the same
     	if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit() && list.get(4).getSuit() == list.get(1).getSuit()) {
     		return 5;
+		//if 4 of the cards are the same
+		//this is where an edge case could be missed if the LAST card was the same as the other cards
+		//the current code ignores the last card so the case (D D D S D) would not be counted as a flush
     	}else if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit()) {
     		return 4;
+		//else, there is no flush, so return 0
     	}else {
     		return 0;
     	}
     }
+
     /**
      * 
      * @param list the hand which will be checked for possible 15s
@@ -75,11 +88,14 @@ public class Game {
 		ArrayList<ArrayList<Card>> sets = makeSubset(list);
 		int count = 0;
 		int c;
+		//for each subset of the list
 		for(int i = 0;i<sets.size();i++) {
 			c = 0;
+			//add up all of that subset's values
 			for(int j = 0;j<sets.get(i).size();j++) {
 				c += sets.get(i).get(j).getCribCount();
 			}
+			//if 15, then there is a pair of 15's so increment the big count
 			if(c == 15) {
 				count++;
 			}
@@ -89,7 +105,7 @@ public class Game {
 	
     public static int countStraight(ArrayList<Card> list) {
 		int total = 0;
-		ArrayList<ArrayList<Card>> sets = makeSubset(list); // an arraylist containing all the possible card combinations
+		ArrayList<ArrayList<Card>> sets = makeSubset(list);
 		Collections.reverse(sets); // reverses the order of the sets so the length 5 sets will be counted before length 4 and 3 sets
 		
 		for(int i = 0;i<sets.size();i++) {

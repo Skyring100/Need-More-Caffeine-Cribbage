@@ -1,7 +1,7 @@
-package src;
+package src.card;
 
 /**
- * basics.src.Suit has values corresponding to a suit in cards
+ * basics.src.card.Suit has values corresponding to a suit in cards
  */
 public enum Suit {
     CLUBS("C"), DIAMONDS("D"), HEARTS("H"), SPADES("S");
