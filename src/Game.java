@@ -39,6 +39,7 @@ public class Game {
 		currentDealer = currentPone;
 		currentPone = temp;
 	}
+
 	private static boolean isWin(Player p){
 		return p.getScore() >= WINNING_SCORE;
 	}
