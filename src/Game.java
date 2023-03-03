@@ -18,7 +18,13 @@ public class Game {
 		currentDealer = new Player[]{one,two}[new Random().nextInt(0,2)];
     }
 	private void run(){
-
+		if(isWin(currentPone)){
+			winner = currentPone;
+		}else if(isWin(currentDealer)){
+			winner = currentDealer;
+		}else{
+			run();
+		}
 	}
 	private static boolean isWin(Player p){
 		return p.getScore() >= WINNING_SCORE;
