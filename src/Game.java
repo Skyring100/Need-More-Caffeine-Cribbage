@@ -12,30 +12,19 @@ public class Game {
 	private Player currentPone;
 	private Player winner = null;
 	private ArrayList<Card> crib = new ArrayList<>();
+	private Deck deck;
 
     public Game(Player one, Player two) {
 		//this is an EXTREMELY compact way of getting a random dealer
 		//this creates an array of the players and uses a random number generator to choose an index from that list
 		currentDealer = new Player[]{one,two}[new Random().nextInt(0,2)];
+		deck = new Deck();
 		run();
     }
 	private void run(){
-
-		if(isWin(currentPone)){
-			winner = currentPone;
-		}else if(isWin(currentDealer)){
-			winner = currentDealer;
-		}else{
-			
-			
-			
-			Player temp = currentDealer;
-			currentDealer = currentPone;
-			currentPone = temp;
-			run();
-		}
+		switchDealer();
+		run();
 	}
-	
 	private Player checkWinner() {
 		
 		if(isWin(currentPone)){
@@ -45,8 +34,13 @@ public class Game {
 		}else {
 			return null;
 		}
-		
 	}
+	private void switchDealer(){
+		Player temp = currentDealer;
+		currentDealer = currentPone;
+		currentPone = temp;
+	}
+
 	private static boolean isWin(Player p){
 		return p.getScore() >= WINNING_SCORE;
 	}
