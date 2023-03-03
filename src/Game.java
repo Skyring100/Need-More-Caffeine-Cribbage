@@ -41,14 +41,11 @@ public class Game {
 		//goes through every subset
 		for(int i = 0;i<sets.size();i++) {
 			//per subset, loop through all their elements
-			
-				if(sets.get(i).size() == 2 && (sets.get(i).get(0).getRank() == sets.get(i).get(1).getRank())) {
-					count++;
-					break;
-				
-
+			//check all subsets of 2 and compare their face cards
+			if(sets.get(i).size() == 2 && (sets.get(i).get(0).getRank() == sets.get(i).get(1).getRank())) {
+				count++;
+				break;
 			}
-
 		}
 		return count;
 	}
@@ -58,10 +55,13 @@ public class Game {
      * @return the number of points for the flush, either 4, 5, or 0
      */
     private static int countFlush(ArrayList<Card> list) {
+		//if all cards are the same
     	if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit() && list.get(4).getSuit() == list.get(1).getSuit()) {
     		return 5;
+		//if 4 of the cards are the same
     	}else if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit()) {
     		return 4;
+		//else, there is no flush, so return 0
     	}else {
     		return 0;
     	}
