@@ -24,15 +24,31 @@ public class Game {
 		}else if(isWin(currentDealer)){
 			winner = currentDealer;
 		}else{
+			
+			
+			
 			Player temp = currentDealer;
 			currentDealer = currentPone;
 			currentPone = temp;
 			run();
 		}
 	}
+	
+	private Player checkWinner() {
+		
+		if(isWin(currentPone)){
+			return currentPone;
+		}else if(isWin(currentDealer)){
+			return currentDealer;
+		}else {
+			return null;
+		}
+		
+	}
 	private static boolean isWin(Player p){
 		return p.getScore() >= WINNING_SCORE;
 	}
+	
     /**
      * 
      * @param list is the hand which will be sorted into subsets
