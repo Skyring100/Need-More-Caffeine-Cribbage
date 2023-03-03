@@ -24,13 +24,13 @@ public class welcome_Frame extends JFrame implements ActionListener {
         image = new ImageIcon("jack-hamilton-9SewS6lowEU-unsplash.jpg");
         image1 = image.getImage().getScaledInstance(width,height,Image.SCALE_AREA_AVERAGING);
         image = new ImageIcon(image1);
-        layeredPane = new JLayeredPane(); // initializing layerPane
-        label = new JLabel("",image,JLabel.CENTER); //initializing label
-        label1 = new JLabel(); // initializing a sub label1 which will stay on top of the label
-        label2 = new JLabel(); // initializing label2
-        label3 = new JLabel();  // initializing label3
-        label4 = new JLabel();  // initializing label4
-        button = new JButton("Submit"); // initializing
+        layeredPane = new JLayeredPane();
+        label = new JLabel("",image,JLabel.CENTER);
+        label1 = new JLabel();
+        label2 = new JLabel();
+        label3 = new JLabel();
+        label4 = new JLabel();
+        button = new JButton("Submit");
         textField= new TextField();
 
         // setting the parameters for the frame
