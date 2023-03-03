@@ -1,5 +1,7 @@
 package src;
 
+import src.card.Card;
+
 import java.util.ArrayList;
 
 public class Player {

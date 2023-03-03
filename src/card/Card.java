@@ -1,4 +1,4 @@
-package src;
+package src.card;
 
 /**
  * Represents a card in a standard deck of cards, containing a suit, symbol etc
@@ -20,8 +20,8 @@ public class Card implements CardInterface {
             this.suit = Suit.DIAMONDS;
         }else{
             //Return a card in chronological order
-            //basics.src.Suit goes from alphabetical
-            //basics.src.Rank is from Ace to King
+            //basics.src.card.Suit goes from alphabetical
+            //basics.src.card.Rank is from Ace to King
             //AC is highest and KS is the lowest
             //modulus 4 to get the suit
             //modulus 13 to get the rank
