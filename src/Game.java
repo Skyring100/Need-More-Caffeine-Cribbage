@@ -20,20 +20,8 @@ public class Game {
 		run();
     }
 	private void run(){
-
-		if(isWin(currentPone)){
-			winner = currentPone;
-		}else if(isWin(currentDealer)){
-			winner = currentDealer;
-		}else{
-			
-			
-			
-			Player temp = currentDealer;
-			currentDealer = currentPone;
-			currentPone = temp;
-			run();
-		}
+		switchDealer();
+		run();
 	}
 	
 	private Player checkWinner() {
@@ -45,7 +33,11 @@ public class Game {
 		}else {
 			return null;
 		}
-		
+	}
+	private void switchDealer(){
+		Player temp = currentDealer;
+		currentDealer = currentPone;
+		currentPone = temp;
 	}
 	private static boolean isWin(Player p){
 		return p.getScore() >= WINNING_SCORE;
