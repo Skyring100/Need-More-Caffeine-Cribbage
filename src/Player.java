@@ -11,6 +11,10 @@ private ArrayList<Card> hand;
 		this.name = name;
 		this.score = 0;
 	}
+	@Override
+	public String toString() {
+		return name;
+	}
 	public int getScore() {
 		return this.score;
 	}
@@ -18,9 +22,7 @@ private ArrayList<Card> hand;
 		this.score += points;
 	}
 	public void setHand(ArrayList cards) {
-		
 		this.hand = cards;
-		
 	}
 	public ArrayList getHand() {
 		return this.hand;
@@ -31,6 +33,5 @@ private ArrayList<Card> hand;
 	public void addCard(Card c) {
 		hand.add(c);
 	}
-
 }
 
