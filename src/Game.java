@@ -47,6 +47,7 @@ public class Game {
 		}
 		
 	}
+
 	private static boolean isWin(Player p){
 		return p.getScore() >= WINNING_SCORE;
 	}
