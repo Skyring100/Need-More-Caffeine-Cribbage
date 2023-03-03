@@ -27,7 +27,7 @@ protected ArrayList<Card> hand;
 	public void setHand(ArrayList cards) {
 		this.hand = cards;
 	}
-	public ArrayList getHand() {
+	public ArrayList<Card> getHand() {
 		return this.hand;
 	}
 	public void discard(Card c) {

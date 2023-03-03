@@ -1,6 +1,7 @@
 .idea
 Need-More-Caffeine-Cribbage.iml
 IgnoreTest
+IgnoreTest.java
 
 # Compiled class file
 *.class
