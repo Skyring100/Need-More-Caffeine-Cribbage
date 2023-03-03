@@ -9,7 +9,6 @@ public class Player {
 protected final String name;
 protected int score;
 protected ArrayList<Card> hand;
-
 	public Player(String name) {
 		this.name = name;
 		this.score = 0;
