@@ -7,8 +7,6 @@ import java.util.Collections;
 import java.util.Random;
 
 public class Game {
-    private static final int WINDOW_WIDTH = 1000;
-    private static final int WINDOW_HEIGHT = 500;
 	private Player currentDealer;
     
     //random
