@@ -5,9 +5,9 @@ import src.card.Card;
 import java.util.ArrayList;
 
 public class Player {
-private final String name;
-private int score;
-private ArrayList<Card> hand;
+protected final String name;
+protected int score;
+protected ArrayList<Card> hand;
 
 	public Player(String name) {
 		this.name = name;
