@@ -93,6 +93,7 @@ public class Game {
      * 
      * @param list the hand which will be checked for a flush
      * @return the number of points for the flush, either 4, 5, or 0
+     *
      */
     private static int countFlush(ArrayList<Card> list) {
 		//might want to review this: might be some edge cases missed and could be cleaner
@@ -246,7 +247,11 @@ public class Game {
 		}
 		return allpoints;
 	}
-	
+	/**
+	 * 
+	 * @param list hand which will be checked for cards part of scoring straights
+	 * @return the cards part of scoring in straight
+	 */
     public static ArrayList getStraight(ArrayList<Card> list) {
 		int total = 0;
 		ArrayList<ArrayList<Card>> sets = makeSubset(list);
