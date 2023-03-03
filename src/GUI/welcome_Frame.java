@@ -1,3 +1,4 @@
+package src.GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,7 +20,7 @@ public class welcome_Frame extends JFrame implements ActionListener {
     //getters and setters
 
     //constructor for rendering the screen layout
-    welcome_Frame() {
+    public welcome_Frame() {
         // rendering the image
         image = new ImageIcon("jack-hamilton-9SewS6lowEU-unsplash.jpg");
         image1 = image.getImage().getScaledInstance(width,height,Image.SCALE_AREA_AVERAGING);

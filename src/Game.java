@@ -7,10 +7,11 @@ import java.util.Collections;
 import java.util.Random;
 
 public class Game {
+	private final static int WINNING_SCORE = 121;
 	private Player currentDealer;
 	private Player currentPone;
 	private Player winner = null;
-	private final static int WINNING_SCORE = 121;
+	private ArrayList<Card> crib = new ArrayList<>();
 
     public Game(Player one, Player two) {
 		//this is an EXTREMELY compact way of getting a random dealer
@@ -19,6 +20,7 @@ public class Game {
 		run();
     }
 	private void run(){
+
 		if(isWin(currentPone)){
 			winner = currentPone;
 		}else if(isWin(currentDealer)){
