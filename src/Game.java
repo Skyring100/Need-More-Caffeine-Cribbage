@@ -60,6 +60,8 @@ public class Game {
     	if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit() && list.get(4).getSuit() == list.get(1).getSuit()) {
     		return 5;
 		//if 4 of the cards are the same
+		//this is where an edge case could be missed if the LAST card was the same as the other cards
+		//the current code ignores the last card so the case (D D D S D) would not be counted as a flush
     	}else if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit()) {
     		return 4;
 		//else, there is no flush, so return 0

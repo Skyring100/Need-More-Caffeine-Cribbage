@@ -3,13 +3,13 @@ package src;
 import java.util.ArrayList;
 
 public class Player {
-private String name;
+private final String name;
 private int score;
 private ArrayList<Card> hand;
 
-	public Player(String name,int score) {
+	public Player(String name) {
 		this.name = name;
-		this.score = score;
+		this.score = 0;
 	}
 	public int getScore() {
 		return this.score;
