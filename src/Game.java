@@ -16,6 +16,7 @@ public class Game {
 		//this is an EXTREMELY compact way of getting a random dealer
 		//this creates an array of the players and uses a random number generator to choose an index from that list
 		currentDealer = new Player[]{one,two}[new Random().nextInt(0,2)];
+		run();
     }
 	private void run(){
 		if(isWin(currentPone)){
@@ -23,6 +24,9 @@ public class Game {
 		}else if(isWin(currentDealer)){
 			winner = currentDealer;
 		}else{
+			Player temp = currentDealer;
+			currentDealer = currentPone;
+			currentPone = temp;
 			run();
 		}
 	}
