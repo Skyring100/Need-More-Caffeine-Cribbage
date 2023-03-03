@@ -25,6 +25,13 @@ public class Game {
 		deck = new Deck();
 		run();
     }
+	public Game(Player p){
+		player1 = p;
+		player2 = new Bot();
+		currentDealer = new Player[]{player1,player2}[new Random().nextInt(0,2)];
+		deck = new Deck();
+		run();
+	}
 	private void run(){
 		switchDealer();
 		run();
