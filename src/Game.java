@@ -1,17 +1,25 @@
 package src;
 
+import src.card.Card;
+
 import java.util.ArrayList;
 import java.util.Collections;
-import src.card.Card;
+import java.util.Random;
 
 public class Game {
     private static final int WINDOW_WIDTH = 1000;
     private static final int WINDOW_HEIGHT = 500;
+	private Player currentDealer;
     
-    
-    public Game() {
-    	
+    //random
+    public Game(Player one, Player two) {
+		//this is an EXTREMELY compact way of getting a random dealer
+		//this creates an array of the players and uses a random number generator to choose an index from that list
+		currentDealer = new Player[]{one,two}[new Random().nextInt()];
     }
+	private void run(){
+		//TODO
+	}
     /**
      * 
      * @param list is the hand which will be sorted into subsets
@@ -132,7 +140,5 @@ public class Game {
     public static int countPoints(ArrayList<Card> list) {
     	return count15(list) * 2 + countFlush(list) + countPairs(list) * 2 + countStraight(list);
     }
-    
-    
 }
   
