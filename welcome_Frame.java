@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class welcome_Frame extends JFrame implements ActionListener {
     private int height = 1000;          // height of the cribbage game screen
-    private int width = 1500;               // width of the cribbage game screen
+    private int width = 1500;           // width of the cribbage game screen
 
     // initializing all variables
     JLabel label, label1,label2, label3, label4;
