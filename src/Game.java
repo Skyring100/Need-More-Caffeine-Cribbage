@@ -1,6 +1,7 @@
 package src;
 
 import src.card.Card;
+import src.card.Deck;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -296,10 +297,10 @@ public class Game {
 	 * Deals 6 cards to each player
 	 */
 	public void dealPlayers(){
+
 		do {
 			player1.addCard(/*random card from deck arraylist */);
 			player2.addCard(/*random card from deck arraylist */);
 		} while (player2.getHand().size() != 5);
 	}
 }
-  
