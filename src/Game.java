@@ -296,7 +296,7 @@ public class Game {
 	 * Deals 6 cards to each player
 	 */
 	public void dealPlayers(){
-		for (int i = 0; i <= player1.getHand().size(); i++) {
+		for (int i = 0; i <= 5; i++) {
 			player1.addCard(Deck.draw);
 			player2.addCard(Deck.draw);
 		}
