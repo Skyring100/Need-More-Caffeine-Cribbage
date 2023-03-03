@@ -296,10 +296,10 @@ public class Game {
 	 * Deals 6 cards to each player
 	 */
 	public void dealPlayers(){
-		do {
-			player1.addCard(/*random card from deck arraylist */);
-			player2.addCard(/*random card from deck arraylist */);
-		} while (player2.getHand().size() != 5);
+		for (int i = 0; i <= player1.getHand().size(); i++) {
+			player1.addCard(Deck.draw);
+			player2.addCard(Deck.draw);
+		}
 	}
 }
   
