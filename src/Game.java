@@ -8,8 +8,6 @@ import java.util.Random;
 
 public class Game {
 	private Player currentDealer;
-    
-    //random
     public Game(Player one, Player two) {
 		//this is an EXTREMELY compact way of getting a random dealer
 		//this creates an array of the players and uses a random number generator to choose an index from that list
