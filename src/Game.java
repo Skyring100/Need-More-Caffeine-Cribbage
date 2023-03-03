@@ -8,13 +8,20 @@ import java.util.Random;
 
 public class Game {
 	private Player currentDealer;
+	private Player currentPone;
+	private Player winner = null;
+	private final static int WINNING_SCORE = 121;
+
     public Game(Player one, Player two) {
 		//this is an EXTREMELY compact way of getting a random dealer
 		//this creates an array of the players and uses a random number generator to choose an index from that list
 		currentDealer = new Player[]{one,two}[new Random().nextInt(0,2)];
     }
 	private void run(){
-		//TODO
+
+	}
+	private static boolean isWin(Player p){
+		return p.getScore() >= WINNING_SCORE;
 	}
     /**
      * 
