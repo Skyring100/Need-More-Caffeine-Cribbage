@@ -1,10 +1,12 @@
 package src;
 
 import src.card.Card;
+import src.card.Deck;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+
 
 public class Game {
 	private final static int WINNING_SCORE = 121;
@@ -297,8 +299,8 @@ public class Game {
 	 */
 	public void dealPlayers(){
 		for (int i = 0; i <= 5; i++) {
-			player1.addCard(Deck.draw);
-			player2.addCard(Deck.draw);
+			player1.addCard(deck.draw());
+			player2.addCard(deck.draw());
 		}
 	}
 }
