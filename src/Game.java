@@ -8,6 +8,8 @@ import java.util.Random;
 
 public class Game {
 	private final static int WINNING_SCORE = 121;
+	private Player player1;
+	private Player player2;
 	private Player currentDealer;
 	private Player currentPone;
 	private Player winner = null;
@@ -17,7 +19,9 @@ public class Game {
     public Game(Player one, Player two) {
 		//this is an EXTREMELY compact way of getting a random dealer
 		//this creates an array of the players and uses a random number generator to choose an index from that list
-		currentDealer = new Player[]{one,two}[new Random().nextInt(0,2)];
+		player1 = one;
+		player2 = two;
+		currentDealer = new Player[]{player1,player2}[new Random().nextInt(0,2)];
 		deck = new Deck();
 		run();
     }
