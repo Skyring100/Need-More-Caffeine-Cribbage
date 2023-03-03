@@ -75,11 +75,14 @@ public class Game {
 		ArrayList<ArrayList<Card>> sets = makeSubset(list);
 		int count = 0;
 		int c;
+		//for each subset of the list
 		for(int i = 0;i<sets.size();i++) {
 			c = 0;
+			//add up all of that subset's values
 			for(int j = 0;j<sets.get(i).size();j++) {
 				c += sets.get(i).get(j).getCribCount();
 			}
+			//if 15, then there is a pair of 15's so increment the big count
 			if(c == 15) {
 				count++;
 			}
