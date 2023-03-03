@@ -292,6 +292,14 @@ public class Game {
 		return allpoints;
 		
     }
-    
+	/**
+	 * Deals 6 cards to each player
+	 */
+	public void dealPlayers(){
+		do {
+			player1.addCard(/*random card from deck arraylist */);
+			player2.addCard(/*random card from deck arraylist */);
+		} while (player2.getHand().size() != 5);
+	}
 }
   
