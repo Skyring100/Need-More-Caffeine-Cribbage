@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-
+/**
+ * This holds all necessary rules and functionality to play a game of cribbage
+ */
 public class Game {
 	private final static int WINNING_SCORE = 121;
 	private Player player1;
@@ -18,6 +20,11 @@ public class Game {
 	private ArrayList<Card> crib = new ArrayList<>();
 	private Deck deck;
 
+	/**
+	 * Creates a two game with two human players
+	 * @param one player one
+	 * @param two player two
+	 */
     public Game(Player one, Player two) {
 		//this is an EXTREMELY compact way of getting a random dealer
 		//this creates an array of the players and uses a random number generator to choose an index from that list
@@ -27,6 +34,11 @@ public class Game {
 		deck = new Deck();
 		run();
     }
+
+	/**
+	 * Creates a single-player game with a human vs. a bot
+	 * @param p the user
+	 */
 	public Game(Player p){
 		player1 = p;
 		player2 = new Bot();
@@ -35,9 +47,15 @@ public class Game {
 		run();
 	}
 	private void run(){
+
 		switchDealer();
 		run();
 	}
+
+	/**
+	 * determines a winner if a player has enough points
+	 * @return the player who won, or null if there isn't one
+	 */
 	private Player checkWinner() {
 		
 		if(isWin(currentPone)){
@@ -54,12 +72,17 @@ public class Game {
 		currentPone = temp;
 	}
 
+	/**
+	 * Checks if a player has enough points to win
+	 * @param p player to check
+	 * @return if that player has won
+	 */
 	private static boolean isWin(Player p){
 		return p.getScore() >= WINNING_SCORE;
 	}
 	
     /**
-     * 
+     * Creates the power-set from a list. Used to find all combination possibilities
      * @param list is the hand which will be sorted into subsets
      * @return the arraylist containing all the arraylists of possible hand combinations
      */
@@ -78,7 +101,7 @@ public class Game {
 		    return sets;
 	}
     /**
-     * 
+     * Counts the number of pairs in a hand
      * @param list is the hand which will be counted for pairs
      * @return the number of pairs which are in the hand
      */
@@ -97,7 +120,7 @@ public class Game {
 		return count;
 	}
     /**
-     * 
+     * Checks if there is a flush in a hand of cards
      * @param list the hand which will be checked for a flush. The list should be 5 cards long, the last index representing the flipped card
      * @return the number of points for the flush, either 4, 5, or 0
      *
@@ -119,7 +142,7 @@ public class Game {
     }
 
     /**
-     * 
+     * Count the amount of 15's can be made in a hand
      * @param list the hand which will be checked for possible 15s
      * @return the number of 15s which are in the hand
      */
@@ -141,7 +164,12 @@ public class Game {
 		}
 		return count;
 	}
-	
+
+	/**
+	 * checks if a hand has a straight
+	 * @param list the hand to be checked
+	 * @return the points obtained from a straight
+	 */
     private static int countStraight(ArrayList<Card> list) {
 		int total = 0;
 		ArrayList<ArrayList<Card>> sets = makeSubset(list);
@@ -175,8 +203,13 @@ public class Game {
 		
 		return total;
 	}
-    
-    public static int countPoints(ArrayList<Card> list) {
+
+	/**
+	 * Determines how many points a hand has based on all way to score
+	 * @param list a hand of cards
+	 * @return the total amount of points
+	 */
+	public static int countPoints(ArrayList<Card> list) {
     	return count15s(list) * 2 + countFlush(list) + countPairs(list) * 2 + countStraight(list);
     }
     
@@ -305,7 +338,7 @@ public class Game {
 		}
 	}
 	/**
-	 * 
+	 * Adds cards to the crib
 	 * @param list the cards which will be added to the crib
 	 */
 	public void addToCrib(ArrayList<Card> list) {
