@@ -105,6 +105,7 @@ public class Game {
     private static int countFlush(ArrayList<Card> list) {
 		//might want to review this: might be some edge cases missed and could be cleaner
 		//if all cards are the same
+    	if(list.size() > 4) {
     	if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit() && list.get(4).getSuit() == list.get(1).getSuit()) {
     		return 5;
 		//if 4 of the cards are the same
@@ -113,9 +114,9 @@ public class Game {
     	}else if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit()) {
     		return 4;
 		//else, there is no flush, so return 0
-    	}else {
-    		return 0;
     	}
+    	}
+    	return 0;
     }
 
     /**
@@ -179,6 +180,7 @@ public class Game {
     public static int countPoints(ArrayList<Card> list) {
     	return count15s(list) * 2 + countFlush(list) + countPairs(list) * 2 + countStraight(list);
     }
+    
     
     private static ArrayList getPairs(ArrayList<Card> list) {
     	ArrayList<ArrayList<Card>> sets = makeSubset(list);

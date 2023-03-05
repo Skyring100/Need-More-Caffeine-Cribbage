@@ -9,7 +9,6 @@ public class Bot extends Player{
 	public Bot() {
 		super("Bot");
 	}
-	/**
 	@Override
 	public void discard(Game game, ArrayList list) {
 		
@@ -42,7 +41,6 @@ public class Bot extends Player{
 		game.addToCrib(DiscardedCards);
 		
 	}
-	*/
 }
 
 
