@@ -98,24 +98,23 @@ public class Game {
 	}
     /**
      * 
-     * @param list the hand which will be checked for a flush
+     * @param list the hand which will be checked for a flush. The list should be 5 cards long, the last index representing the flipped card
      * @return the number of points for the flush, either 4, 5, or 0
      *
      */
     private static int countFlush(ArrayList<Card> list) {
-		//might want to review this: might be some edge cases missed and could be cleaner
-		//if all cards are the same
-    	if(list.size() > 4) {
-    	if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit() && list.get(4).getSuit() == list.get(1).getSuit()) {
-    		return 5;
-		//if 4 of the cards are the same
-		//this is where an edge case could be missed if the LAST card was the same as the other cards
-		//the current code ignores the last card so the case (D D D S D) would not be counted as a flush
-    	}else if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit()) {
-    		return 4;
+		//check to see if there are five cards to count from
+    	if(list.size() == 5) {
+			//if all cards are the same
+			if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit() && list.get(4).getSuit() == list.get(1).getSuit()) {
+				return 5;
+			//if 4 of the cards are the same
+			//we do NOT count the last index (the 4th index) here due to this representing the flipped card
+			}else if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit()) {
+				return 4;
+			}
+    	}
 		//else, there is no flush, so return 0
-    	}
-    	}
     	return 0;
     }
 

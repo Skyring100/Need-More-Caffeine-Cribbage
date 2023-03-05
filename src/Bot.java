@@ -40,7 +40,6 @@ public class Bot extends Player{
 		}
 		setHand(highest);
 		game.addToCrib(discardedCards);
-		
 	}
 }
 
