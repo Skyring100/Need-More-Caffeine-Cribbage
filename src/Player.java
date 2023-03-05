@@ -9,7 +9,6 @@ public class Player {
 protected final String name;
 protected int score;
 protected ArrayList<Card> hand;
-
 	public Player(String name) {
 		this.name = name;
 		this.score = 0;
@@ -24,14 +23,19 @@ protected ArrayList<Card> hand;
 	public void addScore(int points) {
 		this.score += points;
 	}
-	public void setHand(ArrayList cards) {
+	public void setHand(ArrayList<Card> cards) {
 		this.hand = cards;
 	}
-	public ArrayList getHand() {
+	public ArrayList<Card> getHand() {
 		return this.hand;
 	}
-	public void discard(Card c) {
-		hand.remove(hand.indexOf(c));
+	public void discard(Game game, ArrayList<Card> list) {
+		
+		for(int i = 0;i<list.size();i++) {
+			hand.remove(hand.indexOf(list.get(i)));
+		}
+		game.addToCrib(list);
+		
 	}
 	public void addCard(Card c) {
 		hand.add(c);
