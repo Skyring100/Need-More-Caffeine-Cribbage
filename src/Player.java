@@ -23,7 +23,7 @@ protected ArrayList<Card> hand;
 	public void addScore(int points) {
 		this.score += points;
 	}
-	public void setHand(ArrayList cards) {
+	public void setHand(ArrayList<Card> cards) {
 		this.hand = cards;
 	}
 	public ArrayList<Card> getHand() {

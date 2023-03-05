@@ -25,12 +25,8 @@ public class Bot extends Player{
 				
 				if(Game.countPoints(highest) <= Game.countPoints(temp)) {
 					highest = temp;
-					
 				}
-				
 			}
-			
-			
 		}
 		// everything below this discards the cards from hand and adds them to crib
 		for(int k = 0;k<hand.size();k++) {
