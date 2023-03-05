@@ -5,22 +5,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class welcome_Frame extends JFrame implements ActionListener {
+public class WelcomeFrame extends JFrame implements ActionListener {
     private int height = 1000;          // height of the cribbage game screen
     private int width = 1500;               // width of the cribbage game screen
 
     // initializing all variables
     JLabel label, label1,label2, label3, label4;
     ImageIcon image;
-   Image image1;
+    Image image1;
     JButton button;
     TextField textField;
-    public static String player_name;
+    public static String playerName;
     JLayeredPane layeredPane;
     //getters and setters
 
     //constructor for rendering the screen layout
-    public welcome_Frame() {
+    public WelcomeFrame() {
         // rendering the image
         image = new ImageIcon("jack-hamilton-9SewS6lowEU-unsplash.jpg");
         image1 = image.getImage().getScaledInstance(width,height,Image.SCALE_AREA_AVERAGING);
@@ -155,9 +155,9 @@ public class welcome_Frame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // getting players name from the text field
-        player_name = textField.getText();
-        System.out.println(player_name); // printing it out in the terminal
-        if (!player_name.strip().equals("")) {
+        playerName = textField.getText();
+        System.out.println(playerName); // printing it out in the terminal
+        if (!playerName.strip().equals("")) {
             button.setEnabled(false); // setting enable option to false
             button.setBackground(Color.lightGray); // changing the color state of the button
 
@@ -179,7 +179,4 @@ public class welcome_Frame extends JFrame implements ActionListener {
     public void setWidth(int width) {
         this.width = width;
     }
-
-
-
 }
