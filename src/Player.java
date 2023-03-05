@@ -29,9 +29,13 @@ protected ArrayList<Card> hand;
 	public ArrayList<Card> getHand() {
 		return this.hand;
 	}
-	public void discard(Card c, Card c1) {
-		hand.remove(hand.indexOf(c));
-		hand.remove(hand.indexOf(c1));
+	public void discard(Game game, ArrayList<Card> list) {
+		
+		for(int i = 0;i<list.size();i++) {
+			hand.remove(hand.indexOf(list.get(i)));
+		}
+		game.addToCrib(list);
+		
 	}
 	public void addCard(Card c) {
 		hand.add(c);

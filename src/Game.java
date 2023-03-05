@@ -63,7 +63,7 @@ public class Game {
      * @param list is the hand which will be sorted into subsets
      * @return the arraylist containing all the arraylists of possible hand combinations
      */
-    private static ArrayList<ArrayList<Card>> makeSubset(ArrayList<Card> list) {
+    public static ArrayList<ArrayList<Card>> makeSubset(ArrayList<Card> list) {
 		ArrayList<ArrayList<Card>> sets = new ArrayList<>();
 		    for(int i=0; i<(1<<list.size()); i++) {
 		    	ArrayList<Card> temp = new ArrayList<>();
@@ -142,7 +142,7 @@ public class Game {
 		return count;
 	}
 	
-    public static int countStraight(ArrayList<Card> list) {
+    private static int countStraight(ArrayList<Card> list) {
 		int total = 0;
 		ArrayList<ArrayList<Card>> sets = makeSubset(list);
 		Collections.reverse(sets); // reverses the order of the sets so the length 5 sets will be counted before length 4 and 3 sets
@@ -303,5 +303,16 @@ public class Game {
 			player2.addCard(deck.draw());
 		}
 	}
+	/**
+	 * 
+	 * @param list the cards which will be added to the crib
+	 */
+	public void addToCrib(ArrayList<Card> list) {
+		for(int i = 0;i<list.size();i++) {
+			crib.add(list.get(i));
+		}
+	}
+	
+	
 }
   
