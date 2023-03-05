@@ -9,11 +9,12 @@ public class Bot extends Player{
 	public Bot() {
 		super("Bot");
 	}
+
 	@Override
-	public void discard(Game game, ArrayList list) {
+	public void discard(Game game, ArrayList<Card> list) {
 		
 		ArrayList<ArrayList<Card>> sets = Game.makeSubset(this.hand);
-		ArrayList<Card> DiscardedCards = null;
+		ArrayList<Card> discardedCards = new ArrayList<>();
 		ArrayList<Card> highest = sets.get(0);
 		ArrayList<Card> temp;
 		
@@ -34,11 +35,11 @@ public class Bot extends Player{
 		// everything below this discards the cards from hand and adds them to crib
 		for(int k = 0;k<hand.size();k++) {
 			if(!highest.contains(hand.get(k))) {
-				DiscardedCards.add(hand.get(k));
+				discardedCards.add(hand.get(k));
 			}
 		}
 		setHand(highest);
-		game.addToCrib(DiscardedCards);
+		game.addToCrib(discardedCards);
 		
 	}
 }
