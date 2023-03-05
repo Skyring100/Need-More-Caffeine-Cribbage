@@ -131,12 +131,16 @@ public class Game {
 			//if all cards are the same
 			if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit() && list.get(4).getSuit() == list.get(1).getSuit()) {
 				return 5;
-			//if 4 of the cards are the same
+				
+			}}
+			//check if there are 4 cards to count from
 			//we do NOT count the last index (the 4th index) here due to this representing the flipped card
-			}else if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit()) {
+			if(list.size() == 4) {
+    if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit()) {
 				return 4;
 			}
-    	}
+		}
+    	
 		//else, there is no flush, so return 0
     	return 0;
     }
