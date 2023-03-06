@@ -36,7 +36,23 @@ public class Bot extends Player{
 		}
 		setHand(highest);
 		game.addToCrib(discardedCards);
+		pegHand = highest;
 	}
+	/**
+	 * this method will find a good card to play while pegging
+	 * @return the card which will be played by the bot
+	 */
+	public Card pegCard() {
+		
+		
+		//algorithm
+		
+		
+		return null;
+		
+	}
+	
+	
 }
 
 

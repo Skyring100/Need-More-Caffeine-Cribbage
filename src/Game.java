@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import javax.smartcardio.CardChannel;
+
 /**
  * This holds all necessary rules and functionality to play a game of cribbage
  */
@@ -18,7 +20,10 @@ public class Game {
 	private Player currentPone;
 	private Player winner = null;
 	private ArrayList<Card> crib = new ArrayList<>();
+	private ArrayList<Card> currentPegList = new ArrayList<>();
+	private int currentPegValue;
 	private Deck deck;
+	
 
 	/**
 	 * Creates a two game with two human players
@@ -349,6 +354,20 @@ public class Game {
 		for(int i = 0;i<list.size();i++) {
 			crib.add(list.get(i));
 		}
+	}
+	/**
+	 * 
+	 * @param c card which will be added to the current peg cards in play
+	 */
+	public void addToPeglist(Card c) {
+		currentPegList.add(c);
+	}
+	/**
+	 * 
+	 * @param c card whose value will be added to the current pegList value
+	 */
+	public void addToPegValue(Card c) {
+		currentPegValue += c.getCribCount();
 	}
 	
 	

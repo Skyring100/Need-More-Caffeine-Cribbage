@@ -5,10 +5,12 @@ import src.card.Card;
 import java.io.File;
 import java.util.ArrayList;
 
+
 public class Player {
 protected final String name;
 protected int score;
 protected ArrayList<Card> hand;
+protected ArrayList<Card> pegHand;
 	public Player(String name) {
 		this.name = name;
 		this.score = 0;
@@ -35,6 +37,15 @@ protected ArrayList<Card> hand;
 			hand.remove(hand.indexOf(list.get(i)));
 		}
 		game.addToCrib(list);
+		pegHand = hand;
+		
+	}
+	public void removeCard(Game game,Card c) {
+		
+		pegHand.remove(pegHand.indexOf(c));
+		game.addToPeglist(c);
+		game.addToPegValue(c);
+		
 		
 	}
 	public void addCard(Card c) {
