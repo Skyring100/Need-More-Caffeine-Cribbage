@@ -54,8 +54,13 @@ public class Game {
 		
 		
 		peg();
-		switchDealer();
-		run();
+		winner = checkWinner();
+		if(winner == null){
+			switchDealer();
+			run();
+		}else{
+			//somebody won!
+		}
 	}
 	private void peg(){
 		// this is the pegging section, hasnt been tested, however I do believe that it should work
