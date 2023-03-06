@@ -52,6 +52,37 @@ public class Game {
 	private void run(){
 
 		switchDealer();
+		// this is the pegging section, hasnt been tested, however I do believe that it should work
+		
+		Player currentPlayer = currentPone;
+		int counter = 0;
+		do {
+			if(counter % 2 == 0) {
+				currentPlayer = currentPone;
+			}else {
+				currentPlayer = currentDealer;
+			}
+			//if(currentPlayer.getPegHand().size() != 0 && currentPlayer.checkAllCard(this)) { // checks to make sure the pone can play a card
+				if(currentPlayer instanceof Bot) { // checks to see if it is a bot
+					Card temp =((Bot) currentPlayer).pegCard(); // discards card in the pone peghand, and assigns it to temp
+					currentPegList.add(temp); // adds temp card to the peglist
+					currentPlayer.addScore(countPoints(currentPegList)); // adds the required points to the pone due to pegging NEED TO USE DIFFERNET COUNT POINT METHOD
+				}else {
+					currentPlayer.pegCard(this, currentPlayer.getPegHand().get(0)); // the card for this method will need to be changed to the card selected
+				    currentPlayer.addScore(countPoints(currentPegList)); // adds the score to the pone
+				}
+				// SAME THING DOWN BELOW, EXCEPT WE CHECK THE DEALER INSTEAD OF PONE
+			//}
+			counter++;
+			if(!currentDealer.checkAllCard(this) && !currentPone.checkAllCard(this)) {
+				
+				currentPegList.clear();
+				currentPegValue = 0;
+				
+			}
+			
+		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); 
+		
 		run();
 	}
 
@@ -80,7 +111,7 @@ public class Game {
 	 * @param p player to check
 	 * @return if that player has won
 	 */
-	private static boolean isWin(Player p){
+	private) static boolean isWin(Player p){
 		return p.getScore() >= WINNING_SCORE;
 	}
 	

@@ -43,14 +43,7 @@ protected ArrayList<Card> pegHand;
 		pegHand = hand;
 		
 	}
-	public void removeCard(Game game,Card c) {
-		
-		pegHand.remove(pegHand.indexOf(c));
-		game.addToPeglist(c);
-		game.addToPegValue(c);
-		
-		
-	}
+	
 	/**
 	 * 
 	 * @param game game object to access the variables
@@ -71,5 +64,13 @@ protected ArrayList<Card> pegHand;
 	public void addCard(Card c) {
 		hand.add(c);
 	}
+	public void pegCard(Game game, Card c) {
+		pegHand.remove(pegHand.indexOf(c));
+		game.addToPeglist(c);
+		game.addToPegValue(c);
+		
+	}
+	
+	
 }
 
