@@ -367,6 +367,11 @@ public class Game {
 	public void addToPegValue(Card c) {
 		currentPegValue += c.getCribCount();
 	}
+
+	public int getPegValue() {
+		// TODO Auto-generated method stub
+		return currentPegValue;
+	}
 	
 	
 }
