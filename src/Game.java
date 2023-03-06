@@ -96,7 +96,7 @@ public class Game {
 
 				currentPlayer.addScore(countPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
 				if(checkWinner()!= null) {
-					return;
+					break;
 				}
 			}
 			counter++;
