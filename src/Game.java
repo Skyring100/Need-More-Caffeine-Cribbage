@@ -62,7 +62,7 @@ public class Game {
 			}else {
 				currentPlayer = currentDealer;
 			}
-			//if(currentPlayer.getPegHand().size() != 0 && currentPlayer.checkAllCard(this)) { // checks to make sure the pone can play a card
+			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.checkAllCard(this)) { // checks to make sure the pone can play a card
 				if(currentPlayer instanceof Bot) { // checks to see if it is a bot
 					Card temp =((Bot) currentPlayer).pegCard(); // discards card in the pone peghand, and assigns it to temp
 					currentPegList.add(temp); // adds temp card to the peglist
@@ -72,7 +72,7 @@ public class Game {
 				    currentPlayer.addScore(countPoints(currentPegList)); // adds the score to the pone
 				}
 				// SAME THING DOWN BELOW, EXCEPT WE CHECK THE DEALER INSTEAD OF PONE
-			//}
+			}
 			counter++;
 			if(!currentDealer.checkAllCard(this) && !currentPone.checkAllCard(this)) {
 				
