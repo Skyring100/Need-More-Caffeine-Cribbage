@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import javax.smartcardio.CardChannel;
-
 /**
  * This holds all necessary rules and functionality to play a game of cribbage
  */
