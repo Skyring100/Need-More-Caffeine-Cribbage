@@ -14,6 +14,8 @@ protected ArrayList<Card> pegHand;
 	public Player(String name) {
 		this.name = name;
 		this.score = 0;
+		hand = new ArrayList<>();
+		pegHand = new ArrayList<>();
 	}
 	@Override
 	public String toString() {
@@ -68,9 +70,17 @@ protected ArrayList<Card> pegHand;
 		pegHand.remove(pegHand.indexOf(c));
 		game.addToPeglist(c);
 		game.addToPegValue(c);
-		
 	}
-	
-	
+
+	/**
+	 * Reset the pegging hand. This should be done everytime a pegging round starts
+	 */
+	public void readyPegging(){
+		int i = 0;
+		for(Card c : hand){
+			pegHand.set(i,c);
+			i++;
+		}
+	}
 }
 

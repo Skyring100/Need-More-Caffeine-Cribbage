@@ -12,15 +12,15 @@ import java.util.Random;
  */
 public class Game {
 	private final static int WINNING_SCORE = 121;
-	private Player player1;
-	private Player player2;
+	private final Player player1;
+	private final Player player2;
 	private Player currentDealer;
 	private Player currentPone;
 	private Player winner = null;
 	private ArrayList<Card> crib = new ArrayList<>();
 	private ArrayList<Card> currentPegList = new ArrayList<>();
 	private int currentPegValue;
-	private Deck deck;
+	private final Deck deck;
 	
 
 	/**
@@ -50,14 +50,20 @@ public class Game {
 		run();
 	}
 	private void run(){
-
+		
+		
+		
+		peg();
 		switchDealer();
-		
-		
-		
+		run();
+	}
+	private void peg(){
 		// this is the pegging section, hasnt been tested, however I do believe that it should work
-		
+
 		Player currentPlayer;
+		//sets the pegging hands of all players. This will be manipulated and checked as pegging occurs
+		currentPone.readyPegging();
+		currentDealer.readyPegging();
 		//A turn counter
 		int counter = 0;
 		do {
@@ -70,6 +76,7 @@ public class Game {
 			//checks if the player has cards and is able to play a card
 			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.checkAllCard(this)) {
 
+				/*
 				if(currentPlayer instanceof Bot) { // checks to see if it is a bot
 					Card temp =((Bot) currentPlayer).pegCard(); // discards card in the pone peghand, and assigns it to temp
 					currentPegList.add(temp); // adds temp card to the peglist
@@ -77,25 +84,27 @@ public class Game {
 					currentPlayer.pegCard(this, currentPlayer.getPegHand().get(0)); // the card for this method will need to be changed to the card selected
 				}
 
+				 */
+				//if a player is a bot, use an algorithm to find a suitable card for pegging
+				if(currentPlayer instanceof Bot) currentPlayer.pegCard(this, ((Bot) currentPlayer).pegAlgorithm());
+				else currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));// the card for this method will need to be changed to the card selected
+
 				currentPlayer.addScore(countPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
 				if(checkWinner()!= null) {
-					break;
+					return;
 				}
 			}
 			counter++;
 
 			if(!currentDealer.checkAllCard(this) && !currentPone.checkAllCard(this)) { // checking to see if both players cant play a card
-				
+
 				currentPegList.clear();
 				currentPegValue = 0;
-				
-			}
-			
-		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
-		
-		run();
-	}
 
+			}
+
+		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
+	}
 	/**
 	 * determines a winner if a player has enough points
 	 * @return the player who won, or null if there isn't one
