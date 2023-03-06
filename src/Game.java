@@ -57,32 +57,33 @@ public class Game {
 		
 		// this is the pegging section, hasnt been tested, however I do believe that it should work
 		
-		Player currentPlayer = currentPone;
+		Player currentPlayer;
+		//A turn counter
 		int counter = 0;
 		do {
+			//if it's an even turn, the pone goes, else the dealer goes
 			if(counter % 2 == 0) {
 				currentPlayer = currentPone;
 			}else {
 				currentPlayer = currentDealer;
 			}
-			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.checkAllCard(this)) { // checks to make sure the pone can play a card
+			//checks if the player has cards and is able to play a card
+			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.checkAllCard(this)) {
+
 				if(currentPlayer instanceof Bot) { // checks to see if it is a bot
 					Card temp =((Bot) currentPlayer).pegCard(); // discards card in the pone peghand, and assigns it to temp
 					currentPegList.add(temp); // adds temp card to the peglist
-					currentPlayer.addScore(countPoints(currentPegList)); // adds the required points to the pone due to pegging NEED TO USE DIFFERNET COUNT POINT METHOD
-			if(checkWinner()!= null) {
-				break;
-			}
 				}else {
 					currentPlayer.pegCard(this, currentPlayer.getPegHand().get(0)); // the card for this method will need to be changed to the card selected
-				    currentPlayer.addScore(countPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
-			if(checkWinner()!= null) {
-				break;
-					}
 				}
-				
+
+				currentPlayer.addScore(countPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
+				if(checkWinner()!= null) {
+					break;
+				}
 			}
 			counter++;
+
 			if(!currentDealer.checkAllCard(this) && !currentPone.checkAllCard(this)) { // checking to see if both players cant play a card
 				
 				currentPegList.clear();
