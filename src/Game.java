@@ -369,7 +369,6 @@ public class Game {
 	}
 
 	public int getPegValue() {
-		// TODO Auto-generated method stub
 		return currentPegValue;
 	}
 	

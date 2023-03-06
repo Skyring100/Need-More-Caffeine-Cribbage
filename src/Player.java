@@ -31,6 +31,9 @@ protected ArrayList<Card> pegHand;
 	public ArrayList<Card> getHand() {
 		return this.hand;
 	}
+	public ArrayList<Card> getPegHand(){
+		return pegHand;
+	}
 	public void discard(Game game, ArrayList<Card> list) {
 		
 		for(int i = 0;i<list.size();i++) {
