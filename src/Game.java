@@ -66,6 +66,7 @@ public class Game {
 		// this is the pegging section, hasnt been tested, however I do believe that it should work
 
 		Player currentPlayer;
+		
 		//sets the pegging hands of all players. This will be manipulated and checked as pegging occurs
 		currentPone.readyPegging();
 		currentDealer.readyPegging();
@@ -75,8 +76,11 @@ public class Game {
 			//if it's an even turn, the pone goes, else the dealer goes
 			if(counter % 2 == 0) {
 				currentPlayer = currentPone;
+				
+				
 			}else {
 				currentPlayer = currentDealer;
+				
 			}
 			//checks if the player has cards and is able to play a card
 			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.checkAllCard(this)) {
@@ -91,8 +95,17 @@ public class Game {
 
 				 */
 				//if a player is a bot, use an algorithm to find a suitable card for pegging
-				if(currentPlayer instanceof Bot) currentPlayer.pegCard(this, ((Bot) currentPlayer).pegAlgorithm());
-				else currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));// the card for this method will need to be changed to the card selected
+				if(currentPlayer instanceof Bot) {
+					currentPlayer.pegCard(this, ((Bot) currentPlayer).pegAlgorithm());
+				}
+				else {
+					currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));// the card for this method will need to be changed to the card selected
+				}
+				if(currentPegValue == 31) {
+					currentPlayer.addScore(2); // adds 2 to the currentplayer if the total reaches 31
+				}else if(!currentDealer.checkAllCard(this) && !currentPone.checkAllCard(this)) { // if both players cant play any more cards this round, the current player gets 1 point
+					currentPlayer.addScore(1);
+				}
 
 				currentPlayer.addScore(countPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
 				if(checkWinner()!= null) {
