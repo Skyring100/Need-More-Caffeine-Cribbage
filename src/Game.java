@@ -101,11 +101,7 @@ public class Game {
 				else {
 					currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));// the card for this method will need to be changed to the card selected
 				}
-				if(currentPegValue == 31) {
-					currentPlayer.addScore(2); // adds 2 to the currentplayer if the total reaches 31
-				}else if(!currentDealer.checkAllCard(this) && !currentPone.checkAllCard(this)) { // if both players cant play any more cards this round, the current player gets 1 point
-					currentPlayer.addScore(1);
-				}
+				
 
 				currentPlayer.addScore(countPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
 				if(checkWinner()!= null) {
@@ -115,7 +111,11 @@ public class Game {
 			counter++;
 
 			if(!currentDealer.checkAllCard(this) && !currentPone.checkAllCard(this)) { // checking to see if both players cant play a card
-
+if(currentPegValue == 31) {
+	currentPlayer.addScore(2);
+}else {
+	currentPlayer.addScore(1);
+}
 				currentPegList.clear();
 				currentPegValue = 0;
 
