@@ -116,8 +116,13 @@ public class Game {
 				}else {
 					currentPlayer.addScore(1);
 				}
+				
+				if(checkWinner() != null) {
+					break;
+				}
 					currentPegList.clear();
 					currentPegValue = 0;
+					
 			}
 		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
 	}
