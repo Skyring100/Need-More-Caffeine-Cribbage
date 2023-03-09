@@ -7,37 +7,124 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-
+/**
+ * This holds all necessary rules and functionality to play a game of cribbage
+ */
 public class Game {
 	private final static int WINNING_SCORE = 121;
-	private Player player1;
-	private Player player2;
+	private final Player player1;
+	private final Player player2;
 	private Player currentDealer;
 	private Player currentPone;
 	private Player winner = null;
 	private ArrayList<Card> crib = new ArrayList<>();
-	private Deck deck;
+	private ArrayList<Card> currentPegList = new ArrayList<>();
+	private int currentPegValue;
+	private final Deck deck;
+	
 
+	/**
+	 * Creates a two game with two human players
+	 * @param one player one
+	 * @param two player two
+	 */
     public Game(Player one, Player two) {
-		//this is an EXTREMELY compact way of getting a random dealer
-		//this creates an array of the players and uses a random number generator to choose an index from that list
 		player1 = one;
 		player2 = two;
+		//this is an EXTREMELY compact way of getting a random dealer
+		//this creates an array of the players and uses a random number generator to choose an index from that list
 		currentDealer = new Player[]{player1,player2}[new Random().nextInt(0,2)];
 		deck = new Deck();
 		run();
     }
+
+	/**
+	 * Creates a single-player game with a human vs. a bot
+	 * @param p the user
+	 */
 	public Game(Player p){
 		player1 = p;
 		player2 = new Bot();
+		//this is an EXTREMELY compact way of getting a random dealer
+		//this creates an array of the players and uses a random number generator to choose an index from that list
 		currentDealer = new Player[]{player1,player2}[new Random().nextInt(0,2)];
 		deck = new Deck();
 		run();
 	}
 	private void run(){
-		switchDealer();
-		run();
+
+		peg();
+		winner = checkWinner();
+		if(winner == null){
+			switchDealer();
+			run();
+		}else{
+			//somebody won!
+		}
 	}
+	private void peg(){
+		// this is the pegging section, hasnt been tested, however I do believe that it should work
+
+		Player currentPlayer;
+		
+		//sets the pegging hands of all players. This will be manipulated and checked as pegging occurs
+		currentPone.readyPegging();
+		currentDealer.readyPegging();
+		//A turn counter
+		int counter = 0;
+		do {
+			//if it's an even turn, the pone goes, else the dealer goes
+			if(counter % 2 == 0) {
+				currentPlayer = currentPone;
+				
+				
+			}else {
+				currentPlayer = currentDealer;
+				
+			}
+			//checks if the player has cards and is able to play a card
+			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.checkAllCard(this)) {
+
+				/*
+				if(currentPlayer instanceof Bot) { // checks to see if it is a bot
+					Card temp =((Bot) currentPlayer).pegCard(); // discards card in the pone peghand, and assigns it to temp
+					currentPegList.add(temp); // adds temp card to the peglist
+				}else {
+					currentPlayer.pegCard(this, currentPlayer.getPegHand().get(0)); // the card for this method will need to be changed to the card selected
+				}
+
+				 */
+				//if a player is a bot, use an algorithm to find a suitable card for pegging
+				if(currentPlayer instanceof Bot) {
+					currentPlayer.pegCard(this, ((Bot) currentPlayer).pegAlgorithm());
+				}
+				else {
+					currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));// the card for this method will need to be changed to the card selected
+				}
+				
+
+				currentPlayer.addScore(countPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
+				if(checkWinner()!= null) {
+					break;
+				}
+			}
+			counter++;
+
+			if(!currentDealer.checkAllCard(this) && !currentPone.checkAllCard(this)) { // checking to see if both players cant play a card
+				if(currentPegValue == 31) {
+					currentPlayer.addScore(2);
+				}else {
+					currentPlayer.addScore(1);
+				}
+					currentPegList.clear();
+					currentPegValue = 0;
+			}
+		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
+	}
+	/**
+	 * determines a winner if a player has enough points
+	 * @return the player who won, or null if there isn't one
+	 */
 	private Player checkWinner() {
 		
 		if(isWin(currentPone)){
@@ -54,16 +141,21 @@ public class Game {
 		currentPone = temp;
 	}
 
+	/**
+	 * Checks if a player has enough points to win
+	 * @param p player to check
+	 * @return if that player has won
+	 */
 	private static boolean isWin(Player p){
 		return p.getScore() >= WINNING_SCORE;
 	}
 	
     /**
-     * 
+     * Creates the power-set from a list. Used to find all combination possibilities
      * @param list is the hand which will be sorted into subsets
      * @return the arraylist containing all the arraylists of possible hand combinations
      */
-    private static ArrayList<ArrayList<Card>> makeSubset(ArrayList<Card> list) {
+    public static ArrayList<ArrayList<Card>> makeSubset(ArrayList<Card> list) {
 		ArrayList<ArrayList<Card>> sets = new ArrayList<>();
 		    for(int i=0; i<(1<<list.size()); i++) {
 		    	ArrayList<Card> temp = new ArrayList<>();
@@ -78,7 +170,7 @@ public class Game {
 		    return sets;
 	}
     /**
-     * 
+     * Counts the number of pairs in a hand
      * @param list is the hand which will be counted for pairs
      * @return the number of pairs which are in the hand
      */
@@ -97,29 +189,33 @@ public class Game {
 		return count;
 	}
     /**
-     * 
-     * @param list the hand which will be checked for a flush
+     * Checks if there is a flush in a hand of cards
+     * @param list the hand which will be checked for a flush. The list should be 5 cards long, the last index representing the flipped card
      * @return the number of points for the flush, either 4, 5, or 0
      *
      */
     private static int countFlush(ArrayList<Card> list) {
-		//might want to review this: might be some edge cases missed and could be cleaner
-		//if all cards are the same
-    	if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit() && list.get(4).getSuit() == list.get(1).getSuit()) {
-    		return 5;
-		//if 4 of the cards are the same
-		//this is where an edge case could be missed if the LAST card was the same as the other cards
-		//the current code ignores the last card so the case (D D D S D) would not be counted as a flush
-    	}else if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit()) {
-    		return 4;
+		//check to see if there are five cards to count from
+    	if(list.size() == 5) {
+			//if all cards are the same
+			if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit() && list.get(4).getSuit() == list.get(1).getSuit()) {
+				return 5;
+				
+			}}
+			//check if there are 4 cards to count from
+			//we do NOT count the last index (the 4th index) here due to this representing the flipped card
+			if(list.size() == 4) {
+    if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit()) {
+				return 4;
+			}
+		}
+    	
 		//else, there is no flush, so return 0
-    	}else {
-    		return 0;
-    	}
+    	return 0;
     }
 
     /**
-     * 
+     * Count the amount of 15's can be made in a hand
      * @param list the hand which will be checked for possible 15s
      * @return the number of 15s which are in the hand
      */
@@ -141,8 +237,13 @@ public class Game {
 		}
 		return count;
 	}
-	
-    public static int countStraight(ArrayList<Card> list) {
+
+	/**
+	 * checks if a hand has a straight
+	 * @param list the hand to be checked
+	 * @return the points obtained from a straight
+	 */
+    private static int countStraight(ArrayList<Card> list) {
 		int total = 0;
 		ArrayList<ArrayList<Card>> sets = makeSubset(list);
 		Collections.reverse(sets); // reverses the order of the sets so the length 5 sets will be counted before length 4 and 3 sets
@@ -175,10 +276,16 @@ public class Game {
 		
 		return total;
 	}
-    
-    public static int countPoints(ArrayList<Card> list) {
+
+	/**
+	 * Determines how many points a hand has based on all way to score
+	 * @param list a hand of cards
+	 * @return the total amount of points
+	 */
+	public static int countPoints(ArrayList<Card> list) {
     	return count15s(list) * 2 + countFlush(list) + countPairs(list) * 2 + countStraight(list);
     }
+    
     
     private static ArrayList getPairs(ArrayList<Card> list) {
     	ArrayList<ArrayList<Card>> sets = makeSubset(list);
@@ -303,5 +410,34 @@ public class Game {
 			player2.addCard(deck.draw());
 		}
 	}
+	/**
+	 * Adds cards to the crib
+	 * @param list the cards which will be added to the crib
+	 */
+	public void addToCrib(ArrayList<Card> list) {
+		for(int i = 0;i<list.size();i++) {
+			crib.add(list.get(i));
+		}
+	}
+	/**
+	 * 
+	 * @param c card which will be added to the current peg cards in play
+	 */
+	public void addToPeglist(Card c) {
+		currentPegList.add(c);
+	}
+	/**
+	 * 
+	 * @param c card whose value will be added to the current pegList value
+	 */
+	public void addToPegValue(Card c) {
+		currentPegValue += c.getCribCount();
+	}
+
+	public int getPegValue() {
+		return currentPegValue;
+	}
+	
+	
 }
   
