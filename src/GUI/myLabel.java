@@ -11,8 +11,8 @@ public class myLabel extends JLabel{
 
     int xVelocity = 5;
     int yVelocity = 5;
-    int x = this.getX();
-    int y = this.getY();
+    int x =getX();
+    int y = getY();
     ImageIcon imageIcon1;
 
     myLabel(ImageIcon imageIcon){
@@ -21,7 +21,7 @@ public class myLabel extends JLabel{
         this.setSize(100,150);
         this.addMouseListener(new MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 timer = new Timer(10, e1 -> {
                     x = x+ xVelocity;
                     y = y+ yVelocity;

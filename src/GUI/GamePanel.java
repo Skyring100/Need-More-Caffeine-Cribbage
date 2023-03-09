@@ -56,11 +56,10 @@ public class GamePanel extends JPanel{
                             Component comp = tablePanel.getComponent(i);
                             comp.setLocation(x, y);
                             comp.setSize(71, 96);
-                            x += 30;
-                            y += 10;
+                            x += 50;
+                            y += 50;
+                            comp.setLocation(x, y);
                         }
-
-                        animateCard(button, x-30, y-10);
                     }
                 }
             });
@@ -70,21 +69,5 @@ public class GamePanel extends JPanel{
         add(deckPanel, BorderLayout.EAST);
         add(tablePanel, BorderLayout.CENTER);
     }
-    private void animateCard(JButton button, int x, int y) {
-        int startX = button.getX();
-        int startY = button.getY();
 
-        for (int i = 0; i < 10; i++) {
-            int dx = x - startX;
-            int dy = y - startY;
-            int stepX = dx / 10;
-            int stepY = dy / 10;
-            startX += stepX;
-            startY += stepY;
-            button.setLocation(startX, startY);
-//            try {
-//                Thread.sleep(50);
-//            } catch (InterruptedException ex) {}
-        }
-    }
 }
