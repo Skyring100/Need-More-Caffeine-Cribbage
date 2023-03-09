@@ -19,7 +19,6 @@ public class User_panel extends JPanel{
             "SA","S2","S3","S4","S5","S6","S7","S8","S9","ST","SJ","SQ","SK"
     };
 
-
     public User_panel(){
         this.setLayout(new FlowLayout());
         this.setSize(1000, 1000);
@@ -32,6 +31,16 @@ public class User_panel extends JPanel{
         this.add((new myLabel(new ImageIcon("club 2_resized.jpg"))));
 
 
+    }
+    public String get_Images(){
+        for (int i =0 ; i < CARDS.length; i++){
+            for (int j = 0; j < IMAGES.length; j++){
+                if (CARDS[i].equals(IMAGES[j])){
+                    return IMAGES[j];
+                }
+            }
+        }
+        return "";
     }
 
 
