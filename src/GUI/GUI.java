@@ -5,7 +5,6 @@ public class GUI {
     private static final int WINDOW_HEIGHT = 500;
 
     public static void main(String[] args) {
-        new During_game();
     }
 }
 //gurleen
