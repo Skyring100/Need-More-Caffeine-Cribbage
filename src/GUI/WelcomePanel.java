@@ -6,8 +6,8 @@ import java.awt.event.ActionListener;
 
 
 public class WelcomePanel extends JPanel implements ActionListener {
-    private int height = 1000;
-    private int width = 1000;
+    //private int height = 1000;
+    //private int width = 1000;
     // initializing all variables
     private JLabel label, label1,label2, label3, label4;
     private ImageIcon image;
@@ -19,8 +19,10 @@ public class WelcomePanel extends JPanel implements ActionListener {
     //getters and setters
 
     //constructor for rendering the screen layout
-    public WelcomePanel() {
+    public WelcomePanel(GUI g) {
         // rendering the image
+        int width = g.getWidth();
+        int height = g.getHeight();
         image = new ImageIcon("jack-hamilton-9SewS6lowEU-unsplash.jpg");
         image1 = image.getImage().getScaledInstance(width,height,Image.SCALE_AREA_AVERAGING);
         image = new ImageIcon(image1);
@@ -52,7 +54,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
         label2.setFont(new Font("Arial Bold Italic", Font.ITALIC,40)); // doing font customization
         label2.setHorizontalAlignment(JLabel.CENTER); // setting the horizontal parameter of the text
         label2.setVerticalAlignment(JLabel.TOP); // setting the vertical parameter of the text
-//        label2.setBackground(new Color(0,150,0,50));
+        label2.setBackground(new Color(0,150,0,50));
 
         //-----------------------------------------Label3---------------------------------------------------------------
 
@@ -163,14 +165,14 @@ public class WelcomePanel extends JPanel implements ActionListener {
      * setting height of the frame
      * @param height of frame
      */
-    public void setHeight(int height) {
-        this.height = height;
-    }
+//    public void setHeight(int height) {
+//        this.height = height;
+//    }
     /**
      * setting width of the frame
      * @param width of frame
      */
-    public void setWidth(int width) {
-        this.width = width;
-    }
+//    public void setWidth(int width) {
+//        this.width = width;
+//    }
 }
