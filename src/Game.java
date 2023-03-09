@@ -29,10 +29,10 @@ public class Game {
 	 * @param two player two
 	 */
     public Game(Player one, Player two) {
-		//this is an EXTREMELY compact way of getting a random dealer
-		//this creates an array of the players and uses a random number generator to choose an index from that list
 		player1 = one;
 		player2 = two;
+		//this is an EXTREMELY compact way of getting a random dealer
+		//this creates an array of the players and uses a random number generator to choose an index from that list
 		currentDealer = new Player[]{player1,player2}[new Random().nextInt(0,2)];
 		deck = new Deck();
 		run();
@@ -45,14 +45,14 @@ public class Game {
 	public Game(Player p){
 		player1 = p;
 		player2 = new Bot();
+		//this is an EXTREMELY compact way of getting a random dealer
+		//this creates an array of the players and uses a random number generator to choose an index from that list
 		currentDealer = new Player[]{player1,player2}[new Random().nextInt(0,2)];
 		deck = new Deck();
 		run();
 	}
 	private void run(){
-		
-		
-		
+
 		peg();
 		winner = checkWinner();
 		if(winner == null){
@@ -111,16 +111,14 @@ public class Game {
 			counter++;
 
 			if(!currentDealer.checkAllCard(this) && !currentPone.checkAllCard(this)) { // checking to see if both players cant play a card
-if(currentPegValue == 31) {
-	currentPlayer.addScore(2);
-}else {
-	currentPlayer.addScore(1);
-}
-				currentPegList.clear();
-				currentPegValue = 0;
-
+				if(currentPegValue == 31) {
+					currentPlayer.addScore(2);
+				}else {
+					currentPlayer.addScore(1);
+				}
+					currentPegList.clear();
+					currentPegValue = 0;
 			}
-
 		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
 	}
 	/**
