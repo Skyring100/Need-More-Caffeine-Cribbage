@@ -5,22 +5,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class WelcomeFrame extends JFrame implements ActionListener {
-    private int height = 1000;          // height of the cribbage game screen
-    private int width = 1500;               // width of the cribbage game screen
-
+public class WelcomePanel extends JPanel implements ActionListener {
+    private int height = 1000;
+    private int width = 1000;
     // initializing all variables
-    JLabel label, label1,label2, label3, label4;
-    ImageIcon image;
-    Image image1;
-    JButton button;
-    TextField textField;
+    private JLabel label, label1,label2, label3, label4;
+    private ImageIcon image;
+    private Image image1;
+    private JButton button;
+    private TextField textField;
     public static String playerName;
     JLayeredPane layeredPane;
     //getters and setters
 
     //constructor for rendering the screen layout
-    public WelcomeFrame() {
+    public WelcomePanel() {
         // rendering the image
         image = new ImageIcon("jack-hamilton-9SewS6lowEU-unsplash.jpg");
         image1 = image.getImage().getScaledInstance(width,height,Image.SCALE_AREA_AVERAGING);
@@ -35,9 +34,6 @@ public class WelcomeFrame extends JFrame implements ActionListener {
         textField= new TextField();
 
         // setting the parameters for the frame
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exits when user clicks on 'x' button
-        this.setSize(width,height); //set the given size to the frame
-        this.setTitle("Cribbage By Caffeine");
         this.setForeground(new Color(0x7f0000));// setting the title of the frame
         this.setLayout(new BorderLayout()); // using the borderLayout
         // --------------------------------------LayerPane--------------------------------------------------------------
@@ -132,7 +128,7 @@ public class WelcomeFrame extends JFrame implements ActionListener {
 
         menuBar.add(infoMenu);
         menuBar.add(helpMenu);
-        this.setJMenuBar(menuBar);
+        //this.setJMenuBar(menuBar);
 
 
 //        layeredPane.setLayout(new BorderLayout());
@@ -142,8 +138,6 @@ public class WelcomeFrame extends JFrame implements ActionListener {
 //        label4.setLayout(new BorderLayout());
 //        label.setLayout(new BorderLayout());
 
-        this.setLocationRelativeTo(null);//opens the window at center
-        this.setResizable(false); // disabling the resizable function
         this.setVisible(true); // rendering the frame
     }
 
