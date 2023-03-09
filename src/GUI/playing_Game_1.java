@@ -92,7 +92,8 @@ public class playing_Game_1 implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new Playing_game();
+      	playing_Game_1 game = new playing_Game_1();
+      	game.create_a_frame();
     }
 
     @Override
