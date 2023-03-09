@@ -139,6 +139,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
 //        label.setLayout(new BorderLayout());
 
         this.setVisible(true); // rendering the frame
+        //
     }
 
     /**

@@ -22,9 +22,9 @@ public class GUI extends JFrame implements ActionListener{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);//opens the window at center
         setResizable(false); // disabling the resizable function
-
         gameBoard();
     }
+    
     private void gameBoard(){
         handPanel = new JPanel();
         handPanel.setBackground(Color.LIGHT_GRAY);
