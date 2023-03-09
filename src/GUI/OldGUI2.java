@@ -5,13 +5,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class playing_Game_1 implements ActionListener {
+/**
+ * Old version
+ */
+public class OldGUI2 implements ActionListener {
     JFrame frame; // CREATING A FRAME
     JPanel user_panel,bot_panel,table_panel,crib_panel,crib_bord_panel; // creating various panels
     private JButton[] cardButtons; // creating card buttons
     private JButton move_button, b; //  creating move button to move the card into the crib
     private int crib_count = 0; // creating crib count
-    public playing_Game_1(){
+    public OldGUI2(){
         create_a_frame();
     }
     // creating a string
@@ -92,7 +95,7 @@ public class playing_Game_1 implements ActionListener {
     }
 
     public static void main(String[] args) {
-      	playing_Game_1 game = new playing_Game_1();
+      	OldGUI2 game = new OldGUI2();
       	game.create_a_frame();
     }
 

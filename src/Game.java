@@ -443,7 +443,5 @@ public class Game {
 	public int getPegValue() {
 		return currentPegValue;
 	}
-	
-	
 }
   
