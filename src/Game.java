@@ -118,6 +118,7 @@ public class Game {
 				}
 				
 				if(checkWinner() != null) {
+					
 					break;
 				}
 					currentPegList.clear();
