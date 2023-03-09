@@ -1,9 +1,12 @@
 package src.GUI;
 
 import src.GUI.myLabel;
+import src.Player;
+import src.card.Card;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class User_panel extends JPanel{
 
@@ -32,10 +35,10 @@ public class User_panel extends JPanel{
 
 
     }
-    public String get_Images(){
-        for (int i =0 ; i < CARDS.length; i++){
-            for (int j = 0; j < IMAGES.length; j++){
-                if (CARDS[i].equals(IMAGES[j])){
+    public String get_Images(Player p){
+        for (int i =0 ; i < p.getHand().size(); i++){
+            for (int j = 0; j < CARDS.length; j++){
+                if (CARDS[j].equals(p.getHand().get(i))){
                     return IMAGES[j];
                 }
             }
