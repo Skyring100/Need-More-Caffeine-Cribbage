@@ -3,13 +3,15 @@ package src.GUI;
 import javax.swing.*;
 import java.awt.*;
 
-
-public class Game_Screen1 {
+/**
+ * Another old version
+ */
+public class OldGUI1 {
 
     JPanel p,m;
 
 
-    public Game_Screen1(){
+    public OldGUI1(){
         create_a_frame();
     }
     private void create_a_frame(){
@@ -37,7 +39,7 @@ public class Game_Screen1 {
     }
 
     public static void main(String[] args) {
-        new Game_Screen1();
+        new OldGUI1();
     }
 
 
