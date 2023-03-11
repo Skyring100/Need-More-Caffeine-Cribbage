@@ -21,6 +21,7 @@ public class GUI extends JFrame implements ActionListener{
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);//opens the window at center
+<<<<<<< HEAD
         setResizable(false); // disabling the resizable function
         gameBoard();
     }
@@ -57,6 +58,11 @@ public class GUI extends JFrame implements ActionListener{
         add(deckPanel, BorderLayout.WEST);
         add(tablePanel, BorderLayout.CENTER);
 
+=======
+        //setResizable(false); // disabling the resizable function
+        add(new GamePanel());
+       // add(new WelcomePanel(this));
+>>>>>>> branch 'main' of https://github.com/Skyring100/Need-More-Caffeine-Cribbage
         setVisible(true);
     }
     public void actionPerformed(ActionEvent e) {
