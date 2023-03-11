@@ -47,6 +47,7 @@ public class Game {
 		this(p, new Bot());
 	}
 	private void run(){
+		dealPlayers();
 		discardPhase();
 		peg();
 		winner = checkWinner();
