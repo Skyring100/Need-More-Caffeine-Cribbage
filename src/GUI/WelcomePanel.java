@@ -9,10 +9,10 @@ public class WelcomePanel extends JPanel implements ActionListener {
     private int height = 1000;
     private int width = 1000;
     // initializing all variables
-    private JLabel label, label1,label2, label3, label4;
-    private ImageIcon image;
-    private Image image1;
-    private JButton button;
+    private JLabel imange_label, text_field_label, title_label, team_name_title, border_label;
+    private ImageIcon imageIcon;
+    private Image background_Image;
+    private JButton submit_button;
     private TextField textField;
     public static String playerName;
     private JLayeredPane layeredPane;
@@ -21,16 +21,16 @@ public class WelcomePanel extends JPanel implements ActionListener {
     //constructor for rendering the screen layout
     public WelcomePanel() {
         // rendering the image
-        image = new ImageIcon("jack-hamilton-9SewS6lowEU-unsplash.jpg");
-        image1 = image.getImage().getScaledInstance(width,height,Image.SCALE_AREA_AVERAGING);
-        image = new ImageIcon(image1);
+        imageIcon = new ImageIcon("jack-hamilton-9SewS6lowEU-unsplash.jpg");
+        background_Image = imageIcon.getImage().getScaledInstance(width,height,Image.SCALE_AREA_AVERAGING);
+        imageIcon = new ImageIcon(background_Image);
         layeredPane = new JLayeredPane(); // initializing layerPane
-        label = new JLabel("",image,JLabel.CENTER); //initializing label
-        label1 = new JLabel(); // initializing a sub label1 which will stay on top of the label
-        label2 = new JLabel(); // initializing label2
-        label3 = new JLabel();  // initializing label3
-        label4 = new JLabel();  // initializing label4
-        button = new JButton("Submit"); // initializing
+        imange_label = new JLabel("", imageIcon,JLabel.CENTER); //initializing label
+        text_field_label = new JLabel(); // initializing a sub label1 which will stay on top of the label
+        title_label = new JLabel(); // initializing label2
+        team_name_title = new JLabel();  // initializing label3
+        border_label = new JLabel();  // initializing label4
+        submit_button = new JButton("Submit"); // initializing
         textField= new TextField();
 
         // setting the parameters for the frame
@@ -41,38 +41,38 @@ public class WelcomePanel extends JPanel implements ActionListener {
 
         // ----------------------------------label--------------------------------------------------------------------
         // using a label to add an image to it
-        label.setBounds(0,0,width,height);
+        imange_label.setBounds(0,0,width,height);
 
         // ----------------------------------label2---------------------------------------------------------------------
 
         String s = "C(♣)RIBBAGE BY \n"; // setting a title of the game as a string
-        label2.setText(s); // setting it to the label2
-        label2.setBounds(400,100,500,50); // setting the bounds of the label2
-        label2.setForeground(new Color(0x7f0000)); // setting the color of the text
-        label2.setFont(new Font("Arial Bold Italic", Font.ITALIC,40)); // doing font customization
-        label2.setHorizontalAlignment(JLabel.CENTER); // setting the horizontal parameter of the text
-        label2.setVerticalAlignment(JLabel.TOP); // setting the vertical parameter of the text
+        title_label.setText(s); // setting it to the label2
+        title_label.setBounds(400,100,500,50); // setting the bounds of the label2
+        title_label.setForeground(new Color(0x7f0000)); // setting the color of the text
+        title_label.setFont(new Font("Arial Bold Italic", Font.ITALIC,40)); // doing font customization
+        title_label.setHorizontalAlignment(JLabel.CENTER); // setting the horizontal parameter of the text
+        title_label.setVerticalAlignment(JLabel.TOP); // setting the vertical parameter of the text
 //        label2.setBackground(new Color(0,150,0,50));
 
         //-----------------------------------------Label3---------------------------------------------------------------
 
         String s1 =  "TEAM C(♣)AFFEINE"; // Title string
-        label3.setText(s1); // setting a title of the game
-        label3.setBounds(400,180,500,70); // setting the parameter of the label
-        label3.setForeground(new Color(0x7f0000)); // assigning black color
+        team_name_title.setText(s1); // setting a title of the game
+        team_name_title.setBounds(400,180,500,70); // setting the parameter of the label
+        team_name_title.setForeground(new Color(0x7f0000)); // assigning black color
 //        label3.setBackground(new Color(0,150,0,50));
-        label3.setFont(new Font("Arial Bold Italic", Font.ITALIC,40)); // customizing font
-        label3.setHorizontalAlignment(JLabel.CENTER); // setting horizontal restriction
-        label3.setVerticalAlignment(JLabel.TOP); // setting vertical restriction
+        team_name_title.setFont(new Font("Arial Bold Italic", Font.ITALIC,40)); // customizing font
+        team_name_title.setHorizontalAlignment(JLabel.CENTER); // setting horizontal restriction
+        team_name_title.setVerticalAlignment(JLabel.TOP); // setting vertical restriction
 
         //-----------------------------------------Label4---------------------------------------------------------------
         String s3 =  "♣♦♥♠♣♦♥♠♣♦♥♠♣♦♥♠♣♦♥♠♣♦♥♠♣♦♥♠♣♦♥♠♣♠♣♦♥♠♠♣♦♥"; // setting the border between two title
-        label4.setText(s3); // setting the text to the label
-        label4.setBounds(350,150,600,30); // setting the parameter of the label
-        label4.setForeground(new Color(0x0A0506)); // setting the text color
-        label4.setFont(new Font("Arial Bold Italic", Font.ITALIC,20)); // customizing font
-        label4.setHorizontalAlignment(JLabel.CENTER); // setting horizontal restriction
-        label4.setVerticalAlignment(JLabel.TOP);// setting vertical restriction
+        border_label.setText(s3); // setting the text to the label
+        border_label.setBounds(350,150,600,30); // setting the parameter of the label
+        border_label.setForeground(new Color(0x0A0506)); // setting the text color
+        border_label.setFont(new Font("Arial Bold Italic", Font.ITALIC,20)); // customizing font
+        border_label.setHorizontalAlignment(JLabel.CENTER); // setting horizontal restriction
+        border_label.setVerticalAlignment(JLabel.TOP);// setting vertical restriction
 
         //-----------------------------------------Text field-----------------------------------------------------------
             // Creating a text field
@@ -85,28 +85,28 @@ public class WelcomePanel extends JPanel implements ActionListener {
 
         //---------------------------------label1----------------------------------------------------------------------
 
-        label1.setBounds(400,300,600,600); //its dimensions
-        label1.add(textField,BorderLayout.CENTER); // adding a text field to a label1
+        text_field_label.setBounds(400,300,600,600); //its dimensions
+        text_field_label.add(textField,BorderLayout.CENTER); // adding a text field to a label1
 
         //-----------------------------------------button---------------------------------------------------------------
 
-        button.addActionListener(this); // adding an action listener to a button
-        button.setBounds(225,200,100,40); // setting its parameter
-        button.setBackground(Color.LIGHT_GRAY); // setting its color
-        button.setFont(new Font("MV Boil",Font.ITALIC,18)); // customizing font of the button text
-        button.setForeground(Color.BLACK); // setting a color to the text
-        button.setBackground(new Color(0x7F0000)); // setting a color to the text
+        submit_button.addActionListener(this); // adding an action listener to a button
+        submit_button.setBounds(225,200,100,40); // setting its parameter
+        submit_button.setBackground(Color.LIGHT_GRAY); // setting its color
+        submit_button.setFont(new Font("MV Boil",Font.ITALIC,18)); // customizing font of the button text
+        submit_button.setForeground(Color.BLACK); // setting a color to the text
+        submit_button.setBackground(new Color(0x7F0000)); // setting a color to the text
 
 
 
-        label1.add(button); // adding a button to the label
+        text_field_label.add(submit_button); // adding a button to the label
 
         // adding all layers to the layered pane
-        layeredPane.add(label4,BorderLayout.CENTER);
-        layeredPane.add(label3,BorderLayout.CENTER);
-        layeredPane.add(label2,BorderLayout.CENTER);
-        layeredPane.add(label1,BorderLayout.CENTER);
-        layeredPane.add(label,JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(border_label,BorderLayout.CENTER);
+        layeredPane.add(team_name_title,BorderLayout.CENTER);
+        layeredPane.add(title_label,BorderLayout.CENTER);
+        layeredPane.add(text_field_label,BorderLayout.CENTER);
+        layeredPane.add(imange_label,JLayeredPane.DEFAULT_LAYER);
         this.add(layeredPane); // adding layered pane to the Frame
 
         // --------------------------------------------menu bar --------------------------------------------------------
@@ -152,8 +152,8 @@ public class WelcomePanel extends JPanel implements ActionListener {
         playerName = textField.getText();
         System.out.println(playerName); // printing it out in the terminal
         if (!playerName.strip().equals("")) {
-            button.setEnabled(false); // setting enable option to false
-            button.setBackground(Color.lightGray); // changing the color state of the button
+            submit_button.setEnabled(false); // setting enable option to false
+            submit_button.setBackground(Color.lightGray); // changing the color state of the button
 
         }
 

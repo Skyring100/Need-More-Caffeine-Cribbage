@@ -9,7 +9,7 @@ import javax.swing.*;
 /**
  * Current version
  */
-public class GUI extends JFrame{
+public class GUI{
     private final int START_WIDTH = 1000;
     private final int START_HEIGHT = 1500;
     private JPanel handPanel, deckPanel, tablePanel;
@@ -17,26 +17,28 @@ public class GUI extends JFrame{
     private JLabel bot_Cards[];
     private ImageIcon[] cardImages;
     private int deckCount = 0, tableCount = 0;
+
+    private static JFrame window;
+    private static WelcomePanel introScreen;
+    private static GamePanel mainScreen;
     public GUI() {
-        // frame
-        setTitle("Cribbage");
-        setSize(START_WIDTH, START_HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);//opens the window at center
-        setResizable(false); // disabling the resizable function
-
-
-
-        //setResizable(false); // disabling the resizable function
-        add(new GamePanel());
-        //add(new WelcomePanel(this));
-
-        setVisible(true);
+        window = new JFrame();
+        window.setTitle("Cribbage");
+        window.setSize(START_WIDTH, START_HEIGHT);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setLocationRelativeTo(null);//opens the window at center
+        window.setResizable(false); // disabling the resizable function
+        introScreen = new WelcomePanel();
+        mainScreen = new GamePanel();
+        window.add(introScreen);
+        window.setVisible(true);
+        showGame();
     }
-//random comment
-    public static void main(String[] args) {
-        new GUI();
+    public static void showGame(){
+        introScreen.setVisible(false);
+        window.add(mainScreen);
     }
+
 }
 
 

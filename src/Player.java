@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 
 public class Player {
-protected final String name;
+protected final String name; // name of the player
 protected int score;
 protected ArrayList<Card> hand;
 protected ArrayList<Card> pegHand;
