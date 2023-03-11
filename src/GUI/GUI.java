@@ -23,7 +23,7 @@ public class GUI extends JFrame{
        // add(new WelcomePanel(this));
         setVisible(true);
     }
-
+//random comment
     public static void main(String[] args) {
         new GUI();
     }
