@@ -127,6 +127,9 @@ public class Game {
 			}
 		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
 	
+		currentPone.addScore(countPoints(currentPone.getHand()));
+		currentPone.addScore(countPoints(crib));
+		currentDealer.addScore(countPoints(currentDealer.getHand()));
 		
 	
 	}
