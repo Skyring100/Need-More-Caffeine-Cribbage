@@ -57,7 +57,7 @@ protected ArrayList<Card> pegHand;
 	public boolean checkAllCard(Game game) {
 		
 		for(int i = 0;i<pegHand.size();i++) {
-			if(pegHand.get(i).getValue() <= 31-game.getPegValue()) {
+			if(pegHand.get(i).getCribCount() <= 31-game.getPegValue()) {
 				
 				return true;
 				

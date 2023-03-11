@@ -54,6 +54,7 @@ public class Bot extends Player{
 		if(temp.size() == 2) {
 			
 		}
+		return null;
 	}
 	public Card discardAlgorithm(){
 		return null;
