@@ -6,7 +6,7 @@ import java.awt.*;
 public class GamePanel extends JPanel{
     private int deckCount = 0, tableCount = 0;
     private boolean bot_won= false;
-    private JPanel handPanel, deckPanel, tablePanel, boat_panel;
+    private JPanel handPanel, deckPanel, tablePanel, bot_panel;
     private JButton[] cardButtons;
 
     private ImageIcon[] cardImages;
@@ -23,9 +23,9 @@ public class GamePanel extends JPanel{
         tablePanel = new JPanel();
         tablePanel.setBackground(Color.BLACK);
 
-        boat_panel = new JPanel();
-        boat_panel.setBackground(Color.ORANGE);
-        boat_panel.setLayout(new GridLayout(1,6));
+        bot_panel = new JPanel();
+        bot_panel.setBackground(Color.ORANGE);
+        bot_panel.setLayout(new GridLayout(1,6));
         JLabel[] cards = new JLabel[6];
         for (int i = 0; i< 6 ; i++){
             cards[i] = new JLabel();
@@ -34,7 +34,7 @@ public class GamePanel extends JPanel{
             if (i < 2) {
                 deckPanel.add(cards[i]);
             }else{
-                boat_panel.add(cards[i]);
+                bot_panel.add(cards[i]);
             }
 
         }
@@ -56,7 +56,7 @@ public class GamePanel extends JPanel{
                 } else {
                     tableCount++;
                     tablePanel.add(new JLabel(new ImageIcon("club 3_resized (1).jpg")));
-                    boat_panel.remove(0);
+                    bot_panel.remove(0);
                     move_component(x,y,tableCount,tablePanel);
                     tablePanel.add(button);
                     move_component(x,y,tableCount,tablePanel);
@@ -69,7 +69,7 @@ public class GamePanel extends JPanel{
         add(handPanel, BorderLayout.SOUTH);
         add(deckPanel, BorderLayout.EAST);
         add(tablePanel, BorderLayout.CENTER);
-        add(boat_panel,BorderLayout.NORTH);
+        add(bot_panel,BorderLayout.NORTH);
     }
     public void move_component(int locationX,int locationY, int count, JPanel panel){
         for (int i1 = 0; i1 < count; i1++) {
