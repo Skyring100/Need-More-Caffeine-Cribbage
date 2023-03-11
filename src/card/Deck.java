@@ -12,7 +12,7 @@ public class Deck {
         //PLACE HOLDER, SWITCH THIS
         return new Card(0);
     }
-    public void reshuffle(){
+    public void shuffleDiscard(){
 
     }
 }
