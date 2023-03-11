@@ -33,6 +33,8 @@ public class OldGUI2 implements ActionListener {
         frame.setVisible(true);
     }
     //
+    //
+    //
     private JPanel User_panel(Color c){
         user_panel = new JPanel();
         user_panel.setSize(1000,600);
