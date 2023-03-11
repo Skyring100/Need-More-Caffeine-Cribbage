@@ -118,11 +118,12 @@ public class Game {
 					currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));// the card for this method will need to be changed to the card selected
 					
 				}
-				
+				//if you reach 15, the current player gets a point
 				if(currentPegValue == 15) {
 					currentPlayer.addScore(2);
 				}
-				currentPlayer.addScore(pegPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
+				currentPlayer.addScore(pegPoints(currentPegList));
+				// adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
 				if(checkWinner()!= null) {
 					break;
 				}
