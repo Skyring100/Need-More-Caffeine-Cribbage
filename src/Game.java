@@ -457,7 +457,7 @@ public class Game {
 	 * @return the value of the straight, or 0 if there is no straight
 	 */
 	public int pegStraight(ArrayList<Card> list) {
-		if(list.size() == 8) { // a straight of 8 cannot exist
+		while(list.size() >= 8) {
 			list.remove(0);
 		}
 		ArrayList<Integer> Hand = new ArrayList<>();
