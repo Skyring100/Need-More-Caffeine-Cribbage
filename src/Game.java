@@ -97,13 +97,17 @@ public class Game {
 				//if a player is a bot, use an algorithm to find a suitable card for pegging
 				if(currentPlayer instanceof Bot) {
 					currentPlayer.pegCard(this, ((Bot) currentPlayer).pegAlgorithm());
+					
 				}
 				else {
 					currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));// the card for this method will need to be changed to the card selected
+					
 				}
 				
-
-				currentPlayer.addScore(countPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
+				if(currentPegValue == 15) {
+					currentPlayer.addScore(2);
+				}
+				currentPlayer.addScore(pegPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
 				if(checkWinner()!= null) {
 					break;
 				}
@@ -268,7 +272,16 @@ public class Game {
 				
 			}
 			Collections.sort(Hand); // sorting the cards by value
-			
+			if(Hand.size() == 7) { // checking if it is a 7 length straight
+				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4) && Hand.get(0) == (Hand.get(5)-5)  && Hand.get(0) == (Hand.get(6)-6) ) {
+					return 7;
+				}
+			}
+			if(Hand.size() == 6) { // checking if it is a 6 length straight
+				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4) && Hand.get(0) == (Hand.get(5)-5)) {
+					return 6;
+				}
+			}
 			if(Hand.size() == 5) { // checking if it is a 5 length straight
 				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4)) {
 					return 5;
@@ -450,5 +463,113 @@ public class Game {
 	public int getPegValue() {
 		return currentPegValue;
 	}
+	
+	/**
+	 * The for loops in the method assign integer values to an arrayList, which allows them to be checked
+	 * @param list the current peglist which will be checked if there is currently a straight in the peglist
+	 * @return the value of the straight, or 0 if there is no straight
+	 */
+	public int pegStraight(ArrayList<Card> list) {
+		if(list.size() == 8) { // a straight of 8 cannot exist
+			list.remove(0);
+		}
+		ArrayList<Integer> Hand = new ArrayList<>();
+		for(int i = 0;i<7;i++) {
+			Hand.add(list.get(i).getValue());
+		}
+		Collections.sort(Hand);
+		if(Hand.size() == 7) { // checking if it is a 7 length straight
+			if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4) && Hand.get(0) == (Hand.get(5)-5)  && Hand.get(0) == (Hand.get(6)-6) ) {
+				return 7;
+			}
+		}
+		Hand.clear();
+		for(int i = 0;i<6;i++) {
+			Hand.add(list.get(i).getValue());
+		}
+		Collections.sort(Hand);
+		if(Hand.size() == 6) { // checking if it is a 6 length straight
+			if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4) && Hand.get(0) == (Hand.get(5)-5)) {
+				return 6;
+			}
+		}
+		Hand.clear();
+		for(int i = 0;i<5;i++) {
+			Hand.add(list.get(i).getValue());
+		}
+		Collections.sort(Hand);
+		if(Hand.size() == 5) { // checking if it is a 5 length straight
+			if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4)) {
+				return 5;
+			}
+		}
+		Hand.clear();
+		for(int i = 0;i<4;i++) {
+			Hand.add(list.get(i).getValue());
+		}
+		Collections.sort(Hand);
+		if(Hand.size() == 4) { // checking if it is a 4 length straight
+			if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3)) {
+				return 4;
+			}
+		}
+		Hand.clear();
+		for(int i = 0;i<3;i++) {
+			Hand.add(list.get(i).getValue());
+		}
+		Collections.sort(Hand);
+		if(Hand.size() == 3) { // checking if it is a 3 length straight
+			if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2)) {
+				return 3;
+			}
+		}
+		
+		
+		return 0;
+		
+	}
+	/**
+	 * 
+	 * @param list the current peglist which will be checked for pairs in pegging
+	 * @return the value of points for pairs
+	 */
+	public int pegPairs(ArrayList<Card> list) {
+		if(list.size() >= 5) {
+			for(int i = list.size();i>4;i++) {
+				
+				list.remove(0);
+				
+			}
+		}
+		if(list.size() == 4) {
+			if(list.get(list.size()-1).getValue() == list.get(list.size()-2).getValue() && list.get(list.size()-1).getValue() == list.get(list.size()-3).getValue() && list.get(list.size()-1).getValue() == list.get(list.size()-4).getValue()  ) {
+				return 12;
+		}
+			
+		}
+			list.remove(0);
+			if(list.size() == 3) {
+				if(list.get(list.size()-1).getValue() == list.get(list.size()-2).getValue() && list.get(list.size()-1).getValue() == list.get(list.size()-3).getValue() ) {
+					return 6;
+				}
+			}
+			list.remove(0);
+		
+		if(list.size() == 2) {
+			if(list.get(list.size()-1).getValue() == list.get(list.size()-2).getValue()) {
+				return 2;
+			}
+		}
+		return  0;
+	
+		
+		
+		
+	
 }
-  
+	
+	public int pegPoints(ArrayList<Card> list) {
+		return pegPairs(list) + pegStraight(list);
+	}
+}
+//
