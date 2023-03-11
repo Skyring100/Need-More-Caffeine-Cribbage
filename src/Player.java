@@ -43,7 +43,10 @@ protected ArrayList<Card> pegHand;
 		}
 		game.addToCrib(list);
 		pegHand = hand;
-		
+	}
+	public Card discard(Card c){
+		hand.remove(c);
+		return c;
 	}
 	
 	/**

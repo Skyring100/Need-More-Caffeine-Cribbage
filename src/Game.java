@@ -47,7 +47,7 @@ public class Game {
 		this(p, new Bot());
 	}
 	private void run(){
-
+		discardPhase();
 		peg();
 		winner = checkWinner();
 		if(winner == null){
@@ -72,11 +72,8 @@ public class Game {
 			//if it's an even turn, the pone goes, else the dealer goes
 			if(counter % 2 == 0) {
 				currentPlayer = currentPone;
-				
-				
 			}else {
 				currentPlayer = currentDealer;
-				
 			}
 			//checks if the player has cards and is able to play a card
 			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.checkAllCard(this)) {
@@ -95,14 +92,17 @@ public class Game {
 					currentPlayer.pegCard(this, ((Bot) currentPlayer).pegAlgorithm());
 				}
 				else {
-					currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));// the card for this method will need to be changed to the card selected
-				}
-				
 
-				currentPlayer.addScore(countPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
+					currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));
+					// the card for this method will need to be changed to the card selected
+				}
+
+				//if there is a winner, stop pegging
 				if(checkWinner()!= null) {
 					break;
 				}
+				currentPlayer.addScore(countPoints(currentPegList));
+				// adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
 			}
 			counter++;
 
@@ -128,6 +128,19 @@ public class Game {
 		currentDealer.addScore(countPoints(currentDealer.getHand()));
 		
 	
+	}
+	public void discardPhase(){
+		//it doesn't matter who goes first for discarding
+		Card currentDiscard;
+		for(Player p : new Player[]{player1,player2}){
+			if(p instanceof Bot){
+				currentDiscard =  p.discard(((Bot) p).discardAlgorithm());
+			}else{
+				//let the player choose a card, replace this later
+				currentDiscard = null;
+			}
+			crib.add(currentDiscard);
+		}
 	}
 	/**
 	 * determines a winner if a player has enough points

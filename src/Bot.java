@@ -41,6 +41,9 @@ public class Bot extends Player{
 	public Card pegAlgorithm(){
 		return null;
 	}
+	public Card discardAlgorithm(){
+		return null;
+	}
 	
 }
 
