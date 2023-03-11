@@ -17,25 +17,23 @@ public class GUI extends JFrame{
     private JLabel bot_Cards[];
     private ImageIcon[] cardImages;
     private int deckCount = 0, tableCount = 0;
+
+    private WelcomePanel introScreen;
+    private GamePanel mainScreen;
     public GUI() {
-        // frame
         setTitle("Cribbage");
         setSize(START_WIDTH, START_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);//opens the window at center
         setResizable(false); // disabling the resizable function
-
-
-
-        //setResizable(false); // disabling the resizable function
-        add(new GamePanel());
-        //add(new WelcomePanel(this));
-
+        introScreen = new WelcomePanel();
+        mainScreen = new GamePanel();
+        add(introScreen);
         setVisible(true);
     }
-//random comment
-    public static void main(String[] args) {
-        new GUI();
+    public void showGame(){
+        introScreen.setVisible(false);
+        add(mainScreen);
     }
 }
 
