@@ -268,16 +268,7 @@ public class Game {
 				
 			}
 			Collections.sort(Hand); // sorting the cards by value
-			if(Hand.size() == 7) { // checking if it is a 7 length straight
-				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4) && Hand.get(0) == (Hand.get(5)-5)  && Hand.get(0) == (Hand.get(6)-6) ) {
-					return 7;
-				}
-			}
-			if(Hand.size() == 6) { // checking if it is a 6 length straight
-				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4) && Hand.get(0) == (Hand.get(5)-5)) {
-					return 6;
-				}
-			}
+			
 			if(Hand.size() == 5) { // checking if it is a 5 length straight
 				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4)) {
 					return 5;
