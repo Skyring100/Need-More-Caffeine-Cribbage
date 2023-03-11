@@ -35,6 +35,13 @@ public class Game {
 		//this is an EXTREMELY compact way of getting a random dealer
 		//this creates an array of the players and uses a random number generator to choose an index from that list
 		currentDealer = new Player[]{player1,player2}[new Random().nextInt(0,2)];
+		//whatever player is not chose is the pone
+		if(currentDealer == player1){
+			currentPone = player2;
+		}else{
+			currentPone = player1;
+		}
+
 		deck = new Deck();
 		javax.swing.SwingUtilities.invokeLater(()-> gui = new GUI());
 		run();
