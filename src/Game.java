@@ -43,13 +43,7 @@ public class Game {
 	 * @param p the user
 	 */
 	public Game(Player p){
-		player1 = p;
-		player2 = new Bot();
-		//this is an EXTREMELY compact way of getting a random dealer
-		//this creates an array of the players and uses a random number generator to choose an index from that list
-		currentDealer = new Player[]{player1,player2}[new Random().nextInt(0,2)];
-		deck = new Deck();
-		run();
+		this(p, new Bot());
 	}
 	private void run(){
 
