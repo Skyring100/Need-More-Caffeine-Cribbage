@@ -60,17 +60,19 @@ public class Game {
 	}
 
 	private void discardPhase() {
-		//test
 		Card currentCard;
 		//loop through all 2 players
 		for(Player p : new Player[]{player1,player2}){
-			if(p instanceof Bot){
-				currentCard =  p.discard(((Bot) p).discardAlgorithm());
-			}else{
-				//let the player choose a card
-				currentCard = null;
+			//each player discards 2 cards
+			for(int i = 1; i <= 2; i++){
+				if(p instanceof Bot){
+					currentCard =  p.discard(((Bot) p).discardAlgorithm());
+				}else{
+					//let the player choose a card
+					currentCard = null;
+				}
+				crib.add(currentCard);
 			}
-			crib.add(currentCard);
 		}
 	}
 
