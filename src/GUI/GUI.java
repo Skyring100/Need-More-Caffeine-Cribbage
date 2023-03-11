@@ -61,7 +61,7 @@ public class GUI extends JFrame{
 
         //setResizable(false); // disabling the resizable function
         add(new GamePanel());
-       // add(new WelcomePanel(this));
+        //add(new WelcomePanel(this));
 
         setVisible(true);
     }
