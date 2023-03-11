@@ -111,7 +111,7 @@ public class Game {
 				 */
 				//if a player is a bot, use an algorithm to find a suitable card for pegging
 				if(currentPlayer instanceof Bot) {
-					currentPlayer.pegCard(this, ((Bot) currentPlayer).pegAlgorithm());
+					currentPlayer.pegCard(this, ((Bot) currentPlayer).pegAlgorithm(currentPegList,currentPegValue));
 					
 				}
 				else {
@@ -119,9 +119,7 @@ public class Game {
 					
 				}
 				
-				if(currentPegValue == 15) {
-					currentPlayer.addScore(2);
-				}
+				
 				currentPlayer.addScore(pegPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
 				if(checkWinner()!= null) {
 					break;
@@ -216,6 +214,9 @@ public class Game {
 	public int getPegValue() {
 		return currentPegValue;
 	}
+	
+	
+	
 	
 	
     /**
@@ -574,9 +575,14 @@ public class Game {
 		
 	//
 }
-	
+	public int peg15() {
+		if(currentPegValue == 15) {
+			return 2;
+		}
+		return 0;
+	}
 	public int pegPoints(ArrayList<Card> list) {
-		return pegPairs(list) + pegStraight(list);
+		return pegPairs(list) + pegStraight(list) + peg15();
 	}
 }
 //

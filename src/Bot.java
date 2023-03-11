@@ -38,8 +38,22 @@ public class Bot extends Player{
 		game.addToCrib(discardedCards);
 		pegHand = highest;
 	}
-	public Card pegAlgorithm(){
-		return null;
+	public Card pegAlgorithm(ArrayList pegList,int pegScore){
+		ArrayList<Card> temp = new ArrayList<>();
+		ArrayList<Card> temp1 = new ArrayList<>();
+		ArrayList<Card> temp2 = new ArrayList<>();
+		for(int i = 0;i<pegHand.size();i++) {
+			if(pegHand.get(i).getCribCount() <= 31-pegScore) {
+				temp.add(pegHand.get(i));	
+			}
+		}
+		
+		if(temp.size() == 1) {
+			return temp.get(0);
+		}
+		if(temp.size() == 2) {
+			
+		}
 	}
 	public Card discardAlgorithm(){
 		return null;
