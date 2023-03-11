@@ -11,8 +11,8 @@ public class WelcomePanel extends JPanel implements ActionListener {
     // initializing all variables
     private JLabel imange_label, text_field_label, title_label, team_name_title, border_label;
     private ImageIcon imageIcon;
-    private Image image;
-    private JButton button;
+    private Image background_Image;
+    private JButton submit_button;
     private TextField textField;
     public static String playerName;
     private JLayeredPane layeredPane;
@@ -22,15 +22,15 @@ public class WelcomePanel extends JPanel implements ActionListener {
     public WelcomePanel() {
         // rendering the image
         imageIcon = new ImageIcon("jack-hamilton-9SewS6lowEU-unsplash.jpg");
-        image = imageIcon.getImage().getScaledInstance(width,height,Image.SCALE_AREA_AVERAGING);
-        imageIcon = new ImageIcon(image);
+        background_Image = imageIcon.getImage().getScaledInstance(width,height,Image.SCALE_AREA_AVERAGING);
+        imageIcon = new ImageIcon(background_Image);
         layeredPane = new JLayeredPane(); // initializing layerPane
         imange_label = new JLabel("", imageIcon,JLabel.CENTER); //initializing label
         text_field_label = new JLabel(); // initializing a sub label1 which will stay on top of the label
         title_label = new JLabel(); // initializing label2
         team_name_title = new JLabel();  // initializing label3
         border_label = new JLabel();  // initializing label4
-        button = new JButton("Submit"); // initializing
+        submit_button = new JButton("Submit"); // initializing
         textField= new TextField();
 
         // setting the parameters for the frame
@@ -90,16 +90,16 @@ public class WelcomePanel extends JPanel implements ActionListener {
 
         //-----------------------------------------button---------------------------------------------------------------
 
-        button.addActionListener(this); // adding an action listener to a button
-        button.setBounds(225,200,100,40); // setting its parameter
-        button.setBackground(Color.LIGHT_GRAY); // setting its color
-        button.setFont(new Font("MV Boil",Font.ITALIC,18)); // customizing font of the button text
-        button.setForeground(Color.BLACK); // setting a color to the text
-        button.setBackground(new Color(0x7F0000)); // setting a color to the text
+        submit_button.addActionListener(this); // adding an action listener to a button
+        submit_button.setBounds(225,200,100,40); // setting its parameter
+        submit_button.setBackground(Color.LIGHT_GRAY); // setting its color
+        submit_button.setFont(new Font("MV Boil",Font.ITALIC,18)); // customizing font of the button text
+        submit_button.setForeground(Color.BLACK); // setting a color to the text
+        submit_button.setBackground(new Color(0x7F0000)); // setting a color to the text
 
 
 
-        text_field_label.add(button); // adding a button to the label
+        text_field_label.add(submit_button); // adding a button to the label
 
         // adding all layers to the layered pane
         layeredPane.add(border_label,BorderLayout.CENTER);
@@ -152,8 +152,8 @@ public class WelcomePanel extends JPanel implements ActionListener {
         playerName = textField.getText();
         System.out.println(playerName); // printing it out in the terminal
         if (!playerName.strip().equals("")) {
-            button.setEnabled(false); // setting enable option to false
-            button.setBackground(Color.lightGray); // changing the color state of the button
+            submit_button.setEnabled(false); // setting enable option to false
+            submit_button.setBackground(Color.lightGray); // changing the color state of the button
 
         }
 
