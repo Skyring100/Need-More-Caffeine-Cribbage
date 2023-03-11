@@ -63,7 +63,7 @@ public class Game {
 		}
 	}
 	private void peg(){
-		// this is the pegging section, hasn't been tested, however I do believe that it should work
+		// this is the pegging section, hasnt been tested, however I do believe that it should work
 
 		Player currentPlayer;
 		
@@ -126,6 +126,9 @@ public class Game {
 					
 			}
 		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
+	
+		
+	
 	}
 	/**
 	 * determines a winner if a player has enough points
@@ -155,8 +158,7 @@ public class Game {
 	private static boolean isWin(Player p){
 		return p.getScore() >= WINNING_SCORE;
 	}
-
-
+	
     /**
      * Creates the power-set from a list. Used to find all combination possibilities
      * @param list is the hand which will be sorted into subsets

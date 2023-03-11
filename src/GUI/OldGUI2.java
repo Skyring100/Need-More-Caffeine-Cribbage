@@ -18,7 +18,7 @@ public class OldGUI2 implements ActionListener {
         create_a_frame();
     }
     // creating a string
-    private void create_a_frame(){
+    private void create_a_frame() {
         // Creating a frame
         frame = new JFrame();
         frame.setSize(1000,1000);
@@ -32,6 +32,7 @@ public class OldGUI2 implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
+    //
     private JPanel User_panel(Color c){
         user_panel = new JPanel();
         user_panel.setSize(1000,600);
