@@ -47,7 +47,7 @@ public class Game {
 		this(p, new Bot());
 	}
 	private void run(){
-
+		discardPhase();
 		peg();
 		winner = checkWinner();
 		if(winner == null){
@@ -58,6 +58,21 @@ public class Game {
 			//somebody won!
 		}
 	}
+
+	private void discardPhase() {
+		Card currentCard;
+		//loop through all 2 players
+		for(Player p : new Player[]{player1,player2}){
+			if(p instanceof Bot){
+				currentCard =  p.discard(((Bot) p).discardAlgorithm());
+			}else{
+				//let the player choose a card
+				currentCard = null;
+			}
+			crib.add(currentCard);
+		}
+	}
+
 	private void peg(){
 		// this is the pegging section, hasnt been tested, however I do believe that it should work
 
