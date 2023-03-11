@@ -50,7 +50,7 @@ public class GUI extends JFrame{
 
         for (int i = 0; i < 6; i++) {
             cardButtons[i] = new JButton(cardImages[i]);
-            cardButtons[i].addActionListener((ActionListener) this);
+            //cardButtons[i].addActionListener((ActionListener) this);
             handPanel.add(cardButtons[i]);
         }
 
