@@ -94,11 +94,6 @@ public class OldGUI2 implements ActionListener {
         return crib_panel ;
     }
 
-    public static void main(String[] args) {
-      	OldGUI2 game = new OldGUI2();
-      	game.create_a_frame();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton sourceButton = (JButton) e.getSource();

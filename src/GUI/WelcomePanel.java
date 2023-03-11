@@ -15,7 +15,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
     private JButton submit_button;
     private TextField textbox;
     public static String playerName;
-    JLayeredPane layeredPane;
+    private JLayeredPane layeredPane;
     //getters and setters
 
     //constructor for rendering the screen layout
