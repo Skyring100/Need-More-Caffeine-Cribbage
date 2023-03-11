@@ -38,9 +38,5 @@ public class OldGUI1 {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new OldGUI1();
-    }
-
 
 }
