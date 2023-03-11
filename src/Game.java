@@ -60,6 +60,7 @@ public class Game {
 	}
 
 	private void discardPhase() {
+		//test
 		Card currentCard;
 		//loop through all 2 players
 		for(Player p : new Player[]{player1,player2}){
