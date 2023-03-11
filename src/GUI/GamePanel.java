@@ -43,7 +43,6 @@ public class GamePanel extends JPanel{
         cardButtons = new JButton[6];
         for (int i = 0; i < 6; i++) {
             cardButtons[i] = new JButton(new ImageIcon("club 2_resized.jpg") );// getting the image from the user
-            int finalI = i;
             cardButtons[i].addActionListener(e -> {
                 JButton button = (JButton) e.getSource();
                 int x = 0, y = 0;
