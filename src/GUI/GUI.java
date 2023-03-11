@@ -19,8 +19,8 @@ public class GUI extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);//opens the window at center
         //setResizable(false); // disabling the resizable function
-        //add(new GamePanel());
-        add(new WelcomePanel(this));
+        add(new GamePanel());
+       // add(new WelcomePanel(this));
         setVisible(true);
     }
 

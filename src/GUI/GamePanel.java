@@ -16,16 +16,12 @@ public class GamePanel extends JPanel{
         handPanel = new JPanel();
         handPanel.setLayout(new GridLayout());
         handPanel.setBackground(Color.LIGHT_GRAY);
-        //handPanel.setSize(800,150);
-        //handPanel.setOpaque(true);
 
         deckPanel = new JPanel();
         deckPanel.setBackground(Color.BLUE);
-        //deckPanel.setOpaque(true);
 
         tablePanel = new JPanel();
         tablePanel.setBackground(Color.BLACK);
-        //tablePanel.setOpaque(true);
 
         cardButtons = new JButton[6];
         cardImages = new ImageIcon[52];
@@ -34,32 +30,29 @@ public class GamePanel extends JPanel{
         }
         for (int i = 0; i < 6; i++) {
             cardButtons[i] = new JButton(new ImageIcon("club 2_resized.jpg") );
-            cardButtons[i].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    JButton button = (JButton) e.getSource();
-                    button.setEnabled(false);
+            cardButtons[i].addActionListener(e -> {
+                JButton button = (JButton) e.getSource();
+                button.setEnabled(false);
 
-                    if (deckCount < 2) {
-                        deckPanel.add(button);
-                        deckCount++;
-                        validate();
-                        repaint();
-                    } else {
-                        tableCount++;
-                        tablePanel.add(button);
-                        validate();
-                        repaint();
+                if (deckCount < 2) {
+                    deckPanel.add(button);
+                    deckCount++;
+                    validate();
+                    repaint();
+                } else {
+                    tableCount++;
+                    tablePanel.add(button);
+                    validate();
+                    repaint();
 
-                        int x = 0, y = 0;
-                        for (int i = 0; i < tableCount; i++) {
-                            Component comp = tablePanel.getComponent(i);
-                            comp.setLocation(x, y);
-                            comp.setSize(71, 96);
-                            x += 50;
-                            y += 50;
-                            comp.setLocation(x, y);
-                        }
+                    int x = 0, y = 0;
+                    for (int i1 = 0; i1 < tableCount; i1++) {
+                        Component comp = tablePanel.getComponent(i1);
+                        comp.setLocation(x, y);
+                        comp.setSize(comp.getWidth(), comp.getHeight());
+                        x += 50;
+                        y += 50;
+                        comp.setLocation(x, y);
                     }
                 }
             });
