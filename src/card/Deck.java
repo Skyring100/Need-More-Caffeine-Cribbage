@@ -5,13 +5,27 @@ public class Deck {
     private ArrayList<Card> discarded;
     private ArrayList<Card> cards;
     public Deck(){
+        //add all cards to the deck
     }
-    public void Shuffle(){
+
+    /**
+     * Shuffles the deck
+     */
+    public void shuffle(){
     }
+
+    /**
+     * draws a card from the deck
+     * @return the drawn card
+     */
     public Card draw(){
         //PLACE HOLDER, SWITCH THIS
         return new Card(0);
     }
+
+    /**
+     * Shuffles the discard pile back into the deck
+     */
     public void shuffleDiscard(){
 
     }
