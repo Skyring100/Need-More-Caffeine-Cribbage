@@ -57,6 +57,7 @@ public class Game {
 		winner = checkWinner();
 		if(winner == null){
 			switchDealer();
+			deck.shuffleDiscard();
 			run();
 		}else{
 			//somebody won!
