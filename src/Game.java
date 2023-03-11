@@ -1,5 +1,6 @@
 package src;
 
+import src.GUI.GUI;
 import src.card.Card;
 import src.card.Deck;
 
@@ -21,7 +22,7 @@ public class Game {
 	private ArrayList<Card> currentPegList = new ArrayList<>();
 	private int currentPegValue;
 	private final Deck deck;
-	
+	private GUI gui;
 
 	/**
 	 * Creates a two game with two human players
@@ -35,9 +36,9 @@ public class Game {
 		//this creates an array of the players and uses a random number generator to choose an index from that list
 		currentDealer = new Player[]{player1,player2}[new Random().nextInt(0,2)];
 		deck = new Deck();
+		javax.swing.SwingUtilities.invokeLater(()-> gui = new GUI());
 		run();
     }
-
 	/**
 	 * Creates a single-player game with a human vs. a bot
 	 * @param p the user
