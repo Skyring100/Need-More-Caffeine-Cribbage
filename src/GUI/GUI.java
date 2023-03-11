@@ -9,7 +9,7 @@ import javax.swing.*;
 /**
  * Current version
  */
-public class GUI extends JFrame{
+public class GUI{
     private final int START_WIDTH = 1000;
     private final int START_HEIGHT = 1500;
     private JPanel handPanel, deckPanel, tablePanel;
@@ -18,23 +18,26 @@ public class GUI extends JFrame{
     private ImageIcon[] cardImages;
     private int deckCount = 0, tableCount = 0;
 
-    private WelcomePanel introScreen;
-    private GamePanel mainScreen;
+    private static JFrame window;
+    private static WelcomePanel introScreen;
+    private static GamePanel mainScreen;
     public GUI() {
-        setTitle("Cribbage");
-        setSize(START_WIDTH, START_HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);//opens the window at center
-        setResizable(false); // disabling the resizable function
+        window = new JFrame();
+        window.setTitle("Cribbage");
+        window.setSize(START_WIDTH, START_HEIGHT);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setLocationRelativeTo(null);//opens the window at center
+        window.setResizable(false); // disabling the resizable function
         introScreen = new WelcomePanel();
         mainScreen = new GamePanel();
-        add(introScreen);
-        setVisible(true);
+        window.add(introScreen);
+        window.setVisible(true);
     }
-    public void showGame(){
+    public static void showGame(){
         introScreen.setVisible(false);
-        add(mainScreen);
+        window.add(mainScreen);
     }
+
 }
 
 
