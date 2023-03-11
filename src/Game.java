@@ -177,6 +177,43 @@ public class Game {
 	private static boolean isWin(Player p){
 		return p.getScore() >= WINNING_SCORE;
 	}
+	/**
+	 * Deals 6 cards to each player
+	 */
+	public void dealPlayers(){
+		for (int i = 0; i <= 5; i++) {
+			player1.addCard(deck.draw());
+			player2.addCard(deck.draw());
+		}
+	}
+	/**
+	 * Adds cards to the crib
+	 * @param list the cards which will be added to the crib
+	 */
+	public void addToCrib(ArrayList<Card> list) {
+		for(int i = 0;i<list.size();i++) {
+			crib.add(list.get(i));
+		}
+	}
+	/**
+	 * 
+	 * @param c card which will be added to the current peg cards in play
+	 */
+	public void addToPeglist(Card c) {
+		currentPegList.add(c);
+	}
+	/**
+	 * 
+	 * @param c card whose value will be added to the current pegList value
+	 */
+	public void addToPegValue(Card c) {
+		currentPegValue += c.getCribCount();
+	}
+
+	public int getPegValue() {
+		return currentPegValue;
+	}
+	
 	
     /**
      * Creates the power-set from a list. Used to find all combination possibilities
@@ -430,43 +467,7 @@ public class Game {
 		return allpoints;
 		//hello
     }
-	/**
-	 * Deals 6 cards to each player
-	 */
-	public void dealPlayers(){
-		for (int i = 0; i <= 5; i++) {
-			player1.addCard(deck.draw());
-			player2.addCard(deck.draw());
-		}
-	}
-	/**
-	 * Adds cards to the crib
-	 * @param list the cards which will be added to the crib
-	 */
-	public void addToCrib(ArrayList<Card> list) {
-		for(int i = 0;i<list.size();i++) {
-			crib.add(list.get(i));
-		}
-	}
-	/**
-	 * 
-	 * @param c card which will be added to the current peg cards in play
-	 */
-	public void addToPeglist(Card c) {
-		currentPegList.add(c);
-	}
-	/**
-	 * 
-	 * @param c card whose value will be added to the current pegList value
-	 */
-	public void addToPegValue(Card c) {
-		currentPegValue += c.getCribCount();
-	}
 
-	public int getPegValue() {
-		return currentPegValue;
-	}
-	
 	/**
 	 * The for loops in the method assign integer values to an arrayList, which allows them to be checked
 	 * @param list the current peglist which will be checked if there is currently a straight in the peglist
