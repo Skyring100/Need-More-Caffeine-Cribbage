@@ -5,7 +5,6 @@ import java.awt.*;
 
 public class GamePanel extends JPanel{
     private int deckCount = 0, tableCount = 0;
-    private boolean bot_won= false;
     private JPanel handPanel, deckPanel, tablePanel, bot_panel;
     private JButton[] cardButtons;
 
@@ -13,31 +12,13 @@ public class GamePanel extends JPanel{
     public GamePanel(){
         setBackground(Color.GRAY); // setting the background
         setLayout(new BorderLayout()); // setting the layout
-        handPanel = new JPanel(); // creating a hand panel
-        handPanel.setLayout(new GridLayout()); // setting the layout of the hand panel
-        handPanel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
+        create_user_panel();
+        create_crib_panel();
+        create_pegging_panel();
+        create_bot_panel();
 
-        deckPanel = new JPanel();
-        deckPanel.setBackground(Color.BLUE);
-
-        tablePanel = new JPanel();
-        tablePanel.setBackground(Color.BLACK);
-
-        bot_panel = new JPanel();
-        bot_panel.setBackground(Color.ORANGE);
-        bot_panel.setLayout(new GridLayout(1,6));
         JLabel[] cards = new JLabel[6];
-        for (int i = 0; i< 6 ; i++){
-            cards[i] = new JLabel();
-            cards[i].setIcon(new ImageIcon("blue.png"));
-
-            if (i < 2) {
-                deckPanel.add(cards[i]);
-            }else{
-                bot_panel.add(cards[i]);
-            }
-
-        }
+        bot_initialization(cards);
 
 
         cardButtons = new JButton[6];
@@ -71,7 +52,21 @@ public class GamePanel extends JPanel{
         add(tablePanel, BorderLayout.CENTER);
         add(bot_panel,BorderLayout.NORTH);
     }
-    public void move_component(int locationX,int locationY, int count, JPanel panel){
+    private void create_user_panel(){
+        handPanel = new JPanel(); // creating a hand panel
+        handPanel.setLayout(new GridLayout()); // setting the layout of the hand panel
+        handPanel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
+    }
+    private void create_bot_panel(){
+        bot_panel = new JPanel();
+        bot_panel.setBackground(Color.ORANGE);
+        bot_panel.setLayout(new GridLayout(1,6));
+    }
+    private void create_pegging_panel(){
+        tablePanel = new JPanel();
+        tablePanel.setBackground(Color.BLACK);
+    }
+    private void move_component(int locationX,int locationY, int count, JPanel panel){
         for (int i1 = 0; i1 < count; i1++) {
             Component comp = panel.getComponent(i1);
             comp.setLocation(locationX, locationY);
@@ -79,7 +74,23 @@ public class GamePanel extends JPanel{
             locationX += 100;
             locationY += 100;
             comp.setLocation(locationX, locationY);
-        }}
+        }
+    }
+    private void create_crib_panel(){
+        deckPanel = new JPanel();
+        deckPanel.setBackground(Color.BLUE);
+    }
+    private void bot_initialization(JLabel[] cards){
+        for (int i = 0; i< 6 ; i++){
+            cards[i] = new JLabel();
+            cards[i].setIcon(new ImageIcon("blue.png"));
+            if (i < 2) {
+                deckPanel.add(cards[i]);
+            }else{
+                bot_panel.add(cards[i]);
+            }
+        }
+    }
 
 
 }

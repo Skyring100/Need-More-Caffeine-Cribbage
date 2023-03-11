@@ -32,6 +32,7 @@ public class GUI{
         mainScreen = new GamePanel();
         window.add(introScreen);
         window.setVisible(true);
+        showGame();
     }
     public static void showGame(){
         introScreen.setVisible(false);
