@@ -477,7 +477,7 @@ public class Game {
 	 * @param list the current peglist which will be checked if there is currently a straight in the peglist
 	 * @return the value of the straight, or 0 if there is no straight
 	 */
-	public int pegStraight(ArrayList<Card> list) {
+	public static int pegStraight(ArrayList<Card> list) {
 		if(list.size() == 8) { // a straight of 8 cannot exist
 			list.remove(0);
 		}
@@ -541,7 +541,7 @@ public class Game {
 	 * @param list the current peglist which will be checked for pairs in pegging
 	 * @return the value of points for pairs
 	 */
-	public int pegPairs(ArrayList<Card> list) {
+	public static int pegPairs(ArrayList<Card> list) {
 		if(list.size() >= 5) {
 			for(int i = list.size();i>4;i++) {
 				
@@ -575,7 +575,7 @@ public class Game {
 		
 	//
 }
-	public int peg15(ArrayList<Card> list) {
+	public static int peg15(ArrayList<Card> list) {
 		int counter = 0;
 		for(int i = 0;i<list.size();i++) {
 			counter += list.get(i).getCribCount();
@@ -586,7 +586,7 @@ public class Game {
 		
 		return 0;
 	}
-	public int pegPoints(ArrayList<Card> list) {
+	public static int pegPoints(ArrayList<Card> list) {
 		return pegPairs(list) + pegStraight(list) + peg15(list);
 	}
 }
