@@ -220,7 +220,9 @@ public class Game {
 		return currentPegValue;
 	}
 	
-	public static int botPegPoints(ArrayList<Card> pegList, Card c) {
+	public static int botPegPoints(ArrayList<Card> list, Card c) {
+		ArrayList<Card> pegList = new ArrayList<>();
+		Collections.copy(pegList,list);
 		pegList.add(c);
 		int points = pegPoints(pegList);
 		pegList.remove(pegList.size()-1);
@@ -558,6 +560,7 @@ public class Game {
 	 * @return the value of points for pairs
 	 */
 	public static int pegPairs(ArrayList<Card> list) {
+		
 		if(list.size() >= 5) {
 			for(int i = list.size();i>4;i++) {
 				
@@ -603,7 +606,10 @@ public class Game {
 		return 0;
 	}
 	public static int pegPoints(ArrayList<Card> list) {
-		return pegPairs(list) + pegStraight(list) + peg15(list);
+		ArrayList<Card> pegList = new ArrayList<>();
+		Collections.copy(pegList,list);
+		
+		return pegPairs(pegList) + pegStraight(pegList) + peg15(pegList);
 	}
 }
 //
