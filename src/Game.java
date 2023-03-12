@@ -220,6 +220,17 @@ public class Game {
 		return currentPegValue;
 	}
 	
+	public static int botPegPoints(ArrayList<Card> pegList, Card c) {
+		pegList.add(c);
+		int points = pegPoints(pegList);
+		pegList.remove(pegList.size()-1);
+		
+		
+		
+		return points;
+		
+	}
+	
 	
 	
 	
@@ -577,7 +588,7 @@ public class Game {
 	
 		
 		//
-		
+		//
 	//
 }
 	public static int peg15(ArrayList<Card> list) {

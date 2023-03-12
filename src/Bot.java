@@ -10,11 +10,83 @@ public class Bot extends Player{
 		super("Bot");
 	}
 
-	@Override
-	public void discard(Game game, ArrayList<Card> list) {
+	
+	/**
+	 * this will find the best card to peg whenever it is the bots turn to play a card
+	 * 
+	 */
+	public Card pegAlgorithm(ArrayList pegList,int pegScore){
+		ArrayList<Card> temp = new ArrayList<>();
+		Card c1;
+		Card c2;
+		Card c3;
+		Card c4;
+		for(int i = 0;i<pegHand.size();i++) {
+			if(pegHand.get(i).getCribCount() <= 31-pegScore) {
+				temp.add(pegHand.get(i));	
+			}
+		}
 		
+		if(temp.size() == 1) {
+			return temp.get(0);
+		}
+		if(temp.size() == 2) {
+			c1 = temp.get(0);
+			c2 = temp.get(1);
+			if(Game.botPegPoints(pegList, c1) >= Game.botPegPoints(pegList, c2)) {
+				return c1;
+			}else {
+				return c2;
+			}
+		}
+		if(temp.size() == 3) {
+			c1 = temp.get(0);
+			c2 = temp.get(1);
+			c3 = temp.get(2);
+			int maxOfNums = Math.max(Game.botPegPoints(pegList, c1), Math.max(Game.botPegPoints(pegList, c2),Game.botPegPoints(pegList, c3)));
+			
+			if(Game.botPegPoints(pegList, c1) == maxOfNums) {
+				return c1;
+			}
+			if(Game.botPegPoints(pegList, c2) == maxOfNums) {
+				return c2;
+			}
+			if(Game.botPegPoints(pegList, c3) == maxOfNums) {
+				return c3;
+			}
+			
+			
+		}
+		if(temp.size() == 4) {
+			c1 = temp.get(0);
+			c2 = temp.get(1);
+			c3 = temp.get(2);
+			c4=temp.get(3);
+			int maxOfNums = Math.max(Game.botPegPoints(pegList, c1), Math.max(Game.botPegPoints(pegList, c2),Math.max(Game.botPegPoints(pegList, c3),Game.botPegPoints(pegList, c4))));
+			
+			if(Game.botPegPoints(pegList, c1) == maxOfNums) {
+				return c1;
+			}
+			if(Game.botPegPoints(pegList, c2) == maxOfNums) {
+				return c2;
+			}
+			if(Game.botPegPoints(pegList, c3) == maxOfNums) {
+				return c3;
+			}
+			if(Game.botPegPoints(pegList, c4) == maxOfNums) {
+				return c4;
+			}
+			
+			
+		}
+		return null;
+		
+	}
+	/*
+	 * this method will find the best card to discard in the discard phase
+	 */
+	public Card discardAlgorithm(){
 		ArrayList<ArrayList<Card>> sets = Game.makeSubset(this.hand);
-		ArrayList<Card> discardedCards = new ArrayList<>();
 		ArrayList<Card> highest = sets.get(0);
 		ArrayList<Card> temp;
 		
@@ -28,36 +100,14 @@ public class Bot extends Player{
 				}
 			}
 		}
-		// everything below this discards the cards from hand and adds them to crib
+		// everything below this discards a card which is not contained within the 4 highest scoring cards
 		for(int k = 0;k<hand.size();k++) {
 			if(!highest.contains(hand.get(k))) {
-				discardedCards.add(hand.get(k));
+				return hand.get(k);
 			}
 		}
-		setHand(highest);
-		game.addToCrib(discardedCards);
-		pegHand = highest;
-	}
-	public Card pegAlgorithm(ArrayList pegList,int pegScore){
-		ArrayList<Card> temp = new ArrayList<>();
-		ArrayList<Card> temp1 = new ArrayList<>();
-		ArrayList<Card> temp2 = new ArrayList<>();
-		for(int i = 0;i<pegHand.size();i++) {
-			if(pegHand.get(i).getCribCount() <= 31-pegScore) {
-				temp.add(pegHand.get(i));	
-			}
-		}
+		return null;
 		
-		if(temp.size() == 1) {
-			return temp.get(0);
-		}
-		if(temp.size() == 2) {
-			
-		}
-		return null;
-	}
-	public Card discardAlgorithm(){
-		return null;
 	}
 	
 }
