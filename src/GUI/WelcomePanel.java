@@ -173,4 +173,9 @@ public class WelcomePanel extends JPanel implements ActionListener {
     public void setWidth(int width) {
         this.width = width;
     }
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        frame.add(new WelcomePanel());
+        frame.setVisible(true);
+    }
 }
