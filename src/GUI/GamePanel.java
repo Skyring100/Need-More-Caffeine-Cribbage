@@ -82,8 +82,15 @@ public class GamePanel extends JPanel{
     }
     private void bot_initialization(JLabel[] cards){
         for (int i = 0; i< 6 ; i++){
+            /*
             cards[i] = new JLabel();
-            cards[i].setIcon(new ImageIcon("blue.png"));
+            ImageIcon cardIcon = new ImageIcon("blue.png");
+            Image cardImage = cardIcon.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);
+            ImageIcon scaledIcon = new ImageIcon(cardImage);
+            cards[i].setIcon(scaledIcon);
+             */
+            cards[i] = new JLabel();
+            cards[i].setIcon(new ImageIcon("Card.images/card.backs/blue.png"));
             if (i < 2) {
                 deckPanel.add(cards[i]);
             }else{

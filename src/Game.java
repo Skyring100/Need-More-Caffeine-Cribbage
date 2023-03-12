@@ -223,10 +223,21 @@ public class Game {
 		return currentPegValue;
 	}
 	
+	public static int botPegPoints(ArrayList<Card> pegList, Card c) {
+		pegList.add(c);
+		int points = pegPoints(pegList);
+		pegList.remove(pegList.size()-1);
+		
+		
+		
+		return points;
+		
+	}
 	
 	
 	
 	
+	//
     /**
      * Creates the power-set from a list. Used to find all combination possibilities
      * @param list is the hand which will be sorted into subsets
@@ -580,7 +591,7 @@ public class Game {
 	
 		
 		//
-		
+		//
 	//
 }
 	public static int peg15(ArrayList<Card> list) {

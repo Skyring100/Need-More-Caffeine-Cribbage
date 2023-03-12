@@ -38,6 +38,7 @@ public class Deck {
         //add all discarded cards back in
         cards.addAll(discarded);
         //shuffle the cards
+        //
         shuffle();
     }
 }
