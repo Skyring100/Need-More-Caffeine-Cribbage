@@ -90,7 +90,7 @@ public class GamePanel extends JPanel{
         for (int i = 0; i< 6 ; i++){
             cards[i] = new JLabel();
             cards[i].setSize(100,150);
-            ImageIcon imageIcon1 = new ImageIcon(new ImageIcon("blue.png").getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT)); //100, 100 add your own size
+            ImageIcon imageIcon1 = new ImageIcon(new ImageIcon("Card.images/card.backs/blue.png").getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT)); //100, 100 add your own size
             cards[i].setIcon(imageIcon1);
             if (i < 2) {
                 deckPanel.add(cards[i]);
