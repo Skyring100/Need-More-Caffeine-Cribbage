@@ -175,7 +175,12 @@ public class WelcomePanel extends JPanel implements ActionListener {
     }
     public static void main(String[] args) {
         JFrame frame = new JFrame();
+       frame.setSize(1000,1000);
+        frame.setPreferredSize(new Dimension(HEIGHT,WIDTH));
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(new WelcomePanel());
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    
     }
 }
