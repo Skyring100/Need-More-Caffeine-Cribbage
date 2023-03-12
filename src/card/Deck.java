@@ -27,14 +27,20 @@ public class Deck {
      * @return the drawn card
      */
     public Card draw(){
-        return cards.get(0);
+        //draw the top card
+        Card returnCard = cards.get(0);
+        //remove the card from the deck
+        cards.remove(0);
+        return returnCard;
     }
 
     /**
      * Shuffles the discard pile back into the deck
      */
     public void shuffleDiscard(){
-        Collections.shuffle(discarded);
+        //add all discarded cards back in
         cards.addAll(discarded);
+        //shuffle the cards
+        shuffle();
     }
 }
