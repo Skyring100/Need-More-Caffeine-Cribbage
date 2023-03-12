@@ -34,7 +34,7 @@ public class GamePanel extends JPanel{
         handPanel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
         for (int i = 0; i < user_cards.length; i++){
             user_cards[i] = new JLabel();
-            user_cards[i].setIcon(new ImageIcon("club 2_resized.jpg"));
+            user_cards[i].setIcon(new ImageIcon("club 2_resized.png"));
             user_cards[i].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
