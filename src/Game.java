@@ -580,14 +580,19 @@ public class Game {
 		
 	//
 }
-	public int peg15() {
-		if(currentPegValue == 15) {
+	public int peg15(ArrayList<Card> list) {
+		int counter = 0;
+		for(int i = 0;i<list.size();i++) {
+			counter += list.get(i).getCribCount();
+		}
+		if(counter == 15) {
 			return 2;
 		}
+		
 		return 0;
 	}
 	public int pegPoints(ArrayList<Card> list) {
-		return pegPairs(list) + pegStraight(list) + peg15();
+		return pegPairs(list) + pegStraight(list) + peg15(list);
 	}
 }
 //
