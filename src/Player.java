@@ -79,10 +79,9 @@ protected ArrayList<Card> pegHand;
 	 * Reset the pegging hand. This should be done everytime a pegging round starts
 	 */
 	public void readyPegging(){
-		int i = 0;
+		pegHand.clear();
 		for(Card c : hand){
-			pegHand.set(i,c);
-			i++;
+			pegHand.add(c);
 		}
 	}
 }
