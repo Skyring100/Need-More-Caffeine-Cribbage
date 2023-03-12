@@ -102,6 +102,9 @@ public class Game {
 				currentPlayer = currentDealer;
 				
 			}
+			System.out.println("Pone cards: "+currentPone.getHand());
+			System.out.println("Dealer Cards: "+currentDealer.getHand());
+
 			//checks if the player has cards and is able to play a card
 			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.checkAllCard(this)) {
 
@@ -123,7 +126,7 @@ public class Game {
 					currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));// the card for this method will need to be changed to the card selected
 					
 				}
-				
+				System.out.println("Peg List:"+currentPegList);
 				
 				currentPlayer.addScore(pegPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
 				if(checkWinner()!= null) {
