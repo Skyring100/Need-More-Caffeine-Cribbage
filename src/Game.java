@@ -102,6 +102,9 @@ public class Game {
 				currentPlayer = currentDealer;
 				
 			}
+			System.out.println("Pone cards: "+currentPone.getHand());
+			System.out.println("Dealer Cards: "+currentDealer.getHand());
+
 			//checks if the player has cards and is able to play a card
 			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.checkAllCard(this)) {
 
@@ -123,7 +126,7 @@ public class Game {
 					currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));// the card for this method will need to be changed to the card selected
 					
 				}
-				
+				System.out.println("Peg List:"+currentPegList);
 				
 				currentPlayer.addScore(pegPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
 				if(checkWinner()!= null) {
@@ -492,10 +495,13 @@ public class Game {
 
 	/**
 	 * The for loops in the method assign integer values to an arrayList, which allows them to be checked
-	 * @param list the current peglist which will be checked if there is currently a straight in the peglist
+	 * @param pegList the current peglist which will be checked if there is currently a straight in the peglist
 	 * @return the value of the straight, or 0 if there is no straight
 	 */
-	public static int pegStraight(ArrayList<Card> list) {
+	public static int pegStraight(ArrayList<Card> pegList) {
+		//create a copy of the arraylist so we do not modify the original
+		ArrayList<Card> list = new ArrayList<>();
+		Collections.copy(pegList,list);
 		if(list.size() == 8) { // a straight of 8 cannot exist
 			list.remove(0);
 		}
@@ -556,11 +562,13 @@ public class Game {
 	}
 	/**
 	 * 
-	 * @param list the current peglist which will be checked for pairs in pegging
+	 * @param pegList the current peglist which will be checked for pairs in pegging
 	 * @return the value of points for pairs
 	 */
-	public static int pegPairs(ArrayList<Card> list) {
-		
+	public static int pegPairs(ArrayList<Card> pegList) {
+		//create a copy of the arraylist so we do not modify the original
+		ArrayList<Card> list = new ArrayList<>();
+		Collections.copy(pegList,list);
 		if(list.size() >= 5) {
 			for(int i = list.size();i>4;i++) {
 				
@@ -571,8 +579,7 @@ public class Game {
 		if(list.size() == 4) {
 			if(list.get(list.size()-1).getValue() == list.get(list.size()-2).getValue() && list.get(list.size()-1).getValue() == list.get(list.size()-3).getValue() && list.get(list.size()-1).getValue() == list.get(list.size()-4).getValue()  ) {
 				return 12;
-		}
-			
+			}
 		}
 			list.remove(0);
 			if(list.size() == 3) {
@@ -606,10 +613,7 @@ public class Game {
 		return 0;
 	}
 	public static int pegPoints(ArrayList<Card> list) {
-		ArrayList<Card> pegList = new ArrayList<>();
-		Collections.copy(pegList,list);
-		
-		return pegPairs(pegList) + pegStraight(pegList) + peg15(pegList);
+		return peg15(list) + pegPairs(list) + pegStraight(list);
 	}
 }
 //
