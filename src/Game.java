@@ -558,6 +558,7 @@ public class Game {
 	 * @return the value of points for pairs
 	 */
 	public static int pegPairs(ArrayList<Card> list) {
+		
 		if(list.size() >= 5) {
 			for(int i = list.size();i>4;i++) {
 				
@@ -603,7 +604,8 @@ public class Game {
 		return 0;
 	}
 	public static int pegPoints(ArrayList<Card> list) {
-		return pegPairs(list) + pegStraight(list) + peg15(list);
+		ArrayList<Card> pegList = new ArrayList<>();
+		return pegPairs(pegList) + pegStraight(pegList) + peg15(pegList);
 	}
 }
 //
