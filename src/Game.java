@@ -35,6 +35,11 @@ public class Game {
 		//this is an EXTREMELY compact way of getting a random dealer
 		//this creates an array of the players and uses a random number generator to choose an index from that list
 		currentDealer = new Player[]{player1,player2}[new Random().nextInt(0,2)];
+		if(currentDealer == player1){
+			currentPone = player2;
+		}else{
+			currentPone = player1;
+		}
 		deck = new Deck();
 		javax.swing.SwingUtilities.invokeLater(()-> gui = new GUI());
 		run();
@@ -215,10 +220,21 @@ public class Game {
 		return currentPegValue;
 	}
 	
+	public static int botPegPoints(ArrayList<Card> pegList, Card c) {
+		pegList.add(c);
+		int points = pegPoints(pegList);
+		pegList.remove(pegList.size()-1);
+		
+		
+		
+		return points;
+		
+	}
 	
 	
 	
 	
+	//
     /**
      * Creates the power-set from a list. Used to find all combination possibilities
      * @param list is the hand which will be sorted into subsets
@@ -477,7 +493,7 @@ public class Game {
 	 * @param list the current peglist which will be checked if there is currently a straight in the peglist
 	 * @return the value of the straight, or 0 if there is no straight
 	 */
-	public int pegStraight(ArrayList<Card> list) {
+	public static int pegStraight(ArrayList<Card> list) {
 		if(list.size() == 8) { // a straight of 8 cannot exist
 			list.remove(0);
 		}
@@ -541,7 +557,7 @@ public class Game {
 	 * @param list the current peglist which will be checked for pairs in pegging
 	 * @return the value of points for pairs
 	 */
-	public int pegPairs(ArrayList<Card> list) {
+	public static int pegPairs(ArrayList<Card> list) {
 		if(list.size() >= 5) {
 			for(int i = list.size();i>4;i++) {
 				
@@ -572,17 +588,22 @@ public class Game {
 	
 		
 		//
-		
+		//
 	//
 }
-	public int peg15() {
-		if(currentPegValue == 15) {
+	public static int peg15(ArrayList<Card> list) {
+		int counter = 0;
+		for(int i = 0;i<list.size();i++) {
+			counter += list.get(i).getCribCount();
+		}
+		if(counter == 15) {
 			return 2;
 		}
+		
 		return 0;
 	}
-	public int pegPoints(ArrayList<Card> list) {
-		return pegPairs(list) + pegStraight(list) + peg15();
+	public static int pegPoints(ArrayList<Card> list) {
+		return pegPairs(list) + pegStraight(list) + peg15(list);
 	}
 }
 //
