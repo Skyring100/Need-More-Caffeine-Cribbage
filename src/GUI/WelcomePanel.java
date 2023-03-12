@@ -21,7 +21,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
     //constructor for rendering the screen layout
     public WelcomePanel() {
         // rendering the image
-        imageIcon = new ImageIcon("jack-hamilton-9SewS6lowEU-unsplash.jpg");
+        imageIcon = new ImageIcon("Need-More-Caffeine-Cribbage\\jack-hamilton-9SewS6lowEU-unsplash.jpg");
         backgroundImage = imageIcon.getImage().getScaledInstance(width,height,Image.SCALE_AREA_AVERAGING);
         imageIcon = new ImageIcon(backgroundImage);
         layeredPane = new JLayeredPane(); // initializing layerPane
