@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Deck {
     private ArrayList<Card> discarded;
-    private ArrayList<Card> cards = new ArrayList<Card>(52);
+    private ArrayList<Card> cards = new ArrayList<>(52);
     public Deck() {
         for (Suit suit : Suit.values()) {
             for (Rank rank : Rank.values()) {
