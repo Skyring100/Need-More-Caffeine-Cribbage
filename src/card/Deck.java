@@ -27,10 +27,7 @@ public class Deck {
      * @return the drawn card
      */
     public Card draw(){
-        Random random = new Random(0);
-        int randomNumber = random.nextInt(52 - 1 + 1) + 1;
-        cards.remove(randomNumber);
-        return cards.get(randomNumber);
+        return cards.get(0);
     }
 
     /**
@@ -38,5 +35,6 @@ public class Deck {
      */
     public void shuffleDiscard(){
         Collections.shuffle(discarded);
+        cards.addAll(discarded);
     }
 }
