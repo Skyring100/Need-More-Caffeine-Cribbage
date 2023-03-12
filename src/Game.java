@@ -234,7 +234,7 @@ public class Game {
 	
 	
 	
-	
+	//
     /**
      * Creates the power-set from a list. Used to find all combination possibilities
      * @param list is the hand which will be sorted into subsets
