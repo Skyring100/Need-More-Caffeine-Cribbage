@@ -1,5 +1,8 @@
 package src.GUI;
 
+import src.Game;
+import src.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -14,7 +17,7 @@ public class GamePanel extends JPanel{
     public GamePanel(){
         setBackground(Color.GRAY); // setting the background
         setLayout(new BorderLayout()); // setting the layout
-        create_user_panel();
+//        create_user_panel(,game);
         create_crib_panel();
         create_pegging_panel();
         create_bot_panel();
@@ -28,13 +31,14 @@ public class GamePanel extends JPanel{
         add(tablePanel, BorderLayout.CENTER);
         add(bot_panel,BorderLayout.NORTH);
     }
-    private void create_user_panel(){
+    private void create_user_panel(Player p, Game g){
         handPanel = new JPanel(); // creating a hand panel
         handPanel.setLayout(new FlowLayout()); // setting the layout of the hand panel
-        handPanel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
+//        handPanel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
         for (int i = 0; i < user_cards.length; i++){
             user_cards[i] = new JLabel();
-            user_cards[i].setIcon(new ImageIcon("club 2_resized.jpg"));
+            user_cards[i].setIcon(new ImageIcon("club 2_resized.png"));
+            if (p.checkAllCard(g)){
             user_cards[i].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -50,28 +54,31 @@ public class GamePanel extends JPanel{
                         tableCount++;
                         tablePanel.add(new JLabel(new ImageIcon("club 3_resized (1).jpg")));
                         bot_panel.remove(0);
-                        move_component(x,y,tableCount,tablePanel);
-                        tablePanel.add(label);
-                        move_component(x,y,tableCount,tablePanel);
+                        move_component(x,y,tablePanel);
+                        tablePanel.add(label,FlowLayout.CENTER);
+                        move_component(x,y,tablePanel);
                         validate();
                         repaint();
                     }
                 }
-            });
+            });}
+            else {
+                this.setToolTipText("Sorry the count is more than 31");
+            }
             handPanel.add(user_cards[i]);
         }
     }
     private void create_bot_panel(){
         bot_panel = new JPanel();
-        bot_panel.setBackground(Color.ORANGE);
+//        bot_panel.setBackground(Color.ORANGE);
         bot_panel.setLayout(new FlowLayout());
     }
     private void create_pegging_panel(){
         tablePanel = new JPanel();
-        tablePanel.setBackground(Color.BLACK);
+//        tablePanel.setBackground(Color.BLACK);
     }
-    private void move_component(int locationX,int locationY, int count, JPanel panel){
-        for (int i = 0; i < count; i++) {
+    private void move_component(int locationX,int locationY, JPanel panel){
+        for (int i = 0; i < panel.getComponentCount(); i++) {
             Component comp = panel.getComponent(i);
             comp.setLocation(locationX, locationY);
             comp.setSize(comp.getWidth(), comp.getHeight());
@@ -82,9 +89,10 @@ public class GamePanel extends JPanel{
     }
     private void create_crib_panel(){
         deckPanel = new JPanel();
-        deckPanel.setBackground(Color.BLUE);
-        deckPanel.setSize(200,1000);
-        deckPanel.setLayout(new GridLayout(2,2));
+//        deckPanel.setBackground(Color.BLUE);
+        deckPanel.setSize(200,400);
+        deckPanel.setLayout(new FlowLayout());
+
     }
     private void bot_initialization(JLabel[] cards){
         for (int i = 0; i< 6 ; i++){
@@ -94,7 +102,7 @@ public class GamePanel extends JPanel{
             cards[i].setIcon(imageIcon1);
             if (i < 2) {
                 deckPanel.add(cards[i]);
-                move_component(0,0,deckCount,deckPanel);
+                move_component(0,0,deckPanel);
             }else{
                 bot_panel.add(cards[i]);
             }

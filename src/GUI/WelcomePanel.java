@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class WelcomePanel extends JPanel implements ActionListener {
     private int height = 1000;
-    private int width = 1000;
+    private int width = 1500;
     // initializing all variables
     private JLabel imageLabel, text_field_label, title_label, team_name_title, border_label;
     private ImageIcon imageIcon;
@@ -175,7 +175,10 @@ public class WelcomePanel extends JPanel implements ActionListener {
     }
     public static void main(String[] args) {
         JFrame frame = new JFrame();
+        frame.setSize(1500,1000);
         frame.add(new WelcomePanel());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }
