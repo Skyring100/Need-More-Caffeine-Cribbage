@@ -6,10 +6,8 @@ public class Deck {
     private ArrayList<Card> discarded;
     private ArrayList<Card> cards = new ArrayList<>(52);
     public Deck() {
-        for (Suit suit : Suit.values()) {
-            for (Rank rank : Rank.values()) {
-                cards.add(new Card(rank, suit));
-            }
+        for(int i = 1; i <= 52; i++){
+            cards.add(new Card(i));
         }
         shuffle();
     }
