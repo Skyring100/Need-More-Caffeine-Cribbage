@@ -7,7 +7,6 @@ public class Deck {
     private ArrayList<Card> discarded;
     private ArrayList<Card> cards = new ArrayList<Card>(52);
     public Deck() {
-        int index = 0;
         for (Suit suit : Suit.values()) {
             for (Rank rank : Rank.values()) {
                 cards.add(new Card(rank, suit));
