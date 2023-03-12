@@ -16,6 +16,8 @@ public class myLabel extends JLabel{
     ImageIcon imageIcon1;
 
     myLabel(ImageIcon imageIcon){
+        //Image newImage = yourImage.getScaledInstance(newWidth, newHeight, Image.SCALE_DEFAULT);
+        //ImageIcon imageIcon1 = new ImageIcon(new ImageIcon("add location url").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)); //100, 100 add your own size
         imageIcon1 = imageIcon;
         this.setIcon(imageIcon1);
         this.setSize(100,150);
