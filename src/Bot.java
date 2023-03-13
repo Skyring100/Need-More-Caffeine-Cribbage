@@ -1,14 +1,13 @@
 package src;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 
 import src.card.Card;
 
 public class Bot extends Player{
 	public Bot() {
-		super();
+		super("Bot");
 	}
 
 	
@@ -16,22 +15,20 @@ public class Bot extends Player{
 	 * this will find the best card to peg whenever it is the bots turn to play a card
 	 * 
 	 */
-	public Card pegAlgorithm(ArrayList<Card> pegList,int pegScore){
+	public Card pegAlgorithm(ArrayList pegList,int pegScore){
+		/*
 		ArrayList<Card> temp = new ArrayList<>();
 		Card c1;
 		Card c2;
 		Card c3;
 		Card c4;
 		Card returnedCard = null;
-
-		//THIS CAN RETURN AN ARRAY OF SIZE 0, THEREFORE BEING NULL
-		for (Card card : pegHand) {
-			//find all possible cards that could be played without going overboard
-			if (card.getCribCount() <= 31 - pegScore) {
-				temp.add(card);
+		for(int i = 0;i<pegHand.size();i++) {
+			if(pegHand.get(i).getCribCount() <= 31-pegScore) {
+				temp.add(pegHand.get(i));	
 			}
 		}
-		//if there is only one option, just play that
+		
 		if(temp.size() == 1) {
 			returnedCard = temp.get(0);
 		}
@@ -82,11 +79,13 @@ public class Bot extends Player{
 				returnedCard = c4;
 			}
 			
-			
+		
 		}
-		return returnedCard;
+		*/
+		return (Card) pegList.get(0);
+		//////
 	}
-	/**
+	/*
 	 * this method will find the best card to discard in the discard phase
 	 */
 	public Card discardAlgorithm(){
