@@ -4,18 +4,23 @@ import src.card.Card;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class Player {
-protected final String name; // name of the player
-protected int score;
-protected ArrayList<Card> hand;
-protected ArrayList<Card> pegHand;
+	private static String[] randomName = new String[]{"Joe","Wizard","Bonk","Snake","Mad Lad","USB Lad","Mastermind","Fire","Ice"};
+	protected String name; // name of the player
+	protected int score;
+	protected ArrayList<Card> hand;
+	protected ArrayList<Card> pegHand;
 	public Player(String name) {
 		this.name = name;
 		this.score = 0;
 		hand = new ArrayList<>();
 		pegHand = new ArrayList<>();
+	}
+	public Player(){
+		this(randomName[new Random().nextInt(0,randomName.length)]);
 	}
 	@Override
 	public String toString() {
@@ -70,7 +75,13 @@ protected ArrayList<Card> pegHand;
 		hand.add(c);
 	}
 	public void pegCard(Game game, Card c) {
-		pegHand.remove(pegHand.indexOf(c));
+		int index = pegHand.indexOf(c);
+		if(index == -1){
+			System.out.println("Error, card not found");
+			System.out.println("Card to be pegged: "+c);
+			System.out.println(this+"'s hand: "+hand);
+		}
+		pegHand.remove(index);
 		game.addToPeglist(c);
 		game.addToPegValue(c);
 	}

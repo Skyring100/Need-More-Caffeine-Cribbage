@@ -52,16 +52,25 @@ public class Game {
 		this(p, new Bot());
 	}
 	private void run(){
+		System.out.println("New Round!\n");
 		dealPlayers();
+		System.out.println("Dealing");
+		System.out.println(player1+": "+player1.getHand());
+		System.out.println(player2+": "+player2.getHand());
 		discardPhase();
+		System.out.println("Discarding");
+		System.out.println(player1+": "+player1.getHand());
+		System.out.println(player2+": "+player2.getHand());
 		peg();
+		System.out.println(player1+": "+player1.getScore());
+		System.out.println(player2+": "+player2.getScore());
 		winner = checkWinner();
-		if(winner == null){
+		if(winner != null){
+			System.out.println(winner+" is the winner");
+		}else {
 			switchDealer();
 			deck.shuffleDiscard();
 			run();
-		}else{
-			//somebody won!
 		}
 	}
 
@@ -103,8 +112,9 @@ public class Game {
 				currentPlayer = currentDealer;
 				
 			}
-			System.out.println("Current player's cards: "+currentPlayer.getPegHand());
 
+			System.out.println(currentPlayer+"'s cards: "+currentPlayer.getPegHand());
+			System.out.println("Peg List:"+currentPegList);
 
 			//checks if the player has cards and is able to play a card
 			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.checkAllCard(this)) {
@@ -127,16 +137,18 @@ public class Game {
 					currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));// the card for this method will need to be changed to the card selected
 					
 				}
-				System.out.println("Peg List:"+currentPegList);
 				
 				currentPlayer.addScore(pegPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
 				if(checkWinner()!= null) {
 					break;
 				}
 			}
+			System.out.println("Peg List: "+currentPegList);
+			System.out.println(currentPlayer+"'s cards: "+currentPlayer.getPegHand()+"\n");
 			counter++;
 
 			if(!currentDealer.checkAllCard(this) && !currentPone.checkAllCard(this)) { // checking to see if both players cant play a card
+				System.out.println("No possible plays from either player, new peg list");
 				if(currentPegValue == 31) {
 					currentPlayer.addScore(2);
 				}else {
@@ -382,7 +394,7 @@ public class Game {
     }
     
     
-    private static ArrayList getPairs(ArrayList<Card> list) {
+    private static ArrayList<ArrayList<Card>> getPairs(ArrayList<Card> list) {
     	ArrayList<ArrayList<Card>> sets = makeSubset(list);
     	ArrayList<ArrayList<Card>> allpoints = new ArrayList<>();
     	int count = 0;
@@ -402,7 +414,7 @@ public class Game {
      * @param list the hand which will be checked for a flush
      * @return the number of points for the flush, either 4, 5, or 0
      */
-    private static ArrayList getFlush(ArrayList<Card> list) {
+    private static ArrayList<ArrayList<Card>> getFlush(ArrayList<Card> list) {
 		//might want to review this: might be some edge cases missed and could be cleaner
 		//if all cards are the same
     	ArrayList<ArrayList<Card>> allpoints = new ArrayList<>();
@@ -436,7 +448,7 @@ public class Game {
      * @param list the hand which will be checked for possible 15s
      * @return the number of 15s which are in the hand
      */
-    private static ArrayList get15s(ArrayList<Card> list) {
+    private static ArrayList<ArrayList<Card>> get15s(ArrayList<Card> list) {
     	ArrayList<ArrayList<Card>> sets = makeSubset(list);
     	ArrayList<ArrayList<Card>> allpoints = new ArrayList<>();
 		int count = 0;
@@ -461,7 +473,7 @@ public class Game {
 	 * @param list hand which will be checked for cards part of scoring straights
 	 * @return the cards part of scoring in straight
 	 */
-    public static ArrayList getStraight(ArrayList<Card> list) {
+    public static ArrayList<ArrayList<Card>> getStraight(ArrayList<Card> list) {
 		int total = 0;
 		ArrayList<ArrayList<Card>> sets = makeSubset(list);
     	ArrayList<ArrayList<Card>> allpoints = new ArrayList<>();
@@ -629,6 +641,9 @@ public class Game {
 		
 		return 0;
 	}
+	public static int pegPoints(ArrayList<Card> list) {
+		return peg15(list) + pegPairs(list) + pegStraight(list);
+	}
 	private static ArrayList<Card> copyCards(ArrayList<Card> src){
 		ArrayList<Card> list = new ArrayList<>();
 		for(Card c : src){
@@ -636,8 +651,16 @@ public class Game {
 		}
 		return list;
 	}
-	public static int pegPoints(ArrayList<Card> list) {
-		return peg15(list) + pegPairs(list) + pegStraight(list);
+	public static boolean canPeg(Player p, int pegScore){
+		ArrayList<Card> pegHand = p.getPegHand();
+		ArrayList<Card> temp = new ArrayList<>();
+		for (Card card : pegHand) {
+			//find all possible cards that could be played without going overboard
+			if (card.getCribCount() <= 31 - pegScore) {
+				temp.add(card);
+			}
+		}
+		return temp.size() != 0;
 	}
 }
 //

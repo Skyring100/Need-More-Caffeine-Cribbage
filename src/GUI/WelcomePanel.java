@@ -79,9 +79,9 @@ public class WelcomePanel extends JPanel implements ActionListener {
 
         //-----------------------------------------Label5---------------------------------------------------------------
         new_game_label.setText("Press Start for New Game"); // creating a text box and assigning it to a default text
-        new_game_label.setBounds(400,300,550,300); // setting the parameters
-        new_game_label.setForeground(Color.RED); // setting the text color
-        new_game_label.setFont(new Font("Arial Bold",Font.BOLD,20)); //customizing font
+        new_game_label.setBounds(400,300,550,250); // setting the parameters
+        new_game_label.setForeground(new Color(0x2538c3)); // setting the text color
+        new_game_label.setFont(new Font("Arial Bold",Font.BOLD,30)); //customizing font
         new_game_label.setHorizontalAlignment(JLabel.CENTER); // setting horizontal restriction
         new_game_label.setVerticalAlignment(JLabel.CENTER);// setting vertical restriction
         //-----------------------------------------Text field-----------------------------------------------------------
