@@ -588,7 +588,7 @@ public class Game {
 		}
 		// will remove the first index of the arraylist until there are 4 cards remaining
 		if(list.size() >= 5) {
-			for(int i = list.size();i>4;i++) {
+			for(int i = list.size();i>4;i--) {
 				
 				list.remove(0);
 				
