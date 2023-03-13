@@ -81,7 +81,7 @@ public class Bot extends Player{
 			
 		}
 		return returnedCard;
-		//
+		////
 	}
 	/*
 	 * this method will find the best card to discard in the discard phase
