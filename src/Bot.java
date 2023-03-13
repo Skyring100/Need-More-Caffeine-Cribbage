@@ -23,12 +23,15 @@ public class Bot extends Player{
 		Card c3;
 		Card c4;
 		Card returnedCard = null;
-		for(int i = 0;i<pegHand.size();i++) {
-			if(pegHand.get(i).getCribCount() <= 31-pegScore) {
-				temp.add(pegHand.get(i));	
+
+		//THIS CAN RETURN AN ARRAY OF SIZE 0, THEREFORE BEING NULL
+		for (Card card : pegHand) {
+			//find all possible cards that could be played without going overboard
+			if (card.getCribCount() <= 31 - pegScore) {
+				temp.add(card);
 			}
 		}
-		
+		//if there is only one option, just play that
 		if(temp.size() == 1) {
 			returnedCard = temp.get(0);
 		}
@@ -82,9 +85,8 @@ public class Bot extends Player{
 			
 		}
 		return returnedCard;
-		////
 	}
-	/*
+	/**
 	 * this method will find the best card to discard in the discard phase
 	 */
 	public Card discardAlgorithm(){

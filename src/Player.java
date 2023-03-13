@@ -75,7 +75,13 @@ public class Player {
 		hand.add(c);
 	}
 	public void pegCard(Game game, Card c) {
-		pegHand.remove(pegHand.indexOf(c));
+		int index = pegHand.indexOf(c);
+		if(index == -1){
+			System.out.println("Error, card not found");
+			System.out.println("Card to be pegged: "+c);
+			System.out.println(this+"'s hand: "+hand);
+		}
+		pegHand.remove(index);
 		game.addToPeglist(c);
 		game.addToPegValue(c);
 	}
