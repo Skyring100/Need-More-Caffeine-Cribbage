@@ -53,16 +53,25 @@ public class Game {
 	}
 	private void run(){
 		dealPlayers();
+		System.out.println("Dealing");
+		System.out.println(player1+": "+player1.getHand());
+		System.out.println(player2+": "+player2.getHand());
 		discardPhase();
+		System.out.println("Discarding");
+		System.out.println(player1+": "+player1.getHand());
+		System.out.println(player2+": "+player2.getHand());
 		peg();
+		System.out.println(player1+": "+player1.getScore());
+		System.out.println(player2+": "+player2.getScore());
 		winner = checkWinner();
 		if(winner == null){
 			switchDealer();
 			deck.shuffleDiscard();
 			run();
-		}else{
-			//somebody won!
 		}
+		//if run isn't called again, the ending code will end up here
+		//somebody won!
+		System.out.println(winner+" is the winner");
 	}
 
 	private void discardPhase() {
@@ -103,7 +112,8 @@ public class Game {
 				currentPlayer = currentDealer;
 				
 			}
-			System.out.println("Current player's cards: "+currentPlayer.getPegHand());
+
+			System.out.println(currentPlayer+"'s cards: "+currentPlayer.getPegHand());
 
 
 			//checks if the player has cards and is able to play a card
@@ -127,16 +137,18 @@ public class Game {
 					currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));// the card for this method will need to be changed to the card selected
 					
 				}
-				System.out.println("Peg List:"+currentPegList);
 				
 				currentPlayer.addScore(pegPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
 				if(checkWinner()!= null) {
 					break;
 				}
 			}
+			System.out.println("Peg List:"+currentPegList);
+			System.out.println(currentPlayer+"'s cards: "+currentPlayer.getPegHand()+"\n");
 			counter++;
 
 			if(!currentDealer.checkAllCard(this) && !currentPone.checkAllCard(this)) { // checking to see if both players cant play a card
+				System.out.println("No possible plays from either player, new peg list");
 				if(currentPegValue == 31) {
 					currentPlayer.addScore(2);
 				}else {

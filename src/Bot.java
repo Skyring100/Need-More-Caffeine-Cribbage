@@ -1,13 +1,14 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 import src.card.Card;
 
 public class Bot extends Player{
 	public Bot() {
-		super("Bot");
+		super();
 	}
 
 	
