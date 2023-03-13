@@ -110,7 +110,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
         this.add(layeredPane); // adding layered pane to the Frame
 
         // --------------------------------------------menu bar --------------------------------------------------------
-        JMenuBar menuBar = new JMenuBar(); // creating a menu bar
+        JMenuBar menuBar = new JMenuBar(); // creating a menu bar.
         menuBar.setBackground(Color.darkGray);
         menuBar.setBorderPainted(false);
 
