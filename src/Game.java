@@ -52,6 +52,7 @@ public class Game {
 		this(p, new Bot());
 	}
 	private void run(){
+		System.out.println("New Round!\n");
 		dealPlayers();
 		System.out.println("Dealing");
 		System.out.println(player1+": "+player1.getHand());
@@ -64,14 +65,13 @@ public class Game {
 		System.out.println(player1+": "+player1.getScore());
 		System.out.println(player2+": "+player2.getScore());
 		winner = checkWinner();
-		if(winner == null){
+		if(winner != null){
+			System.out.println(winner+" is the winner");
+		}else {
 			switchDealer();
 			deck.shuffleDiscard();
 			run();
 		}
-		//if run isn't called again, the ending code will end up here
-		//somebody won!
-		System.out.println(winner+" is the winner");
 	}
 
 	private void discardPhase() {
@@ -114,7 +114,7 @@ public class Game {
 			}
 
 			System.out.println(currentPlayer+"'s cards: "+currentPlayer.getPegHand());
-
+			System.out.println("Peg List:"+currentPegList);
 
 			//checks if the player has cards and is able to play a card
 			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.checkAllCard(this)) {
@@ -143,7 +143,7 @@ public class Game {
 					break;
 				}
 			}
-			System.out.println("Peg List:"+currentPegList);
+			System.out.println("Peg List: "+currentPegList);
 			System.out.println(currentPlayer+"'s cards: "+currentPlayer.getPegHand()+"\n");
 			counter++;
 
