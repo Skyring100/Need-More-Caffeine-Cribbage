@@ -9,10 +9,10 @@ public class WelcomePanel extends JPanel implements ActionListener {
     private int height = 1000;
     private int width = 1500;
     // initializing all variables
-    private JLabel imageLabel, text_field_label, title_label, team_name_title, border_label;
+    private JLabel imageLabel, text_field_label, title_label, team_name_title, border_label, new_game_label;
     private ImageIcon imageIcon;
     private Image backgroundImage;
-    private JButton submitButton;
+    private JButton startButton;
     private TextField textField;
     public static String playerName;
     private JLayeredPane layeredPane;
@@ -30,8 +30,9 @@ public class WelcomePanel extends JPanel implements ActionListener {
         title_label = new JLabel(); // initializing label2
         team_name_title = new JLabel();  // initializing label3
         border_label = new JLabel();  // initializing label4
-        submitButton = new JButton("Submit"); // initializing
-        textField= new TextField();
+        startButton = new JButton("Start"); // initializing
+        textField = new TextField();
+        new_game_label = new JLabel();
 
         // setting the parameters for the frame
         this.setForeground(new Color(0x7f0000));// setting the title of the frame
@@ -74,14 +75,22 @@ public class WelcomePanel extends JPanel implements ActionListener {
         border_label.setHorizontalAlignment(JLabel.CENTER); // setting horizontal restriction
         border_label.setVerticalAlignment(JLabel.TOP);// setting vertical restriction
 
+        //-----------------------------------------Label5---------------------------------------------------------------
+        new_game_label.setText("Press Start for New Game"); // creating a text box and assigning it to a default text
+        new_game_label.setBounds(400,300,550,300); // setting the parameters
+        new_game_label.setForeground(Color.RED); // setting the text color
+        new_game_label.setFont(new Font("Arial Bold",Font.BOLD,20)); //customizing font
+        new_game_label.setHorizontalAlignment(JLabel.CENTER); // setting horizontal restriction
+        new_game_label.setVerticalAlignment(JLabel.CENTER);// setting vertical restriction
         //-----------------------------------------Text field-----------------------------------------------------------
-            // Creating a text field
+           /* // Creating a text field
         textField.setText("USERNAME :-    Player 1"); // creating a text box and assigning it to a default text
         textField.setBounds(100,100,350,30); // setting the parameters
         textField.setFont(new Font("MV Boil",Font.BOLD,20)); //customizing font
         textField.setForeground(Color.BLACK); // setting the text color
         textField.setBackground((Color.lightGray)); // setting the background color
         textField.setCursor(new Cursor(Cursor.TEXT_CURSOR)); // setting a cursor for the text bar
+            */
 
         //---------------------------------label1----------------------------------------------------------------------
 
@@ -90,21 +99,22 @@ public class WelcomePanel extends JPanel implements ActionListener {
 
         //-----------------------------------------button---------------------------------------------------------------
 
-        submitButton.addActionListener(this); // adding an action listener to a button
-        submitButton.setBounds(225,200,100,40); // setting its parameter
-        submitButton.setBackground(Color.LIGHT_GRAY); // setting its color
-        submitButton.setFont(new Font("MV Boil",Font.ITALIC,18)); // customizing font of the button text
-        submitButton.setForeground(Color.BLACK); // setting a color to the text
-        submitButton.setBackground(new Color(0x7F0000)); // setting a color to the text
+        startButton.addActionListener(this); // adding an action listener to a button
+        startButton.setBounds(225,200,100,40); // setting its parameter
+        startButton.setBackground(Color.LIGHT_GRAY); // setting its color
+        startButton.setFont(new Font("MV Boil",Font.ITALIC,18)); // customizing font of the button text
+        startButton.setForeground(Color.BLACK); // setting a color to the text
+        startButton.setBackground(new Color(0x7F0000)); // setting a color to the text
 
 
 
-        text_field_label.add(submitButton); // adding a button to the label
+        text_field_label.add(startButton); // adding a button to the label
 
         // adding all layers to the layered pane
         layeredPane.add(border_label,BorderLayout.CENTER);
         layeredPane.add(team_name_title,BorderLayout.CENTER);
         layeredPane.add(title_label,BorderLayout.CENTER);
+        layeredPane.add(new_game_label, BorderLayout.CENTER);
         layeredPane.add(text_field_label,BorderLayout.CENTER);
         layeredPane.add(imageLabel,JLayeredPane.DEFAULT_LAYER);
         this.add(layeredPane); // adding layered pane to the Frame
@@ -120,7 +130,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
         JMenu infoMenu = new JMenu("Information"); // setting info menu which shows information
         helpMenu.setForeground(new Color(0x7f0000));
         helpMenu.addActionListener(e -> {
-            submitButton.setToolTipText("submit to start the game");
+            startButton.setToolTipText("submit to start the game");
             text_field_label.setToolTipText("enter your name to give the player identity");
         });
         infoMenu.setForeground(new Color(0x7f0000));
@@ -154,8 +164,8 @@ public class WelcomePanel extends JPanel implements ActionListener {
         playerName = textField.getText();
         System.out.println(playerName); // printing it out in the terminal
         if (!playerName.strip().equals("")) {
-            submitButton.setEnabled(false); // setting enable option to false
-            submitButton.setBackground(Color.lightGray); // changing the color state of the button
+            startButton.setEnabled(false); // setting enable option to false
+            startButton.setBackground(Color.lightGray); // changing the color state of the button
 
         }
 

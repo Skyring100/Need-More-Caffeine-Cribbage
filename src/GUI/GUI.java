@@ -10,8 +10,8 @@ import javax.swing.*;
  * Current version
  */
 public class GUI{
-    private final int START_WIDTH = 1000;
-    private final int START_HEIGHT = 1500;
+    private final int START_WIDTH = 1500;
+    private final int START_HEIGHT = 1000;
     private JPanel handPanel, deckPanel, tablePanel;
     private JButton[] cardButtons;
     private JLabel bot_Cards[];
