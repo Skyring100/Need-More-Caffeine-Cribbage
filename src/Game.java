@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import javax.print.attribute.Size2DSyntax;
+
 /**
  * This holds all necessary rules and functionality to play a game of cribbage
  */
@@ -569,6 +571,11 @@ public class Game {
 		//create a copy of the arraylist so we do not modify the original
 		ArrayList<Card> list = new ArrayList<>();
 		Collections.copy(pegList,list);
+		// if the peglist is of size 1, it will return 0 as there are no pissible pair combinatiosn
+		if(list.size() == 1){
+			return 0;
+		}
+		// will remove the first index of the arraylist until there are 4 cards remaining
 		if(list.size() >= 5) {
 			for(int i = list.size();i>4;i++) {
 				
@@ -576,17 +583,20 @@ public class Game {
 				
 			}
 		}
+		// will check if it is of length 4, then will see if all the values are the same, if they are, it will return 12
 		if(list.size() == 4) {
 			if(list.get(list.size()-1).getValue() == list.get(list.size()-2).getValue() && list.get(list.size()-1).getValue() == list.get(list.size()-3).getValue() && list.get(list.size()-1).getValue() == list.get(list.size()-4).getValue()  ) {
 				return 12;
 			}
 		}
+		// will remove the first index to reduce the number of cards to 3, then will check if all three cards are the same value
 			list.remove(0);
 			if(list.size() == 3) {
 				if(list.get(list.size()-1).getValue() == list.get(list.size()-2).getValue() && list.get(list.size()-1).getValue() == list.get(list.size()-3).getValue() ) {
 					return 6;
 				}
 			}
+			// will remove the first index to reduce the number of cards to 2, then will check if the 2 cards are the same value
 			list.remove(0);
 		
 		if(list.size() == 2) {
