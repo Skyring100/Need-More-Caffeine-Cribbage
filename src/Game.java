@@ -569,7 +569,7 @@ public class Game {
 		
 	}
 	/**
-	 * 
+	 * l
 	 * @param pegList the current peglist which will be checked for pairs in pegging
 	 * @return the value of points for pairs
 	 */
