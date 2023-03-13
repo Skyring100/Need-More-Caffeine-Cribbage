@@ -120,15 +120,13 @@ public class WelcomePanel extends JPanel implements ActionListener {
         JMenu infoMenu = new JMenu("Information"); // setting info menu which shows information
         helpMenu.setForeground(new Color(0x7f0000));
         infoMenu.setForeground(new Color(0x7f0000));
-
         JMenuItem creator_info = new JMenuItem("Creator's INFO"); // give the information about the creator of the game
         JMenuItem Game_info = new JMenuItem("Game's information");//  give information about game (history)
         infoMenu.add(creator_info);
         infoMenu.add(Game_info);
-
         menuBar.add(infoMenu);
         menuBar.add(helpMenu);
-        //this.setJMenuBar(menuBar);
+        this.add(menuBar, BorderLayout.NORTH);
 
 
 //        layeredPane.setLayout(new BorderLayout());
