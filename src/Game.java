@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import javax.print.attribute.Size2DSyntax;
-
 /**
  * This holds all necessary rules and functionality to play a game of cribbage
  */
