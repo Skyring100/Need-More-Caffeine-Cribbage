@@ -9,8 +9,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class GamePanel extends JPanel{
-    private int deckCount = 0;
-    private JPanel handPanel, deckPanel, tablePanel, bot_panel;
+    private int cribCount = 0;
+    private JPanel handPanel, cribPanel, tablePanel, bot_panel;
     JLabel[] user_cards = new JLabel[6];
 
     private ImageIcon[] cardImages;
@@ -28,7 +28,7 @@ public class GamePanel extends JPanel{
 
 
         add(handPanel, BorderLayout.SOUTH);
-        add(deckPanel, BorderLayout.EAST);
+        add(cribPanel, BorderLayout.EAST);
         add(tablePanel, BorderLayout.CENTER);
         add(bot_panel,BorderLayout.NORTH);
     }
@@ -44,10 +44,9 @@ public class GamePanel extends JPanel{
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     JLabel label = (JLabel) e.getSource();
-                    if (deckCount < 2) {
-                        deckPanel.remove(label);
-                        deckPanel.add(label);
-                        deckCount++;
+                    if (cribCount < 2) {
+                        cribPanel.add(label);
+                        cribCount++;
                         validate();
                         repaint();
                     } else {
@@ -76,12 +75,12 @@ public class GamePanel extends JPanel{
 //        tablePanel.setBackground(Color.BLACK);
     }
     private void create_crib_panel(){
-        deckPanel = new JPanel();
+        cribPanel = new JPanel();
 //        deckPanel.setBackground(Color.BLUE);
-        deckPanel.setSize(200,400);
-        deckPanel.setLayout(new FlowLayout());
-
+        cribPanel.setSize(200,400);
+        cribPanel.setLayout(new FlowLayout());
     }
+    
     private void bot_initialization(JLabel[] cards){
         for (int i = 0; i< 6 ; i++){
             cards[i] = new JLabel();
@@ -89,7 +88,7 @@ public class GamePanel extends JPanel{
             ImageIcon imageIcon1 = new ImageIcon(new ImageIcon("blue.png").getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT)); //100, 100 add your own size
             cards[i].setIcon(imageIcon1);
             if (i < 2) {
-                deckPanel.add(cards[i]);
+                cribPanel.add(cards[i]);
             }else{
                 bot_panel.add(cards[i]);
             }
