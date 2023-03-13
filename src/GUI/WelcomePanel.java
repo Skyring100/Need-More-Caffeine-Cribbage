@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static src.GUI.GUI.showGame;
+
 
 public class WelcomePanel extends JPanel implements ActionListener {
     private int height = 1000;
@@ -160,15 +162,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // getting players name from the text field
-        playerName = textField.getText();
-        System.out.println(playerName); // printing it out in the terminal
-        if (!playerName.strip().equals("")) {
-            startButton.setEnabled(false); // setting enable option to false
-            startButton.setBackground(Color.lightGray); // changing the color state of the button
-
-        }
-
+        showGame();
     }
 
     /**
