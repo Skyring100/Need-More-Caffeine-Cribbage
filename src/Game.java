@@ -192,7 +192,9 @@ public class Game {
 	public void dealPlayers(){
 		for (int i = 0; i <= 5; i++) {
 			player1.addCard(deck.draw());
+			//do gui card animation
 			player2.addCard(deck.draw());
+			//do gui card animation
 		}
 	}
 	/**
