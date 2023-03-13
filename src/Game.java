@@ -41,7 +41,7 @@ public class Game {
 			currentPone = player1;
 		}
 		deck = new Deck();
-		javax.swing.SwingUtilities.invokeLater(()-> gui = new GUI());
+		//javax.swing.SwingUtilities.invokeLater(()-> gui = new GUI());
 		run();
     }
 	/**
@@ -52,18 +52,16 @@ public class Game {
 		this(p, new Bot());
 	}
 	private void run(){
-		System.out.println("New Round!\n");
+		System.out.println("\nNew Round!\n");
 		dealPlayers();
-		System.out.println("Dealing");
+		System.out.println("\nDealing");
 		System.out.println(player1+": "+player1.getHand());
 		System.out.println(player2+": "+player2.getHand());
 		discardPhase();
-		System.out.println("Discarding");
+		System.out.println("\nDiscarding");
 		System.out.println(player1+": "+player1.getHand());
 		System.out.println(player2+": "+player2.getHand());
 		peg();
-		System.out.println(player1+": "+player1.getScore());
-		System.out.println(player2+": "+player2.getScore());
 		winner = checkWinner();
 		if(winner != null){
 			System.out.println(winner+" is the winner");
@@ -92,11 +90,12 @@ public class Game {
 	}
 
 	private void peg(){
-		System.out.println("Pegging start");
+		System.out.println("\nPegging start");
 		// this is the pegging section, hasn't been tested, however I do believe that it should work
 
 		Player currentPlayer;
-		
+		//clear the crib for a new round
+		crib.clear();
 		//sets the pegging hands of all players. This will be manipulated and checked as pegging occurs
 		currentPone.readyPegging();
 		currentDealer.readyPegging();
@@ -144,7 +143,9 @@ public class Game {
 				}
 			}
 			System.out.println("Peg List: "+currentPegList);
-			System.out.println(currentPlayer+"'s cards: "+currentPlayer.getPegHand()+"\n");
+			System.out.println(currentPlayer+"'s cards: "+currentPlayer.getPegHand());
+			System.out.println(currentPlayer+"'s score "+currentPlayer.getScore());
+			System.out.println();
 			counter++;
 
 			if(!currentDealer.checkAllCard(this) && !currentPone.checkAllCard(this)) { // checking to see if both players can't play a card
@@ -164,11 +165,14 @@ public class Game {
 					
 			}
 		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
-		System.out.println("Done pegging");
+		System.out.println("\nDone pegging");
 		currentPone.addScore(countPoints(currentPone.getHand()));
 		currentPone.addScore(countPoints(crib));
 		currentDealer.addScore(countPoints(currentDealer.getHand()));
-		
+		System.out.printf("Dealer: %s%nPone: %s%n",currentDealer,currentPone);
+		System.out.printf("Crib: %s%n%s: %s%n%s: %s%n",crib,player1,player1.getHand(),player2,player2.getHand());
+		System.out.println(player1+": "+player1.getScore());
+		System.out.println(player2+": "+player2.getScore());
 	
 	}
 	/**
