@@ -583,7 +583,7 @@ public class Game {
 		//create a copy of the arraylist so we do not modify the original
 		ArrayList<Card> list = copyCards(pegList);
 		// if the peglist is of size 1, it will return 0 as there are no pissible pair combinatiosn
-		if(list.size() == 1){
+		if(list.size() == 1 || list.size() == 0){
 			return 0;
 		}
 		// will remove the first index of the arraylist until there are 4 cards remaining
