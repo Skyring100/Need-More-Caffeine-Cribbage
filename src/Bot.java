@@ -80,9 +80,8 @@ public class Bot extends Player{
 			
 			
 		}
-		pegHand.remove(pegHand.indexOf(returnedCard));
 		return returnedCard;
-		//
+		////
 	}
 	/*
 	 * this method will find the best card to discard in the discard phase
