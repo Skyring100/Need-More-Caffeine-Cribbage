@@ -586,14 +586,14 @@ public class Game {
 			}
 		}
 		// will remove the first index to reduce the number of cards to 3, then will check if all three cards are the same value
-			list.remove(0);
+			
 			if(list.size() == 3) {
 				if(list.get(list.size()-1).getValue() == list.get(list.size()-2).getValue() && list.get(list.size()-1).getValue() == list.get(list.size()-3).getValue() ) {
 					return 6;
 				}
 			}
 			// will remove the first index to reduce the number of cards to 2, then will check if the 2 cards are the same value
-			list.remove(0);
+		
 		
 		if(list.size() == 2) {
 			if(list.get(list.size()-1).getValue() == list.get(list.size()-2).getValue()) {
