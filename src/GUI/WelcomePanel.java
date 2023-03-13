@@ -128,7 +128,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
 
         menuBar.add(infoMenu);
         menuBar.add(helpMenu);
-        //this.setJMenuBar(menuBar);
+        this.add(menuBar, BorderLayout.NORTH); //adds the menu bar to the top of the welcomePanel
 
 
 //        layeredPane.setLayout(new BorderLayout());
