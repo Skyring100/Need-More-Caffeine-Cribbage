@@ -521,7 +521,7 @@ public class Game {
 					return 7;
 				}
 			}
-		}else if(hand.size() >=6) {
+		}else if(list.size() >=6) {
 			hand.clear();
 			for(int i = 0;i<6;i++) {
 				hand.add(list.get(i).getValue());
@@ -532,7 +532,7 @@ public class Game {
 					return 6;
 				}
 			}
-		}else if(hand.size() >= 5) {
+		}else if(list.size() >= 5) {
 			hand.clear();
 			for(int i = 0;i<5;i++) {
 				hand.add(list.get(i).getValue());
@@ -543,7 +543,7 @@ public class Game {
 					return 5;
 				}
 			}
-		}else if(hand.size() == 4) {
+		}else if(list.size() == 4) {
 			hand.clear();
 			for(int i = 0;i<4;i++) {
 				hand.add(list.get(i).getValue());
@@ -554,7 +554,7 @@ public class Game {
 					return 4;
 				}
 			}
-		}else if(hand.size() == 3) {
+		}else if(list.size() == 3) {
 			hand.clear();
 			for(int i = 0;i<3;i++) {
 				hand.add(list.get(i).getValue());
