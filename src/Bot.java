@@ -16,7 +16,7 @@ public class Bot extends Player{
 	 * 
 	 */
 	public Card pegAlgorithm(ArrayList pegList,int pegScore){
-		/*
+		
 		ArrayList<Card> temp = new ArrayList<>();
 		Card c1;
 		Card c2;
@@ -81,8 +81,8 @@ public class Bot extends Player{
 			
 		
 		}
-		*/
-		return (Card) pegList.get(0);
+		
+		return returnedCard;
 		//////
 	}
 	/*
