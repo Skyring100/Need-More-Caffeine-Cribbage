@@ -608,7 +608,7 @@ public class Game {
 		//
 		//
 	//
-}
+}//
 	public static int peg15(ArrayList<Card> list) {
 		int counter = 0;
 		for(int i = 0;i<list.size();i++) {
