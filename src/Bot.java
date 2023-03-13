@@ -16,6 +16,7 @@ public class Bot extends Player{
 	 * 
 	 */
 	public Card pegAlgorithm(ArrayList pegList,int pegScore){
+		/*
 		ArrayList<Card> temp = new ArrayList<>();
 		Card c1;
 		Card c2;
@@ -78,10 +79,11 @@ public class Bot extends Player{
 				returnedCard = c4;
 			}
 			
-			
+		
 		}
-		return returnedCard;
-		////
+		*/
+		return (Card) pegList.get(0);
+		//////
 	}
 	/*
 	 * this method will find the best card to discard in the discard phase
