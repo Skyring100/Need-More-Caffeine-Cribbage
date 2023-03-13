@@ -21,6 +21,7 @@ public class Bot extends Player{
 		Card c2;
 		Card c3;
 		Card c4;
+		Card returnedCard = null;
 		for(int i = 0;i<pegHand.size();i++) {
 			if(pegHand.get(i).getCribCount() <= 31-pegScore) {
 				temp.add(pegHand.get(i));	
@@ -28,15 +29,15 @@ public class Bot extends Player{
 		}
 		
 		if(temp.size() == 1) {
-			return temp.get(0);
+			returnedCard = temp.get(0);
 		}
 		if(temp.size() == 2) {
 			c1 = temp.get(0);
 			c2 = temp.get(1);
 			if(Game.botPegPoints(pegList, c1) >= Game.botPegPoints(pegList, c2)) {
-				return c1;
+				returnedCard = c1;
 			}else {
-				return c2;
+				returnedCard = c2;
 			}
 		}
 		if(temp.size() == 3) {
@@ -46,13 +47,13 @@ public class Bot extends Player{
 			int maxOfNums = Math.max(Game.botPegPoints(pegList, c1), Math.max(Game.botPegPoints(pegList, c2),Game.botPegPoints(pegList, c3)));
 			
 			if(Game.botPegPoints(pegList, c1) == maxOfNums) {
-				return c1;
+				returnedCard = c1;
 			}
 			if(Game.botPegPoints(pegList, c2) == maxOfNums) {
-				return c2;
+				returnedCard = c2;
 			}
 			if(Game.botPegPoints(pegList, c3) == maxOfNums) {
-				return c3;
+				returnedCard = c3;
 			}
 			
 			
@@ -65,21 +66,22 @@ public class Bot extends Player{
 			int maxOfNums = Math.max(Game.botPegPoints(pegList, c1), Math.max(Game.botPegPoints(pegList, c2),Math.max(Game.botPegPoints(pegList, c3),Game.botPegPoints(pegList, c4))));
 			
 			if(Game.botPegPoints(pegList, c1) == maxOfNums) {
-				return c1;
+				returnedCard = c1;
 			}
 			if(Game.botPegPoints(pegList, c2) == maxOfNums) {
-				return c2;
+				returnedCard = c2;
 			}
 			if(Game.botPegPoints(pegList, c3) == maxOfNums) {
-				return c3;
+				returnedCard = c3;
 			}
 			if(Game.botPegPoints(pegList, c4) == maxOfNums) {
-				return c4;
+				returnedCard = c4;
 			}
 			
 			
 		}
-		return null;
+		pegHand.remove(pegHand.indexOf(returnedCard));
+		return returnedCard;
 		
 	}
 	/*
