@@ -83,6 +83,7 @@ public class Game {
 	}
 
 	private void peg(){
+		System.out.println("Pegging start");
 		// this is the pegging section, hasn't been tested, however I do believe that it should work
 
 		Player currentPlayer;
@@ -102,8 +103,8 @@ public class Game {
 				currentPlayer = currentDealer;
 				
 			}
-			System.out.println("Pone cards: "+currentPone.getHand());
-			System.out.println("Dealer Cards: "+currentDealer.getHand());
+			System.out.println("Current player's cards: "+currentPlayer.getPegHand());
+
 
 			//checks if the player has cards and is able to play a card
 			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.checkAllCard(this)) {
@@ -151,7 +152,7 @@ public class Game {
 					
 			}
 		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
-	
+		System.out.println("Done pegging");
 		currentPone.addScore(countPoints(currentPone.getHand()));
 		currentPone.addScore(countPoints(crib));
 		currentDealer.addScore(countPoints(currentDealer.getHand()));
@@ -190,6 +191,8 @@ public class Game {
 	 * Deals 6 cards to each player
 	 */
 	public void dealPlayers(){
+		player1.getHand().clear();
+		player2.getHand().clear();
 		for (int i = 0; i <= 5; i++) {
 			player1.addCard(deck.draw());
 			//do gui card animation
