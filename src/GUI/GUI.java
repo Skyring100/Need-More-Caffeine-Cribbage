@@ -1,13 +1,9 @@
 package src.GUI;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.event.ActionListener;
-
 import javax.swing.*;
 
 /**
- * Current version
+ * Responsible for coordination everything related to displaying a game of cribbage
  */
 public class GUI{
     private final int START_WIDTH = 1500;
