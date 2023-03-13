@@ -2,7 +2,6 @@ package src;
 
 import src.card.Card;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -82,7 +81,7 @@ public class Player {
 			System.out.println(this+"'s hand: "+hand);
 		}
 		pegHand.remove(index);
-		game.addToPeglist(c);
+		game.addToPegList(c);
 		game.addToPegValue(c);
 	}
 
