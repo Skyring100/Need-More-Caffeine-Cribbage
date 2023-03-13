@@ -18,7 +18,7 @@ public class GamePanel extends JPanel{
         setBackground(Color.GRAY); // setting the background
         setLayout(new BorderLayout()); // setting the layout
 //        create_user_panel(,game);
-        handPanel = new JPanel();
+        create_user_panel();
         create_crib_panel();
         create_pegging_panel();
         create_bot_panel();
@@ -32,14 +32,14 @@ public class GamePanel extends JPanel{
         add(tablePanel, BorderLayout.CENTER);
         add(bot_panel,BorderLayout.NORTH);
     }
-    private void create_user_panel(Player p, Game g){
+    private void create_user_panel(){
         handPanel = new JPanel(); // creating a hand panel
         handPanel.setLayout(new FlowLayout()); // setting the layout of the hand panel
 //        handPanel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
         for (int i = 0; i < user_cards.length; i++){
             user_cards[i] = new JLabel();
             user_cards[i].setIcon(new ImageIcon("club 2_resized.png"));
-            if (p.checkAllCard(g)){
+//            if (p.checkAllCard(g)){
             user_cards[i].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -58,10 +58,11 @@ public class GamePanel extends JPanel{
                         repaint();
                     }
                 }
-            });}
-            else {
-                this.setToolTipText("Sorry the count is more than 31");
-            }
+            });
+//        }
+//            else {
+//                this.setToolTipText("Sorry the count is more than 31");
+//            }
             handPanel.add(user_cards[i]);
         }
     }

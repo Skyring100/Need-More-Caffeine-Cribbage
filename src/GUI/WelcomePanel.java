@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class WelcomePanel extends JPanel implements ActionListener {
     private int height = 1000;
-    private int width = 1000;
+    private int width = 1500;
     // initializing all variables
     private JLabel imageLabel, text_field_label, title_label, team_name_title, border_label;
     private ImageIcon imageIcon;
@@ -119,6 +119,10 @@ public class WelcomePanel extends JPanel implements ActionListener {
         JMenu helpMenu = new JMenu("Help"); // setting a help menu which provides navigation instructions about game and rules
         JMenu infoMenu = new JMenu("Information"); // setting info menu which shows information
         helpMenu.setForeground(new Color(0x7f0000));
+        helpMenu.addActionListener(e -> {
+            submitButton.setToolTipText("submit to start the game");
+            text_field_label.setToolTipText("enter your name to give the player identity");
+        });
         infoMenu.setForeground(new Color(0x7f0000));
         JMenuItem creator_info = new JMenuItem("Creator's INFO"); // give the information about the creator of the game
         JMenuItem Game_info = new JMenuItem("Game's information");//  give information about game (history)
@@ -171,14 +175,6 @@ public class WelcomePanel extends JPanel implements ActionListener {
     public void setWidth(int width) {
         this.width = width;
     }
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-       frame.setSize(1500,1000);
-        frame.setPreferredSize(new Dimension(HEIGHT,WIDTH));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(new WelcomePanel());
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    
-    }
+
+
 }
