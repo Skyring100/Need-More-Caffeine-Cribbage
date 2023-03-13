@@ -80,7 +80,6 @@ public class Bot extends Player{
 			
 			
 		}
-		pegHand.remove(pegHand.indexOf(returnedCard));
 		return returnedCard;
 		//
 	}
