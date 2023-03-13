@@ -505,34 +505,20 @@ public class Game {
 		if(list.size() == 8) { // a straight of 8 cannot exist
 			list.remove(0);
 		}
+		if(list.size() == 1 || list.size() == 2 || list.size() == 0) {
+			return 0;
+		}
+		
 		ArrayList<Integer> Hand = new ArrayList<>();
-		for(int i = 0;i<7;i++) {
-			Hand.add(list.get(i).getValue());
-		}
-		Collections.sort(Hand);
-		if(Hand.size() == 7) { // checking if it is a 7 length straight
-			if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4) && Hand.get(0) == (Hand.get(5)-5)  && Hand.get(0) == (Hand.get(6)-6) ) {
-				return 7;
-			}
-		}
+		
 		Hand.clear();
-		for(int i = 0;i<6;i++) {
+		for(int i = 0;i<3;i++) {
 			Hand.add(list.get(i).getValue());
 		}
 		Collections.sort(Hand);
-		if(Hand.size() == 6) { // checking if it is a 6 length straight
-			if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4) && Hand.get(0) == (Hand.get(5)-5)) {
-				return 6;
-			}
-		}
-		Hand.clear();
-		for(int i = 0;i<5;i++) {
-			Hand.add(list.get(i).getValue());
-		}
-		Collections.sort(Hand);
-		if(Hand.size() == 5) { // checking if it is a 5 length straight
-			if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4)) {
-				return 5;
+		if(Hand.size() == 3) { // checking if it is a 3 length straight
+			if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2)) {
+				return 3;
 			}
 		}
 		Hand.clear();
@@ -546,15 +532,38 @@ public class Game {
 			}
 		}
 		Hand.clear();
-		for(int i = 0;i<3;i++) {
+		for(int i = 0;i<5;i++) {
 			Hand.add(list.get(i).getValue());
 		}
 		Collections.sort(Hand);
-		if(Hand.size() == 3) { // checking if it is a 3 length straight
-			if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2)) {
-				return 3;
+		if(Hand.size() == 5) { // checking if it is a 5 length straight
+			if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4)) {
+				return 5;
 			}
 		}
+		Hand.clear();
+		for(int i = 0;i<6;i++) {
+			Hand.add(list.get(i).getValue());
+		}
+		Collections.sort(Hand);
+		if(Hand.size() == 6) { // checking if it is a 6 length straight
+			if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4) && Hand.get(0) == (Hand.get(5)-5)) {
+				return 6;
+			}
+		}
+		
+		
+		for(int i = 0;i<7;i++) {
+			Hand.add(list.get(i).getValue());
+		}
+		Collections.sort(Hand);
+		if(Hand.size() == 7) { // checking if it is a 7 length straight
+			if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4) && Hand.get(0) == (Hand.get(5)-5)  && Hand.get(0) == (Hand.get(6)-6) ) {
+				return 7;
+			}
+		}
+		
+		
 		
 		
 		return 0;
