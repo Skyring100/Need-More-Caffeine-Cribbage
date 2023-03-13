@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class WelcomePanel extends JPanel implements ActionListener {
     private int height = 1000;
-    private int width = 1500;
+    private int width = 1000;
     // initializing all variables
     private JLabel imageLabel, text_field_label, title_label, team_name_title, border_label;
     private ImageIcon imageIcon;
@@ -110,7 +110,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
         this.add(layeredPane); // adding layered pane to the Frame
 
         // --------------------------------------------menu bar --------------------------------------------------------
-        JMenuBar menuBar = new JMenuBar(); // creating a menu bar
+        JMenuBar menuBar = new JMenuBar(); // creating a menu bar.
         menuBar.setBackground(Color.darkGray);
         menuBar.setBorderPainted(false);
 
@@ -120,15 +120,13 @@ public class WelcomePanel extends JPanel implements ActionListener {
         JMenu infoMenu = new JMenu("Information"); // setting info menu which shows information
         helpMenu.setForeground(new Color(0x7f0000));
         infoMenu.setForeground(new Color(0x7f0000));
-
         JMenuItem creator_info = new JMenuItem("Creator's INFO"); // give the information about the creator of the game
         JMenuItem Game_info = new JMenuItem("Game's information");//  give information about game (history)
         infoMenu.add(creator_info);
         infoMenu.add(Game_info);
-
         menuBar.add(infoMenu);
         menuBar.add(helpMenu);
-        //this.setJMenuBar(menuBar);
+        this.add(menuBar, BorderLayout.NORTH);
 
 
 //        layeredPane.setLayout(new BorderLayout());
@@ -175,10 +173,12 @@ public class WelcomePanel extends JPanel implements ActionListener {
     }
     public static void main(String[] args) {
         JFrame frame = new JFrame();
-        frame.setSize(1500,1000);
-        frame.add(new WelcomePanel());
+       frame.setSize(1500,1000);
+        frame.setPreferredSize(new Dimension(HEIGHT,WIDTH));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(new WelcomePanel());
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    
     }
 }
