@@ -500,8 +500,7 @@ public class Game {
 	 */
 	public static int pegStraight(ArrayList<Card> pegList) {
 		//create a copy of the arraylist so we do not modify the original
-		ArrayList<Card> list = new ArrayList<>();
-		Collections.copy(pegList,list);
+		ArrayList<Card> list = copyCards(pegList);
 		if(list.size() == 8) { // a straight of 8 cannot exist
 			list.remove(0);
 		}
@@ -567,8 +566,7 @@ public class Game {
 	 */
 	public static int pegPairs(ArrayList<Card> pegList) {
 		//create a copy of the arraylist so we do not modify the original
-		ArrayList<Card> list = new ArrayList<>();
-		Collections.copy(pegList,list);
+		ArrayList<Card> list = copyCards(pegList);
 		// if the peglist is of size 1, it will return 0 as there are no pissible pair combinatiosn
 		if(list.size() == 1){
 			return 0;
@@ -603,12 +601,7 @@ public class Game {
 			}
 		}
 		return  0;
-	
-		
-		//
-		//
-	//
-}//
+}
 	public static int peg15(ArrayList<Card> list) {
 		int counter = 0;
 		for(int i = 0;i<list.size();i++) {
@@ -619,6 +612,13 @@ public class Game {
 		}
 		
 		return 0;
+	}
+	private static ArrayList<Card> copyCards(ArrayList<Card> src){
+		ArrayList<Card> list = new ArrayList<>();
+		for(Card c : src){
+			list.add(c);
+		}
+		return list;
 	}
 	public static int pegPoints(ArrayList<Card> list) {
 		return peg15(list) + pegPairs(list) + pegStraight(list);
