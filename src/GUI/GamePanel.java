@@ -9,7 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class GamePanel extends JPanel{
-    private int deckCount = 0, tableCount = 0;
+    private int deckCount = 0;
     private JPanel handPanel, deckPanel, tablePanel, bot_panel;
     JLabel[] user_cards = new JLabel[6];
 
@@ -18,6 +18,7 @@ public class GamePanel extends JPanel{
         setBackground(Color.GRAY); // setting the background
         setLayout(new BorderLayout()); // setting the layout
 //        create_user_panel(,game);
+        handPanel = new JPanel();
         create_crib_panel();
         create_pegging_panel();
         create_bot_panel();
@@ -42,7 +43,6 @@ public class GamePanel extends JPanel{
             user_cards[i].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    int x = 0, y = 0;
                     JLabel label = (JLabel) e.getSource();
                     if (deckCount < 2) {
                         deckPanel.remove(label);
@@ -51,12 +51,9 @@ public class GamePanel extends JPanel{
                         validate();
                         repaint();
                     } else {
-                        tableCount++;
                         tablePanel.add(new JLabel(new ImageIcon("club 3_resized (1).jpg")));
                         bot_panel.remove(0);
-                        move_component(x,y,tablePanel);
                         tablePanel.add(label,FlowLayout.CENTER);
-                        move_component(x,y,tablePanel);
                         validate();
                         repaint();
                     }
@@ -77,16 +74,6 @@ public class GamePanel extends JPanel{
         tablePanel = new JPanel();
 //        tablePanel.setBackground(Color.BLACK);
     }
-    private void move_component(int locationX,int locationY, JPanel panel){
-        for (int i = 0; i < panel.getComponentCount(); i++) {
-            Component comp = panel.getComponent(i);
-            comp.setLocation(locationX, locationY);
-            comp.setSize(comp.getWidth(), comp.getHeight());
-            locationX += 100;
-            locationY += 100;
-            comp.setLocation(locationX, locationY);
-        }
-    }
     private void create_crib_panel(){
         deckPanel = new JPanel();
 //        deckPanel.setBackground(Color.BLUE);
@@ -102,7 +89,6 @@ public class GamePanel extends JPanel{
             cards[i].setIcon(imageIcon1);
             if (i < 2) {
                 deckPanel.add(cards[i]);
-                move_component(0,0,deckPanel);
             }else{
                 bot_panel.add(cards[i]);
             }
