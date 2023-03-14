@@ -70,7 +70,6 @@ public class Game {
 			currentPone.addScore(2);
 			
 		}
-		
 		peg();
 		winner = checkWinner();
 		if(winner != null){
@@ -126,7 +125,7 @@ public class Game {
 			System.out.println("Peg List:"+currentPegList);
 
 			//checks if the player has cards and is able to play a card
-			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.checkAllCard(this)) {
+			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.canPeg(this)) {
 
 				/*
 				if(currentPlayer instanceof Bot) { // checks to see if it is a bot
@@ -158,7 +157,7 @@ public class Game {
 			System.out.println();
 			counter++;
 
-			if(!currentDealer.checkAllCard(this) && !currentPone.checkAllCard(this)) { // checking to see if both players can't play a card
+			if(!currentDealer.canPeg(this) && !currentPone.canPeg(this)) { // checking to see if both players can't play a card
 				System.out.println("No possible plays from either player, new peg list");
 				if(currentPegValue == 31) {
 					currentPlayer.addScore(2);
