@@ -53,6 +53,10 @@ public class Game {
 	public Game(Player p){
 		this(p, new Bot());
 	}
+
+	/**
+	 * The main game method, which executes a round in cribbage
+	 */
 	private void run(){
 		System.out.println("\nNew Round!\n");
 		dealPlayers();
@@ -66,9 +70,7 @@ public class Game {
 		flippedCard = deck.draw();
 		System.out.println("Flipped card: "+flippedCard);
 		if(flippedCard.getRank() == Rank.JACK) {
-
 			currentPone.addScore(2);
-
 		}
 		peg();
 		System.out.println(player1+": "+player1.getScore());
@@ -76,11 +78,21 @@ public class Game {
 		winner = checkWinner();
 		if(winner != null){
 			System.out.println(winner+" is the winner");
-		}else {
-			switchDealer();
-			deck.shuffleDiscard();
-			run();
+		}else if(player1 instanceof Bot && player2 instanceof Bot){
+			//if there are just bots playing, we can let them do the whole game without the need for a gui
+			reRun();
 		}
+	}
+
+	/**
+	 * To go onto the next round, use this method to set up everything again
+	 */
+	public void reRun(){
+		//this part might be added into the gui class when a "submit" button or something is pressed
+		//that way, the game will not run until the player presses a button
+		switchDealer();
+		deck.shuffleDiscard();
+		run();
 	}
 
 	private void discardPhase() {
@@ -139,7 +151,9 @@ public class Game {
 				//gui for pegged card
 				currentPlayer.addScore(pegPoints(currentPegList));
 				if(checkWinner()!= null) {
-					break;
+					//we want to return instead of break; we do not care about any extra points now that someone has already won
+					//if we do not return, there is a chance the other player might appear to win as well which is not possible
+					return;
 				}
 			}
 			System.out.println("Peg List: "+currentPegList+" Peg value: "+currentPegValue);
@@ -159,8 +173,8 @@ public class Game {
 				}
 				
 				if(checkWinner() != null) {
-					
-					break;
+					//we want to return instead of break; we do not care about any extra points now that someone has already won
+					return;
 				}
 					currentPegList.clear();
 					currentPegValue = 0;
@@ -168,6 +182,8 @@ public class Game {
 			}
 		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
 		System.out.println("\nDone pegging");
+		System.out.printf("Crib: %s%n%s (Dealer): %s%n%s (Pone): %s%n",crib,currentDealer,currentDealer.getHand(),currentPone,currentPone.getHand());
+		System.out.println("Flipped card: "+flippedCard);
 		//adding the flipped card to the scoring hands
 		ArrayList<Card> tempHandScoring = combineFlippedCard(currentPone.getHand());
 		currentPone.addScore(countPoints(tempHandScoring));
@@ -175,13 +191,15 @@ public class Game {
 		tempHandScoring = combineFlippedCard(crib);
 
 		currentPone.addScore(countPoints(tempHandScoring));
+		//in case the pone won here, return immediately
+		//this prevents both the pone and dealer winning at the same time
+		if(isWin(currentPone)){
+			return;
+		}
 
 		tempHandScoring = combineFlippedCard(currentDealer.getHand());
 
 		currentDealer.addScore(countPoints(tempHandScoring));
-
-		System.out.printf("Crib: %s%n%s (Dealer): %s%n%s (Pone): %s%n",crib,currentDealer,currentDealer.getHand(),currentPone,currentPone.getHand());
-		System.out.println("Flipped card: "+flippedCard);
 		//clear the crib for the next round
 		crib.clear();
 	}
@@ -190,7 +208,6 @@ public class Game {
 	 * @return the player who won, or null if there isn't one
 	 */
 	private Player checkWinner() {
-		
 		if(isWin(currentPone)){
 			return currentPone;
 		}else if(isWin(currentDealer)){
