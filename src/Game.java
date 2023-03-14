@@ -218,8 +218,8 @@ public class Game {
 	 * @param list the cards which will be added to the crib
 	 */
 	public void addToCrib(ArrayList<Card> list) {
-		for(int i = 0;i<list.size();i++) {
-			crib.add(list.get(i));
+		for (Card card : list) {
+			crib.add(card);
 		}
 	}
 	/**
@@ -279,10 +279,10 @@ public class Game {
     	ArrayList<ArrayList<Card>> sets = makeSubset(list);
     	int count = 0;
 		//goes through every subset
-		for(int i = 0;i<sets.size();i++) {
+		for (ArrayList<Card> set : sets) {
 			//per subset, loop through all their elements
 			//check all subsets of size 2 and compare their face cards
-			if(sets.get(i).size() == 2 && (sets.get(i).get(0).getRank() == sets.get(i).get(1).getRank())) {
+			if (set.size() == 2 && (set.get(0).getRank() == set.get(1).getRank())) {
 				count++;
 				break;
 			}
@@ -325,14 +325,14 @@ public class Game {
 		int count = 0;
 		int c;
 		//for each subset of the list
-		for(int i = 0;i<sets.size();i++) {
+		for (ArrayList<Card> set : sets) {
 			c = 0;
 			//add up all of that subset's values
-			for(int j = 0;j<sets.get(i).size();j++) {
-				c += sets.get(i).get(j).getCribCount();
+			for (Card card : set) {
+				c += card.getCribCount();
 			}
 			//if 15, then there is a pair of 15's so increment the big count
-			if(c == 15) {
+			if (c == 15) {
 				count++;
 			}
 		}
@@ -348,27 +348,27 @@ public class Game {
 		int total = 0;
 		ArrayList<ArrayList<Card>> sets = makeSubset(list);
 		Collections.reverse(sets); // reverses the order of the sets so the length 5 sets will be counted before length 4 and 3 sets
-		
-		for(int i = 0;i<sets.size();i++) {
+
+		for (ArrayList<Card> set : sets) {
 			ArrayList<Integer> Hand = new ArrayList<>(); // new hand to store integer values of each card
-			for(int j = 0;j<sets.get(i).size();j++) {
-				Hand.add(sets.get(i).get(j).getValue());
-				
+			for (Card card : set) {
+				Hand.add(card.getValue());
+
 			}
 			Collections.sort(Hand); // sorting the cards by value
-			
-			if(Hand.size() == 5) { // checking if it is a 5 length straight
-				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4)) {
+
+			if (Hand.size() == 5) { // checking if it is a 5 length straight
+				if (Hand.get(0) == (Hand.get(1) - 1) && Hand.get(0) == (Hand.get(2) - 2) && Hand.get(0) == (Hand.get(3) - 3) && Hand.get(0) == (Hand.get(4) - 4)) {
 					return 5;
 				}
 			}
-			if(Hand.size() == 4) { // checking if it is a 4 length straight
-				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3)) {
+			if (Hand.size() == 4) { // checking if it is a 4 length straight
+				if (Hand.get(0) == (Hand.get(1) - 1) && Hand.get(0) == (Hand.get(2) - 2) && Hand.get(0) == (Hand.get(3) - 3)) {
 					return 4;
 				}
 			}
-			if(Hand.size() == 3) { // checking if it is a 3 length straight
-				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2)) {
+			if (Hand.size() == 3) { // checking if it is a 3 length straight
+				if (Hand.get(0) == (Hand.get(1) - 1) && Hand.get(0) == (Hand.get(2) - 2)) {
 					total += 3;
 				}
 			}
@@ -393,11 +393,11 @@ public class Game {
     	ArrayList<ArrayList<Card>> allPoints = new ArrayList<>();
     	int count = 0;
 		//goes through every subset
-		for(int i = 0;i<sets.size();i++) {
+		for (ArrayList<Card> set : sets) {
 			//per subset, loop through all their elements
 			//check all subsets of size 2 and compare their face cards
-			if(sets.get(i).size() == 2 && (sets.get(i).get(0).getRank() == sets.get(i).get(1).getRank())) {
-				allPoints.add(sets.get(i));
+			if (set.size() == 2 && (set.get(0).getRank() == set.get(1).getRank())) {
+				allPoints.add(set);
 				break;
 			}
 		}
@@ -472,30 +472,30 @@ public class Game {
 		ArrayList<ArrayList<Card>> sets = makeSubset(list);
     	ArrayList<ArrayList<Card>> allPoints = new ArrayList<>();
 		Collections.reverse(sets); // reverses the order of the sets so the length 5 sets will be counted before length 4 and 3 sets
-		
-		for(int i = 0;i<sets.size();i++) {
+
+		for (ArrayList<Card> set : sets) {
 			ArrayList<Integer> Hand = new ArrayList<>(); // new hand to store integer values of each card
-			for(int j = 0;j<sets.get(i).size();j++) {
-				Hand.add(sets.get(i).get(j).getValue());
-				
+			for (Card card : set) {
+				Hand.add(card.getValue());
+
 			}
 			Collections.sort(Hand); // sorting the cards by value
-			
-			if(Hand.size() == 5) { // checking if it is a 5 length straight
-				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4)) {
-					allPoints.add(sets.get(i));
+
+			if (Hand.size() == 5) { // checking if it is a 5 length straight
+				if (Hand.get(0) == (Hand.get(1) - 1) && Hand.get(0) == (Hand.get(2) - 2) && Hand.get(0) == (Hand.get(3) - 3) && Hand.get(0) == (Hand.get(4) - 4)) {
+					allPoints.add(set);
 					return allPoints;
 				}
 			}
-			if(Hand.size() == 4) { // checking if it is a 4 length straight
-				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3)) {
-					allPoints.add(sets.get(i));
+			if (Hand.size() == 4) { // checking if it is a 4 length straight
+				if (Hand.get(0) == (Hand.get(1) - 1) && Hand.get(0) == (Hand.get(2) - 2) && Hand.get(0) == (Hand.get(3) - 3)) {
+					allPoints.add(set);
 					return allPoints;
 				}
 			}
-			if(Hand.size() == 3) { // checking if it is a 3 length straight
-				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2)) {
-					allPoints.add(sets.get(i));
+			if (Hand.size() == 3) { // checking if it is a 3 length straight
+				if (Hand.get(0) == (Hand.get(1) - 1) && Hand.get(0) == (Hand.get(2) - 2)) {
+					allPoints.add(set);
 				}
 			}
 		}
@@ -626,8 +626,8 @@ public class Game {
 }
 	public static int peg15(ArrayList<Card> list) {
 		int counter = 0;
-		for(int i = 0;i<list.size();i++) {
-			counter += list.get(i).getCribCount();
+		for (Card card : list) {
+			counter += card.getCribCount();
 		}
 		if(counter == 15) {
 			return 2;

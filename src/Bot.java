@@ -15,7 +15,7 @@ public class Bot extends Player{
 	 * this will find the best card to peg whenever it is the bots turn to play a card
 	 * 
 	 */
-	public Card pegAlgorithm(ArrayList pegList,int pegScore){
+	public Card pegAlgorithm(ArrayList<Card> pegList,int pegScore){
 		
 		ArrayList<Card> temp = new ArrayList<>();
 		Card c1;
