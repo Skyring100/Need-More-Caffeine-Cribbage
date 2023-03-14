@@ -81,7 +81,10 @@ public class Bot extends Player{
 			
 		
 		}
-		
+		//this is a haphazard default, might wanna have intelligent decision later on
+		if(returnedCard == null){
+			return pegHand.get(0);
+		}
 		return returnedCard;
 		//////
 	}
