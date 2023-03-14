@@ -75,7 +75,6 @@ public class Player {
 	public void pegCard(Game game, Card c) {
 		pegHand.remove(pegHand.indexOf(c));
 		game.addToPegList(c);
-		game.addToPegValue(c);
 	}
 
 	/**

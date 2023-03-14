@@ -222,15 +222,8 @@ public class Game {
 	 */
 	public void addToPegList(Card c) {
 		currentPegList.add(c);
-	}
-	/**
-	 * 
-	 * @param c card whose value will be added to the current pegList value
-	 */
-	public void addToPegValue(Card c) {
 		currentPegValue += c.getCribCount();
 	}
-
 	public int getPegValue() {
 		return currentPegValue;
 	}
