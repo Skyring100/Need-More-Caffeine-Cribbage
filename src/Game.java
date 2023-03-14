@@ -170,15 +170,15 @@ public class Game {
 		System.out.println("\nDone pegging");
 		//adding the flipped card to the scoring hands
 		ArrayList<Card> tempHandScoring = combineFlippedCard(currentPone.getHand());
-		currentPone.addScore(countPoints(tempHandScoring));
+		currentPone.addScore(countPoints(tempHandScoring) + countNob(tempHandScoring));
 
 		tempHandScoring = combineFlippedCard(crib);
 
-		currentPone.addScore(countPoints(tempHandScoring));
+		currentPone.addScore(countPoints(tempHandScoring) + countNob(tempHandScoring));
 
 		tempHandScoring = combineFlippedCard(currentDealer.getHand());
 
-		currentDealer.addScore(countPoints(tempHandScoring));
+		currentDealer.addScore(countPoints(tempHandScoring) + countNob(tempHandScoring));
 
 		System.out.printf("Crib: %s%n%s (Dealer): %s%n%s (Pone): %s%n",crib,currentDealer,currentDealer.getHand(),currentPone,currentPone.getHand());
 		System.out.println("Flipped card: "+flippedCard);
@@ -282,6 +282,14 @@ public class Game {
 		    }
 		    return sets;
 	}
+    public int countNob(ArrayList<Card> list) {
+    	for(int i = 0;i<list.size();i++) {
+    		if(list.get(i).getSuit() == flippedCard.getSuit() && list.get(i).getRank() == Rank.JACK) {
+    			return 1;
+    		}
+    	}
+    	return 0;
+    }
     //
     /**
      * Counts the number of pairs in a hand
