@@ -7,7 +7,7 @@ import src.card.Card;
 
 public class Bot extends Player{
 	public Bot() {
-		super("Bot");
+		super();
 	}
 
 	
@@ -15,28 +15,28 @@ public class Bot extends Player{
 	 * this will find the best card to peg whenever it is the bots turn to play a card
 	 * 
 	 */
-	public Card pegAlgorithm(ArrayList pegList,int pegScore){
+	public Card pegAlgorithm(ArrayList<Card> pegList,int pegScore){
 		ArrayList<Card> temp = new ArrayList<>();
 		Card c1;
 		Card c2;
 		Card c3;
 		Card c4;
-		for(int i = 0;i<pegHand.size();i++) {
-			if(pegHand.get(i).getCribCount() <= 31-pegScore) {
-				temp.add(pegHand.get(i));	
+		Card returnedCard = null;
+		for (Card card : pegHand) {
+			if (card.getCribCount() <= 31 - pegScore) {
+				temp.add(card);
 			}
 		}
-		
 		if(temp.size() == 1) {
-			return temp.get(0);
+			returnedCard = temp.get(0);
 		}
 		if(temp.size() == 2) {
 			c1 = temp.get(0);
 			c2 = temp.get(1);
 			if(Game.botPegPoints(pegList, c1) >= Game.botPegPoints(pegList, c2)) {
-				return c1;
+				returnedCard = c1;
 			}else {
-				return c2;
+				returnedCard = c2;
 			}
 		}
 		if(temp.size() == 3) {
@@ -46,13 +46,13 @@ public class Bot extends Player{
 			int maxOfNums = Math.max(Game.botPegPoints(pegList, c1), Math.max(Game.botPegPoints(pegList, c2),Game.botPegPoints(pegList, c3)));
 			
 			if(Game.botPegPoints(pegList, c1) == maxOfNums) {
-				return c1;
+				returnedCard = c1;
 			}
 			if(Game.botPegPoints(pegList, c2) == maxOfNums) {
-				return c2;
+				returnedCard = c2;
 			}
 			if(Game.botPegPoints(pegList, c3) == maxOfNums) {
-				return c3;
+				returnedCard = c3;
 			}
 			
 			
@@ -65,24 +65,28 @@ public class Bot extends Player{
 			int maxOfNums = Math.max(Game.botPegPoints(pegList, c1), Math.max(Game.botPegPoints(pegList, c2),Math.max(Game.botPegPoints(pegList, c3),Game.botPegPoints(pegList, c4))));
 			
 			if(Game.botPegPoints(pegList, c1) == maxOfNums) {
-				return c1;
+				returnedCard = c1;
 			}
 			if(Game.botPegPoints(pegList, c2) == maxOfNums) {
-				return c2;
+				returnedCard = c2;
 			}
 			if(Game.botPegPoints(pegList, c3) == maxOfNums) {
-				return c3;
+				returnedCard = c3;
 			}
 			if(Game.botPegPoints(pegList, c4) == maxOfNums) {
-				return c4;
+				returnedCard = c4;
 			}
-			
-			
 		}
-		return null;
-		
+		//this is a haphazard default, might wanna have intelligent decision later on
+		if(returnedCard == null){
+			System.out.println("\n----------------------------------");
+			System.out.println("NULL DETECTED IN PEGGING, SETTING TO ANY CARD");
+			System.out.println("----------------------------------\n");
+			return pegHand.get(0);
+		}
+		return returnedCard;
 	}
-	/*
+	/**
 	 * this method will find the best card to discard in the discard phase
 	 */
 	public Card discardAlgorithm(){
@@ -106,8 +110,10 @@ public class Bot extends Player{
 				return hand.get(k);
 			}
 		}
-		return null;
-		
+		System.out.println("\n----------------------------------");
+		System.out.println("NULL DETECTED IN DISCARDING, SETTING TO ANY CARD");
+		System.out.println("----------------------------------\n");
+		return hand.get(0);
 	}
 	
 }

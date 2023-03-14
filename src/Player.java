@@ -2,20 +2,25 @@ package src;
 
 import src.card.Card;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class Player {
-protected final String name; // name of the player
-protected int score;
-protected ArrayList<Card> hand;
-protected ArrayList<Card> pegHand;
+	private static String[] randomName = new String[]{"Joe","Wizard","Bonk","Snake","Mad Lad","USB Lad","Mastermind",
+			"Fire","Ice","Nerd"};
+	protected String name; // name of the player
+	protected int score;
+	protected ArrayList<Card> hand;
+	protected ArrayList<Card> pegHand;
 	public Player(String name) {
 		this.name = name;
 		this.score = 0;
 		hand = new ArrayList<>();
 		pegHand = new ArrayList<>();
+	}
+	public Player(){
+		this(randomName[new Random().nextInt(0,randomName.length)]);
 	}
 	@Override
 	public String toString() {
@@ -55,14 +60,14 @@ protected ArrayList<Card> pegHand;
 	 * @return true if a card is able to be played, and false if a card is not able to be played
 	 */
 	public boolean checkAllCard(Game game) {
-		
-		for(int i = 0;i<pegHand.size();i++) {
-			if(pegHand.get(i).getCribCount() <= 31-game.getPegValue()) {
-				
+
+		for (Card card : pegHand) {
+			if (card.getCribCount() <= 31 - game.getPegValue()) {
+
 				return true;
-				
+
 			}
-			
+
 		}
 		return false;
 	}
@@ -71,7 +76,7 @@ protected ArrayList<Card> pegHand;
 	}
 	public void pegCard(Game game, Card c) {
 		pegHand.remove(pegHand.indexOf(c));
-		game.addToPeglist(c);
+		game.addToPegList(c);
 		game.addToPegValue(c);
 	}
 

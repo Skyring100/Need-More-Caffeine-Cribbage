@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Deck {
-    private ArrayList<Card> discarded;
+    private ArrayList<Card> discarded = new ArrayList<>();
     private ArrayList<Card> cards = new ArrayList<>(52);
     public Deck() {
         for(int i = 1; i <= 52; i++){
@@ -26,6 +26,7 @@ public class Deck {
     public Card draw(){
         //draw the top card
         Card returnCard = cards.get(0);
+        discarded.add(returnCard);
         //remove the card from the deck
         cards.remove(0);
         return returnCard;
