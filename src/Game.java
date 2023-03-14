@@ -126,17 +126,17 @@ public class Game {
 
 			//checks if the player has cards and is able to play a card
 			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.canPeg(this)) {
+				Card peggingCard;
 				//if a player is a bot, use an algorithm to find a suitable card for pegging
 				if(currentPlayer instanceof Bot) {
-					currentPlayer.pegCard(this, ((Bot) currentPlayer).pegAlgorithm(currentPegList,currentPegValue));
-					
+					peggingCard =  ((Bot) currentPlayer).pegAlgorithm(currentPegList,currentPegValue);
 				}
 				else {
-					currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));
+					peggingCard = currentPlayer.getPegHand().get(0);
 					// the card for this method will need to be changed to the card selected
-					
 				}
-				
+				currentPlayer.pegCard(this,peggingCard);
+				//gui for pegged card
 				currentPlayer.addScore(pegPoints(currentPegList));
 				if(checkWinner()!= null) {
 					break;
@@ -152,8 +152,10 @@ public class Game {
 				System.out.println("No possible plays from either player, new peg list");
 				if(currentPegValue == 31) {
 					currentPlayer.addScore(2);
+					//gui for hitting 31 exactly
 				}else {
 					currentPlayer.addScore(1);
+					//gui for finishing last
 				}
 				
 				if(checkWinner() != null) {
