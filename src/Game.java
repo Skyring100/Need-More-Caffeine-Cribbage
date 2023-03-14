@@ -116,28 +116,19 @@ public class Game {
 			System.out.println("Peg List:"+currentPegList);
 
 			//checks if the player has cards and is able to play a card
-			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.checkAllCard(this)) {
-
-				/*
-				if(currentPlayer instanceof Bot) { // checks to see if it is a bot
-					Card temp =((Bot) currentPlayer).pegCard(); // discards card in the pone pegging hand, and assigns it to temp
-					currentPegList.add(temp); // adds temp card to the pegging list
-				}else {
-					currentPlayer.pegCard(this, currentPlayer.getPegHand().get(0)); // the card for this method will need to be changed to the card selected
-				}
-
-				 */
+			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.canPeg(this)) {
 				//if a player is a bot, use an algorithm to find a suitable card for pegging
 				if(currentPlayer instanceof Bot) {
 					currentPlayer.pegCard(this, ((Bot) currentPlayer).pegAlgorithm(currentPegList,currentPegValue));
 					
 				}
 				else {
-					currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));// the card for this method will need to be changed to the card selected
+					currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));
+					// the card for this method will need to be changed to the card selected
 					
 				}
 				
-				currentPlayer.addScore(pegPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
+				currentPlayer.addScore(pegPoints(currentPegList));
 				if(checkWinner()!= null) {
 					break;
 				}
@@ -148,7 +139,7 @@ public class Game {
 			System.out.println();
 			counter++;
 
-			if(!currentDealer.checkAllCard(this) && !currentPone.checkAllCard(this)) { // checking to see if both players can't play a card
+			if(!currentDealer.canPeg(this) && !currentPone.canPeg(this)) { // checking to see if both players can't play a card
 				System.out.println("No possible plays from either player, new peg list");
 				if(currentPegValue == 31) {
 					currentPlayer.addScore(2);
@@ -655,16 +646,4 @@ public class Game {
 		}
 		return list;
 	}
-	public static boolean canPeg(Player p, int pegScore){
-		ArrayList<Card> pegHand = p.getPegHand();
-		ArrayList<Card> temp = new ArrayList<>();
-		for (Card card : pegHand) {
-			//find all possible cards that could be played without going overboard
-			if (card.getCribCount() <= 31 - pegScore) {
-				temp.add(card);
-			}
-		}
-		return temp.size() != 0;
-	}
 }
-//

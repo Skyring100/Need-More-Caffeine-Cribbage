@@ -59,13 +59,11 @@ public class Player {
 	 * @param game game object to access the variables
 	 * @return true if a card is able to be played, and false if a card is not able to be played
 	 */
-	public boolean checkAllCard(Game game) {
+	public boolean canPeg(Game game) {
 		
 		for(int i = 0;i<pegHand.size();i++) {
 			if(pegHand.get(i).getCribCount() <= 31-game.getPegValue()) {
-				
 				return true;
-				
 			}
 			
 		}
