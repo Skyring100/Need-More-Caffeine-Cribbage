@@ -23,9 +23,9 @@ public class Bot extends Player{
 		Card c3;
 		Card c4;
 		Card returnedCard = null;
-		for(int i = 0;i<pegHand.size();i++) {
-			if(pegHand.get(i).getCribCount() <= 31-pegScore) {
-				temp.add(pegHand.get(i));	
+		for (Card card : pegHand) {
+			if (card.getCribCount() <= 31 - pegScore) {
+				temp.add(card);
 			}
 		}
 		
@@ -89,21 +89,21 @@ public class Bot extends Player{
 		ArrayList<ArrayList<Card>> sets = Game.makeSubset(this.hand);
 		ArrayList<Card> highest = sets.get(0);
 		ArrayList<Card> temp;
-		
-		for(int i = 0;i<sets.size();i++) { // goes through each subset
-			
-			if(sets.get(i).size() == 4) { // if subset is length 4, check if the points from this hand is higher than of the previous highest hand
-				temp = sets.get(i);
-				
-				if(Game.countPoints(highest) <= Game.countPoints(temp)) {
+
+		for (ArrayList<Card> set : sets) { // goes through each subset
+
+			if (set.size() == 4) { // if subset is length 4, check if the points from this hand is higher than of the previous highest hand
+				temp = set;
+
+				if (Game.countPoints(highest) <= Game.countPoints(temp)) {
 					highest = temp;
 				}
 			}
 		}
 		// everything below this discards a card which is not contained within the 4 highest scoring cards
-		for(int k = 0;k<hand.size();k++) {
-			if(!highest.contains(hand.get(k))) {
-				return hand.get(k);
+		for (Card card : hand) {
+			if (!highest.contains(card)) {
+				return card;
 			}
 		}
 		System.out.println("\n----------------------------------\nNULL DETECTED IN DISCARDING, SETTING TO ANY CARD\n----------------------------------\n");
