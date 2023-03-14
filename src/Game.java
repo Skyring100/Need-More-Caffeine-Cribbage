@@ -94,8 +94,6 @@ public class Game {
 		// this is the pegging section, hasn't been tested, however I do believe that it should work
 
 		Player currentPlayer;
-		//clear the crib for a new round
-		crib.clear();
 		//sets the pegging hands of all players. This will be manipulated and checked as pegging occurs
 		currentPone.readyPegging();
 		currentDealer.readyPegging();
@@ -160,6 +158,8 @@ public class Game {
 		currentPone.addScore(countPoints(currentPone.getHand()));
 		currentPone.addScore(countPoints(crib));
 		currentDealer.addScore(countPoints(currentDealer.getHand()));
+		//clear the crib for the next round
+		crib.clear();
 		System.out.printf("Dealer: %s%nPone: %s%n",currentDealer,currentPone);
 		System.out.printf("Crib: %s%n%s: %s%n%s: %s%n",crib,player1,player1.getHand(),player2,player2.getHand());
 		System.out.println(player1+": "+player1.getScore());
