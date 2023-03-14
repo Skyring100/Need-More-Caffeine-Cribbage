@@ -71,6 +71,8 @@ public class Game {
 
 		}
 		peg();
+		System.out.println(player1+": "+player1.getScore());
+		System.out.println(player2+": "+player2.getScore());
 		winner = checkWinner();
 		if(winner != null){
 			System.out.println(winner+" is the winner");
@@ -164,13 +166,20 @@ public class Game {
 			}
 		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
 		System.out.println("\nDone pegging");
-		currentPone.addScore(countPoints(currentPone.getHand()));
-		currentPone.addScore(countPoints(crib));
-		currentDealer.addScore(countPoints(currentDealer.getHand()));
-		System.out.printf("Dealer: %s%nPone: %s%n",currentDealer,currentPone);
-		System.out.printf("Crib: %s%n%s: %s%n%s: %s%n",crib,player1,player1.getHand(),player2,player2.getHand());
-		System.out.println(player1+": "+player1.getScore());
-		System.out.println(player2+": "+player2.getScore());
+		//adding the flipped card to the scoring hands
+		ArrayList<Card> tempHandScoring = combineFlippedCard(currentPone.getHand());
+		currentPone.addScore(countPoints(tempHandScoring));
+
+		tempHandScoring = combineFlippedCard(crib);
+
+		currentPone.addScore(countPoints(tempHandScoring));
+
+		tempHandScoring = combineFlippedCard(currentDealer.getHand());
+
+		currentDealer.addScore(countPoints(tempHandScoring));
+
+		System.out.printf("Crib: %s%n%s (Dealer): %s%n%s (Pone): %s%n",crib,currentDealer,currentDealer.getHand(),currentPone,currentPone.getHand());
+		System.out.println("Flipped card: "+flippedCard);
 		//clear the crib for the next round
 		crib.clear();
 	}
@@ -640,11 +649,29 @@ public class Game {
 	public static int pegPoints(ArrayList<Card> list) {
 		return peg15(list) + pegPairs(list) + pegStraight(list);
 	}
+
+	/**
+	 * Duplicates a hand of cards. This is needed for the reference type nature of ArrayList where directly assigning
+	 * a card will result in the original being modified
+	 * @param src the hand that will be copied
+	 * @return a duplicate version of the hand that is free to modify
+	 */
 	private static ArrayList<Card> copyCards(ArrayList<Card> src){
 		ArrayList<Card> list = new ArrayList<>();
 		for(Card c : src){
 			list.add(c);
 		}
+		return list;
+	}
+
+	/**
+	 * Creates a new temporary hand that includes the flipped card for scoring calculations
+	 * @param hand the hand the flipped card should be added to
+	 * @return a copy of the hand that includes the flipped card
+	 */
+	private ArrayList<Card> combineFlippedCard(ArrayList<Card> hand){
+		ArrayList<Card> list = copyCards(hand);
+		list.add(flippedCard);
 		return list;
 	}
 }
