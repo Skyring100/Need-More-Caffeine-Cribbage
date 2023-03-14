@@ -21,6 +21,7 @@ public class Game {
 	private Player winner = null;
 	private ArrayList<Card> crib = new ArrayList<>();
 	private ArrayList<Card> currentPegList = new ArrayList<>();
+	private Card flippedCard;
 	private int currentPegValue;
 	private final Deck deck;
 	private GUI gui;
@@ -62,8 +63,9 @@ public class Game {
 		System.out.println("\nDiscarding");
 		System.out.println(player1+": "+player1.getHand());
 		System.out.println(player2+": "+player2.getHand());
-		Card card = deck.draw();
-		if(card.getRank() == Rank.JACK) {
+		flippedCard = deck.draw();
+		System.out.println("Flipped card: "+flippedCard);
+		if(flippedCard.getRank() == Rank.JACK) {
 
 			currentPone.addScore(2);
 
