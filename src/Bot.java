@@ -2,6 +2,7 @@ package src;
 
 import java.util.ArrayList;
 
+import javax.smartcardio.CardException;
 
 import src.card.Card;
 
@@ -42,44 +43,38 @@ public class Bot extends Player{
 			}
 		}
 		if(temp.size() == 3) {
-			c1 = temp.get(0);
-			c2 = temp.get(1);
-			c3 = temp.get(2);
-			int maxOfNums = Math.max(Game.botPegPoints(pegList, c1), Math.max(Game.botPegPoints(pegList, c2),Game.botPegPoints(pegList, c3)));
-			
-			if(Game.botPegPoints(pegList, c1) == maxOfNums) {
-				returnedCard = c1;
-			}
-			if(Game.botPegPoints(pegList, c2) == maxOfNums) {
-				returnedCard = c2;
-			}
-			if(Game.botPegPoints(pegList, c3) == maxOfNums) {
-				returnedCard = c3;
-			}
+			Card maxtemp = temp.get(0);
+			c1 = temp.get(1);
+			c2 = temp.get(2);
 			
 			
+			if(Game.botPegPoints(pegList, maxtemp) <= Game.botPegPoints(pegList, c1)){
+				maxtemp = c1;
+			}
+			if(Game.botPegPoints(pegList, maxtemp)<= Game.botPegPoints(pegList, c2)) {
+				maxtemp = c2;
+			}
+			returnedCard = maxtemp;
 		}
 		if(temp.size() == 4) {
-			c1 = temp.get(0);
-			c2 = temp.get(1);
-			c3 = temp.get(2);
-			c4=temp.get(3);
-			int maxOfNums = Math.max(Game.botPegPoints(pegList, c1), Math.max(Game.botPegPoints(pegList, c2),Math.max(Game.botPegPoints(pegList, c3),Game.botPegPoints(pegList, c4))));
+			Card maxtemp = temp.get(0);
+			c1 = temp.get(1);
+			c2 = temp.get(2);
+			c3 = temp.get(3);
 			
-			if(Game.botPegPoints(pegList, c1) == maxOfNums) {
-				returnedCard = c1;
+			
+			if(Game.botPegPoints(pegList, maxtemp) <= Game.botPegPoints(pegList, c1)){
+				maxtemp = c1;
 			}
-			if(Game.botPegPoints(pegList, c2) == maxOfNums) {
-				returnedCard = c2;
+			if(Game.botPegPoints(pegList, maxtemp)<= Game.botPegPoints(pegList, c2)) {
+				maxtemp = c2;
 			}
-			if(Game.botPegPoints(pegList, c3) == maxOfNums) {
-				returnedCard = c3;
-			}
-			if(Game.botPegPoints(pegList, c4) == maxOfNums) {
-				returnedCard = c4;
+			if(Game.botPegPoints(pegList, maxtemp)<= Game.botPegPoints(pegList, c3)) {
+				maxtemp = c3;
 			}
 			
-		
+			returnedCard = maxtemp;
+				
 		}
 		
 		return returnedCard;

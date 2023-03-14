@@ -52,6 +52,7 @@ public class Game {
 		this(p, new Bot());
 	}
 	private void run(){
+		crib.clear();
 		System.out.println("\nNew Round!\n");
 		dealPlayers();
 		System.out.println("\nDealing");
