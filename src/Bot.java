@@ -76,11 +76,14 @@ public class Bot extends Player{
 			returnedCard = maxtemp;
 				
 		}
-		
+		//this is a haphazard default, might wanna have intelligent decision later on
+		if(returnedCard == null){
+			System.out.println("\n----------------------------------\nNULL DETECTED IN PEGGING, SETTING TO ANY CARD\n----------------------------------\n");
+			return pegHand.get(0);
+		}
 		return returnedCard;
-		//////
 	}
-	/*
+	/**
 	 * this method will find the best card to discard in the discard phase
 	 */
 	public Card discardAlgorithm(){
