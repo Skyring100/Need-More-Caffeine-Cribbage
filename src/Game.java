@@ -186,11 +186,11 @@ public class Game {
 		System.out.println("Flipped card: "+flippedCard);
 		//adding the flipped card to the scoring hands
 		ArrayList<Card> tempHandScoring = combineFlippedCard(currentPone.getHand());
-		currentPone.addScore(countPoints(tempHandScoring));
+		currentPone.addScore(countPoints(tempHandScoring)+countNob(tempHandScoring));
 
 		tempHandScoring = combineFlippedCard(crib);
 
-		currentPone.addScore(countPoints(tempHandScoring));
+		currentPone.addScore(countPoints(tempHandScoring)+countNob(tempHandScoring));
 		//in case the pone won here, return immediately
 		//this prevents both the pone and dealer winning at the same time
 		if(isWin(currentPone)){
@@ -199,7 +199,7 @@ public class Game {
 
 		tempHandScoring = combineFlippedCard(currentDealer.getHand());
 
-		currentDealer.addScore(countPoints(tempHandScoring));
+		currentDealer.addScore(countPoints(tempHandScoring)+countNob(tempHandScoring));
 		//clear the crib for the next round
 		crib.clear();
 	}
@@ -416,6 +416,14 @@ public class Game {
 	public static int countPoints(ArrayList<Card> list) {
     	return count15s(list) * 2 + countFlush(list) + countPairs(list) * 2 + countStraight(list);
     }
+	public int countNob(ArrayList<Card> list) {
+		for(int i = 0;i<list.size();i++) {
+			if(list.get(i).getSuit() == flippedCard.getSuit() && list.get(i).getRank() == Rank.JACK) {
+				return 1;
+			}
+		}
+		return 0;
+	}
     
     
     private static ArrayList<ArrayList<Card>> getPairs(ArrayList<Card> list) {
