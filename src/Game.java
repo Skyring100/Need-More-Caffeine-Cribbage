@@ -53,7 +53,6 @@ public class Game {
 		this(p, new Bot());
 	}
 	private void run(){
-		crib.clear();
 		System.out.println("\nNew Round!\n");
 		dealPlayers();
 		System.out.println("\nDealing");
@@ -63,12 +62,11 @@ public class Game {
 		System.out.println("\nDiscarding");
 		System.out.println(player1+": "+player1.getHand());
 		System.out.println(player2+": "+player2.getHand());
-		System.out.println("We will now flip a card over");
 		Card card = deck.draw();
 		if(card.getRank() == Rank.JACK) {
-			
+
 			currentPone.addScore(2);
-			
+
 		}
 		peg();
 		winner = checkWinner();
@@ -103,8 +101,6 @@ public class Game {
 		// this is the pegging section, hasn't been tested, however I do believe that it should work
 
 		Player currentPlayer;
-		//clear the crib for a new round
-		crib.clear();
 		//sets the pegging hands of all players. This will be manipulated and checked as pegging occurs
 		currentPone.readyPegging();
 		currentDealer.readyPegging();
@@ -126,32 +122,23 @@ public class Game {
 
 			//checks if the player has cards and is able to play a card
 			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.canPeg(this)) {
-
-				/*
-				if(currentPlayer instanceof Bot) { // checks to see if it is a bot
-					Card temp =((Bot) currentPlayer).pegCard(); // discards card in the pone pegging hand, and assigns it to temp
-					currentPegList.add(temp); // adds temp card to the pegging list
-				}else {
-					currentPlayer.pegCard(this, currentPlayer.getPegHand().get(0)); // the card for this method will need to be changed to the card selected
-				}
-
-		)		 */
 				//if a player is a bot, use an algorithm to find a suitable card for pegging
 				if(currentPlayer instanceof Bot) {
 					currentPlayer.pegCard(this, ((Bot) currentPlayer).pegAlgorithm(currentPegList,currentPegValue));
 					
 				}
 				else {
-					currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));// the card for this method will need to be changed to the card selected
+					currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));
+					// the card for this method will need to be changed to the card selected
 					
 				}
 				
-				currentPlayer.addScore(pegPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
+				currentPlayer.addScore(pegPoints(currentPegList));
 				if(checkWinner()!= null) {
 					break;
 				}
 			}
-			System.out.println("Peg List: "+currentPegList);
+			System.out.println("Peg List: "+currentPegList+" Peg value: "+currentPegValue);
 			System.out.println(currentPlayer+"'s cards: "+currentPlayer.getPegHand());
 			System.out.println(currentPlayer+"'s score "+currentPlayer.getScore());
 			System.out.println();
@@ -178,13 +165,12 @@ public class Game {
 		currentPone.addScore(countPoints(currentPone.getHand()));
 		currentPone.addScore(countPoints(crib));
 		currentDealer.addScore(countPoints(currentDealer.getHand()));
-		//clear the crib for the next round
-		crib.clear();
 		System.out.printf("Dealer: %s%nPone: %s%n",currentDealer,currentPone);
 		System.out.printf("Crib: %s%n%s: %s%n%s: %s%n",crib,player1,player1.getHand(),player2,player2.getHand());
 		System.out.println(player1+": "+player1.getScore());
 		System.out.println(player2+": "+player2.getScore());
-	
+		//clear the crib for the next round
+		crib.clear();
 	}
 	/**
 	 * determines a winner if a player has enough points
@@ -242,15 +228,8 @@ public class Game {
 	 */
 	public void addToPegList(Card c) {
 		currentPegList.add(c);
-	}
-	/**
-	 * 
-	 * @param c card whose value will be added to the current pegList value
-	 */
-	public void addToPegValue(Card c) {
 		currentPegValue += c.getCribCount();
 	}
-
 	public int getPegValue() {
 		return currentPegValue;
 	}
@@ -666,16 +645,4 @@ public class Game {
 		}
 		return list;
 	}
-	public static boolean canPeg(Player p, int pegScore){
-		ArrayList<Card> pegHand = p.getPegHand();
-		ArrayList<Card> temp = new ArrayList<>();
-		for (Card card : pegHand) {
-			//find all possible cards that could be played without going overboard
-			if (card.getCribCount() <= 31 - pegScore) {
-				temp.add(card);
-			}
-		}
-		return temp.size() != 0;
-	}
 }
-//
