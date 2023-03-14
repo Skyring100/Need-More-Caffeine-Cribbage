@@ -15,20 +15,18 @@ public class Bot extends Player{
 	 * this will find the best card to peg whenever it is the bots turn to play a card
 	 * 
 	 */
-	public Card pegAlgorithm(ArrayList pegList,int pegScore){
-		
+	public Card pegAlgorithm(ArrayList<Card> pegList,int pegScore){
 		ArrayList<Card> temp = new ArrayList<>();
 		Card c1;
 		Card c2;
 		Card c3;
 		Card c4;
 		Card returnedCard = null;
-		for(int i = 0;i<pegHand.size();i++) {
-			if(pegHand.get(i).getCribCount() <= 31-pegScore) {
-				temp.add(pegHand.get(i));	
+		for (Card card : pegHand) {
+			if (card.getCribCount() <= 31 - pegScore) {
+				temp.add(card);
 			}
 		}
-		
 		if(temp.size() == 1) {
 			returnedCard = temp.get(0);
 		}
@@ -78,12 +76,12 @@ public class Bot extends Player{
 			if(Game.botPegPoints(pegList, c4) == maxOfNums) {
 				returnedCard = c4;
 			}
-			
-		
 		}
 		//this is a haphazard default, might wanna have intelligent decision later on
 		if(returnedCard == null){
-			System.out.println("\n----------------------------------\nNULL DETECTED IN PEGGING, SETTING TO ANY CARD\n----------------------------------\n");
+			System.out.println("\n----------------------------------");
+			System.out.println("NULL DETECTED IN PEGGING, SETTING TO ANY CARD");
+			System.out.println("----------------------------------\n");
 			return pegHand.get(0);
 		}
 		return returnedCard;
@@ -112,8 +110,10 @@ public class Bot extends Player{
 				return hand.get(k);
 			}
 		}
-		return null;
-		
+		System.out.println("\n----------------------------------");
+		System.out.println("NULL DETECTED IN DISCARDING, SETTING TO ANY CARD");
+		System.out.println("----------------------------------\n");
+		return hand.get(0);
 	}
 	
 }
