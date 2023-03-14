@@ -1,24 +1,27 @@
 package src.GUI;
 
+import src.Bot;
 import src.Game;
 import src.Player;
+import src.card.Card;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel{
-    private int deckCount = 0;
-    private JPanel handPanel, deckPanel, tablePanel, bot_panel;
+
+    private int cribCount = 0;
+    private JPanel handPanel, cribpanel, tablePanel, bot_panel;
     JLabel[] user_cards = new JLabel[6];
 
-    private ImageIcon[] cardImages;
-    public GamePanel(){
+    public GamePanel(Player player, Game game, Bot bot){
         setBackground(Color.GRAY); // setting the background
         setLayout(new BorderLayout()); // setting the layout
 //        create_user_panel(,game);
-        create_user_panel();
+        create_user_panel(game,player, bot);
         create_crib_panel();
         create_pegging_panel();
         create_bot_panel();
@@ -28,30 +31,36 @@ public class GamePanel extends JPanel{
 
 
         add(handPanel, BorderLayout.SOUTH);
-        add(deckPanel, BorderLayout.EAST);
+        add(cribpanel, BorderLayout.EAST);
         add(tablePanel, BorderLayout.CENTER);
         add(bot_panel,BorderLayout.NORTH);
     }
-    private void create_user_panel(){
+    private void create_user_panel(Game game, Player player, Bot bot){
         handPanel = new JPanel(); // creating a hand panel
         handPanel.setLayout(new FlowLayout()); // setting the layout of the hand panel
 //        handPanel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
+
+        ArrayList<ImageIcon> imageIcons_player = get_cards_from_user(player); // images for player
+        ArrayList<ImageIcon> imageIcons_bot = get_cards_from_bot(bot); // images for bot
+
+        // creating user cards
+
         for (int i = 0; i < user_cards.length; i++){
-            user_cards[i] = new JLabel();
-            user_cards[i].setIcon(new ImageIcon("club 2_resized.png"));
-//            if (p.checkAllCard(g)){
-            user_cards[i].addMouseListener(new MouseAdapter() {
+            user_cards[i] = new JLabel(); // creating card label
+            user_cards[i].setIcon(imageIcons_player.get(i)); // assigning it an image
+            if (player.checkAllCard(game)){ // checking if the
+                int finalI = i;
+                user_cards[i].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     JLabel label = (JLabel) e.getSource();
-                    if (deckCount < 2) {
-                        deckPanel.remove(label);
-                        deckPanel.add(label);
-                        deckCount++;
+                    if (cribCount < 2) {
+                        cribpanel.add(label);
+                        cribCount++;
                         validate();
                         repaint();
                     } else {
-                        tablePanel.add(new JLabel(new ImageIcon("club 3_resized (1).jpg")));
+                        tablePanel.add(new JLabel(imageIcons_bot.get(finalI)));
                         bot_panel.remove(0);
                         tablePanel.add(label,FlowLayout.CENTER);
                         validate();
@@ -59,10 +68,14 @@ public class GamePanel extends JPanel{
                     }
                 }
             });
-//        }
-//            else {
-//                this.setToolTipText("Sorry the count is more than 31");
-//            }
+        }
+            else {
+                tablePanel.add(new JLabel(imageIcons_bot.get(i)));
+                bot_panel.remove(0);
+                validate();
+                repaint();
+                this.setToolTipText("Sorry the count is more than 31");
+            }
             handPanel.add(user_cards[i]);
         }
     }
@@ -76,10 +89,10 @@ public class GamePanel extends JPanel{
 //        tablePanel.setBackground(Color.BLACK);
     }
     private void create_crib_panel(){
-        deckPanel = new JPanel();
+        cribpanel = new JPanel();
 //        deckPanel.setBackground(Color.BLUE);
-        deckPanel.setSize(200,400);
-        deckPanel.setLayout(new FlowLayout());
+        cribpanel.setSize(200,400);
+        cribpanel.setLayout(new FlowLayout());
 
     }
     private void bot_initialization(JLabel[] cards){
@@ -89,12 +102,28 @@ public class GamePanel extends JPanel{
             ImageIcon imageIcon1 = new ImageIcon(new ImageIcon("blue.png").getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT)); //100, 100 add your own size
             cards[i].setIcon(imageIcon1);
             if (i < 2) {
-                deckPanel.add(cards[i]);
+                cribpanel.add(cards[i]);
             }else{
                 bot_panel.add(cards[i]);
             }
         }
     }
-
-
+    private ArrayList<ImageIcon> get_cards_from_user(Player p){
+        ArrayList<ImageIcon> imageIcons = new ArrayList<>();
+        ArrayList<Card> cards_images = p.getHand();
+        for (Card cardsImage : cards_images) {
+            ImageIcon imageIcon = new ImageIcon( "Card.images/card.fronts/"+cardsImage.toString() +"4.png");
+            imageIcons.add(imageIcon);
+        }
+        return imageIcons;
+    }
+    private ArrayList<ImageIcon> get_cards_from_bot(Bot bot){
+        ArrayList<ImageIcon> imageIcons = new ArrayList<>();
+        ArrayList<Card> cards_images = bot.getPegHand();
+        for (Card cardsImage : cards_images) {
+            ImageIcon imageIcon = new ImageIcon("Card.images/card.fronts/"+cardsImage.toString() +"4.png");
+            imageIcons.add(imageIcon);
+        }
+        return imageIcons;
+    }
 }

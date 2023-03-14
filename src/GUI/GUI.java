@@ -12,11 +12,6 @@ import javax.swing.*;
 public class GUI{
     private final int START_WIDTH = 1500;
     private final int START_HEIGHT = 1000;
-    private JPanel handPanel, deckPanel, tablePanel;
-    private JButton[] cardButtons;
-    private JLabel bot_Cards[];
-    private ImageIcon[] cardImages;
-    private int deckCount = 0, tableCount = 0;
 
     private static JFrame window;
     private static WelcomePanel introScreen;
@@ -29,13 +24,13 @@ public class GUI{
         window.setLocationRelativeTo(null);//opens the window at center
         window.setResizable(false); // disabling the resizable function
         introScreen = new WelcomePanel();
-        mainScreen = new GamePanel();
+       // mainScreen = new GamePanel();
         window.add(introScreen);
         window.setVisible(true);
-        //showGame();
+        showGame();
     }
     public static void showGame(){
-        introScreen.setVisible(false);
+
         window.add(introScreen);
     }
 

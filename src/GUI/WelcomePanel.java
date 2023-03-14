@@ -1,5 +1,7 @@
 package src.GUI;
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -119,10 +121,6 @@ public class WelcomePanel extends JPanel implements ActionListener {
         JMenu helpMenu = new JMenu("Help"); // setting a help menu which provides navigation instructions about game and rules
         JMenu infoMenu = new JMenu("Information"); // setting info menu which shows information
         helpMenu.setForeground(new Color(0x7f0000));
-        helpMenu.addActionListener(e -> {
-            submitButton.setToolTipText("submit to start the game");
-            text_field_label.setToolTipText("enter your name to give the player identity");
-        });
         infoMenu.setForeground(new Color(0x7f0000));
         JMenuItem creator_info = new JMenuItem("Creator's INFO"); // give the information about the creator of the game
         JMenuItem Game_info = new JMenuItem("Game's information");//  give information about game (history)
