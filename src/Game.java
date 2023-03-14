@@ -178,6 +178,8 @@ public class Game {
 		currentPone.addScore(countPoints(currentPone.getHand()));
 		currentPone.addScore(countPoints(crib));
 		currentDealer.addScore(countPoints(currentDealer.getHand()));
+		//clear the crib for the next round
+		crib.clear();
 		System.out.printf("Dealer: %s%nPone: %s%n",currentDealer,currentPone);
 		System.out.printf("Crib: %s%n%s: %s%n%s: %s%n",crib,player1,player1.getHand(),player2,player2.getHand());
 		System.out.println(player1+": "+player1.getScore());
