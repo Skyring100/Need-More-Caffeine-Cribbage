@@ -3,6 +3,7 @@ package src;
 import src.GUI.GUI;
 import src.card.Card;
 import src.card.Deck;
+import src.card.Rank;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,6 +63,14 @@ public class Game {
 		System.out.println("\nDiscarding");
 		System.out.println(player1+": "+player1.getHand());
 		System.out.println(player2+": "+player2.getHand());
+		System.out.println("We will now flip a card over");
+		Card card = deck.draw();
+		if(card.getRank() == Rank.JACK) {
+			
+			currentPone.addScore(2);
+			
+		}
+		
 		peg();
 		winner = checkWinner();
 		if(winner != null){
@@ -127,7 +136,7 @@ public class Game {
 					currentPlayer.pegCard(this, currentPlayer.getPegHand().get(0)); // the card for this method will need to be changed to the card selected
 				}
 
-				 */
+		)		 */
 				//if a player is a bot, use an algorithm to find a suitable card for pegging
 				if(currentPlayer instanceof Bot) {
 					currentPlayer.pegCard(this, ((Bot) currentPlayer).pegAlgorithm(currentPegList,currentPegValue));

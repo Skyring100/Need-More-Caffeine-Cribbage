@@ -2,7 +2,6 @@ package src;
 
 import java.util.ArrayList;
 
-import javax.smartcardio.CardException;
 
 import src.card.Card;
 
