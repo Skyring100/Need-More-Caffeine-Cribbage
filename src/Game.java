@@ -142,7 +142,7 @@ public class Game {
 					break;
 				}
 			}
-			System.out.println("Peg List: "+currentPegList);
+			System.out.println("Peg List: "+currentPegList+" Peg value: "+currentPegValue);
 			System.out.println(currentPlayer+"'s cards: "+currentPlayer.getPegHand());
 			System.out.println(currentPlayer+"'s score "+currentPlayer.getScore());
 			System.out.println();

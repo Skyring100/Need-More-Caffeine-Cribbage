@@ -60,14 +60,14 @@ public class Player {
 	 * @return true if a card is able to be played, and false if a card is not able to be played
 	 */
 	public boolean checkAllCard(Game game) {
-		
-		for(int i = 0;i<pegHand.size();i++) {
-			if(pegHand.get(i).getCribCount() <= 31-game.getPegValue()) {
-				
+
+		for (Card card : pegHand) {
+			if (card.getCribCount() <= 31 - game.getPegValue()) {
+
 				return true;
-				
+
 			}
-			
+
 		}
 		return false;
 	}
