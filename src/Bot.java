@@ -106,8 +106,8 @@ public class Bot extends Player{
 				return hand.get(k);
 			}
 		}
-		return null;
-		
+		System.out.println("\n----------------------------------\nNULL DETECTED IN DISCARDING, SETTING TO ANY CARD\n----------------------------------\n");
+		return hand.get(0);
 	}
 	
 }
