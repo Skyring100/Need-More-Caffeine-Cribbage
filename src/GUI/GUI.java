@@ -25,12 +25,12 @@ public class GUI{
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLocationRelativeTo(null);//opens the window at center
         window.setResizable(false); // disabling the resizable function
-        introScreen = new WelcomePanel();
+        introScreen = new WelcomePanel(this);
         mainScreen = new GamePanel(game);
         window.add(introScreen);
         window.setVisible(true);
         //this call is temporary, take it out later
-        showGame();
+        //showGame();
     }
     public void showGame(){
         introScreen.setVisible(false);

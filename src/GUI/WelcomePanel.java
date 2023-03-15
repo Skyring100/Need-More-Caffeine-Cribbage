@@ -1,4 +1,6 @@
 package src.GUI;
+import src.Game;
+
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
@@ -20,10 +22,12 @@ public class WelcomePanel extends JPanel implements ActionListener {
     private TextField textField, textField1;
     public static String playerName;
     private JLayeredPane layeredPane;
+    private GUI gui;
     //getters and setters
 
     //constructor for rendering the screen layout
-    public WelcomePanel() {
+    public WelcomePanel(GUI gui) {
+        this.gui = gui;
         // rendering the image
         imageIcon = new ImageIcon("jack-hamilton-9SewS6lowEU-unsplash.jpg");
         backgroundImage = imageIcon.getImage().getScaledInstance(width,height,Image.SCALE_AREA_AVERAGING);
@@ -168,13 +172,13 @@ public class WelcomePanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        gui.showGame();
         // getting players name from the text field
         playerName = textField.getText();
         System.out.println(playerName); // printing it out in the terminal
         if (!playerName.strip().equals("")) {
             submitButton.setEnabled(false); // setting enable option to false
             submitButton.setBackground(Color.lightGray); // changing the color state of the button
-
         }
 
     }
