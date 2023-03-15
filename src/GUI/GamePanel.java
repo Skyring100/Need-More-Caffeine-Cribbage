@@ -1,5 +1,6 @@
 package src.GUI;
 
+import src.OverlapLayout;
 import src.card.Card;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 
 public class GamePanel extends JPanel{
 
-    private JPanel hand_Panel, crib_panel, pegPanel, bot_panel;
+    private JPanel handPanel, cribPanel, pegPanel, botPanel;
     ArrayList<Card> pegging_cards ,player_cards, crib_card;
 
   private Card selectedCard;
@@ -41,26 +42,26 @@ public class GamePanel extends JPanel{
 
 
         add(handPanel, BorderLayout.SOUTH);
-        add(cribpanel, BorderLayout.EAST);
-        add(peggingPanel, BorderLayout.CENTER);
-        add(bot_panel,BorderLayout.NORTH);
+        add(cribPanel, BorderLayout.EAST);
+        add(pegPanel, BorderLayout.CENTER);
+        add(botPanel,BorderLayout.NORTH);
     }
     private void create_user_panel() {
-        hand_Panel = new JPanel(); // creating a hand panel
-        hand_Panel.setLayout(new FlowLayout()); // setting the layout of the hand panel
+        handPanel = new JPanel(); // creating a hand panel
+        handPanel.setLayout(new FlowLayout()); // setting the layout of the hand panel
         add_action_to_button();
-        hand_Panel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
+        handPanel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
 
     }
 
     public void add_action_to_button(){
-         for (int i = 0; i < hand_Panel.getComponentCount(); i++){
-             JLabel label = (JLabel) hand_Panel.getComponent(i);
+         for (int i = 0; i < handPanel.getComponentCount(); i++){
+             JLabel label = (JLabel) handPanel.getComponent(i);
              int finalI = i; //  to see which card has selected
              label.addMouseListener(new MouseAdapter() {
                  @Override
                  public void mouseClicked(MouseEvent e) {
-                     create_panel(player_cards, hand_Panel);
+                     create_panel(player_cards, handPanel);
                      create_panel(pegging_cards,pegPanel);
                      setSelectedCard(player_cards.get(finalI)); // get the selected card
 
@@ -84,21 +85,21 @@ public class GamePanel extends JPanel{
         }
     }
     private void create_bot_panel(){
-        bot_panel = new JPanel();
+        botPanel = new JPanel();
 //        bot_panel.setBackground(Color.ORANGE);
-        bot_panel.setLayout(new FlowLayout());
+        botPanel.setLayout(new FlowLayout());
     }
     private void create_pegging_panel(){
         OverlapLayout layout = new OverlapLayout(new Point(20, 0));
         layout.setPopupInsets(new Insets(20, 0, 0, 0));
-        peggingPanel = new JPanel(layout);
+        pegPanel = new JPanel(layout);
 //        tablePanel.setBackground(Color.BLACK);
     }
     private void create_crib_panel(){
-        crib_panel = new JPanel();
+        cribPanel = new JPanel();
 //        deckPanel.setBackground(Color.BLUE);
-        crib_panel.setSize(200,400);
-        crib_panel.setLayout(new FlowLayout());
+        cribPanel.setSize(200,400);
+        cribPanel.setLayout(new FlowLayout());
 
     }
 
@@ -109,9 +110,9 @@ public class GamePanel extends JPanel{
             ImageIcon imageIcon1 = new ImageIcon(new ImageIcon("blue.png").getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT)); //100, 100 add your own size
             cards[i].setIcon(imageIcon1);
             if (i < 2) {
-                crib_panel.add(cards[i]);
+                cribPanel.add(cards[i]);
             }else{
-                bot_panel.add(cards[i]);
+                botPanel.add(cards[i]);
             }
         }
     }
