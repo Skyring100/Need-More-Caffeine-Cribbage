@@ -40,7 +40,6 @@ public class GamePanel extends JPanel{
         player1Panel.setLayout(new FlowLayout()); // setting the layout of the hand panel
         //add_action_to_button();
         player1Panel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
-
     }
 
     /**
@@ -101,8 +100,6 @@ public class GamePanel extends JPanel{
             player2Hand.add(noClick);
             player2Panel.add(noClick);
         }
-        //i think we need to repaint here, but im not sure
-        repaint();
     }
 
 

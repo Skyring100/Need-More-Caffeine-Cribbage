@@ -8,6 +8,7 @@ import src.card.Rank;
 import src.card.Suit;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -90,6 +91,10 @@ public class GUI{
         Game game = new Game(new Bot(), new  Bot(), gui);
         gui.showGame(game);
         gui.drawCard(true,new Deck().draw());
+        JPanel p = new JPanel();
+        p.setBackground(Color.BLACK);
+        p.setSize(100,110);
+        window.add(p);
 
     }
 }
