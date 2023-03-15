@@ -41,12 +41,20 @@ public class GamePanel extends JPanel{
 //        handPanel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
 
     }
+    // for adding cards
     public void addCards(Card card, JPanel panel){
         ImageIcon imageIcon = new ImageIcon( "Card.images/card.fronts/"+card.toString() +".png");
        JLabel card_image = new JLabel(imageIcon);
        panel.add(card_image);
 
     }
+    // for user panel
+    public void remove_card(Card card, JPanel panel){
+        ImageIcon imageIcon = new ImageIcon( "Card.images/card.fronts/"+card.toString() +".png");
+        JLabel card_image = new JLabel(imageIcon);
+        panel.remove(card_image);
+    }
+    // for bot panel
     public void addCards(Card card, JPanel panel, JPanel remove_panel){
         ImageIcon imageIcon = new ImageIcon( "Card.images/card.fronts/"+card.toString() +".png");
         JLabel card_image = new JLabel(imageIcon);
