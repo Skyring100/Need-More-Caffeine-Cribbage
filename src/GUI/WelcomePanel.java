@@ -5,6 +5,8 @@ import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class WelcomePanel extends JPanel implements ActionListener {
@@ -34,6 +36,12 @@ public class WelcomePanel extends JPanel implements ActionListener {
         border_label = new JLabel();  // initializing label4
         submitButton = new JButton("Submit"); // initializing
         textField= new TextField();
+        textField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                textField.setText("");
+            }
+        });
 
         // setting the parameters for the frame
         this.setForeground(new Color(0x7f0000));// setting the title of the frame
