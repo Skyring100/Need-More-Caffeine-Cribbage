@@ -16,6 +16,11 @@ public class Game {
 	private final static int WINNING_SCORE = 121;
 	private final Player player1;
 
+	public Player getPlayer1() {
+		return player1;
+	}
+
+
 	public ArrayList<Card> getCurrentPegList() {
 		return currentPegList;
 	}
@@ -297,7 +302,6 @@ public class Game {
 		ArrayList<ArrayList<Card>> sets = new ArrayList<>();
 		    for(int i=0; i<(1<<list.size()); i++) {
 		    	ArrayList<Card> temp = new ArrayList<>();
-
 		        for(int j=0; j<list.size(); j++) {
 		            if((i&(1<<j)) > 0) {
 		                temp.add(list.get(j));
