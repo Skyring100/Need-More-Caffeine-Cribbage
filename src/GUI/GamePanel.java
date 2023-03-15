@@ -15,7 +15,7 @@ public class GamePanel extends JPanel{
     private JPanel handPanel, cribpanel, pegPanel, bot_panel;
     ArrayList<Card> pegging_cards ,player_cards, crib_card;
 
-    public GamePanel(Game game){
+    public GamePanel(GUI gui){
         setBackground(Color.GRAY); // setting the background
         setLayout(new BorderLayout()); // setting the layout
 
@@ -26,8 +26,8 @@ public class GamePanel extends JPanel{
         // creating cards
         JLabel[] cards = new JLabel[6];
         bot_initialization(cards);
-            player_cards = game.getPlayer1().getPegHand();
-            pegging_cards = game.getCurrentPegList();
+            player_cards = gui.getPlayer_cards();
+            pegging_cards = gui.getPegging_cards();
 
 
 

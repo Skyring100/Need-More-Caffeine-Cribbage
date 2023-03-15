@@ -5,6 +5,7 @@ import src.Player;
 import src.card.Card;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 /**
  * Current version
@@ -16,7 +17,34 @@ public class GUI{
     private static JFrame window;
     private WelcomePanel introScreen;
     private GamePanel mainScreen;
+    private ArrayList<Card> pegging_cards ,player_cards, crib_card;
+
     private Game game;
+
+    public void setPegging_cards(ArrayList<Card> pegging_cards) {
+        this.pegging_cards = pegging_cards;
+    }
+
+    public void setPlayer_cards(ArrayList<Card> player_cards) {
+        this.player_cards = player_cards;
+    }
+
+    public void setCrib_card(ArrayList<Card> crib_card) {
+        this.crib_card = crib_card;
+    }
+
+    public ArrayList<Card> getPegging_cards() {
+        return pegging_cards;
+    }
+
+    public ArrayList<Card> getPlayer_cards() {
+        return player_cards;
+    }
+
+    public ArrayList<Card> getCrib_card() {
+        return crib_card;
+    }
+
     public GUI(Game game) {
         window = new JFrame();
         this.game = game;
@@ -26,9 +54,11 @@ public class GUI{
         window.setLocationRelativeTo(null);//opens the window at center
         window.setResizable(false); // disabling the resizable function
         introScreen = new WelcomePanel(this);
-        mainScreen = new GamePanel(game);
+        mainScreen = new GamePanel(this);
         window.add(introScreen);
         window.setVisible(true);
+        setPegging_cards(game.getCurrentPegList());
+        setPlayer_cards(game.getPlayer1().getPegHand());
         //this call is temporary, take it out later
         //showGame();
     }
