@@ -13,17 +13,18 @@ public class GamePanel extends JPanel{
     private JPanel hand_Panel, crib_panel, pegPanel, bot_panel;
     ArrayList<Card> pegging_cards ,player_cards, crib_card;
 
-  private Card selected_Card;
+  private Card selectedCard;
 
-    public Card getSelected_Card() {
-        return selected_Card;
+    public Card getSelectedCard() {
+        return selectedCard;
     }
 
-    private void setSelected_Card(Card selected_Card) {
-        this.selected_Card = selected_Card;
+    public void setSelectedCard(Card card) {
+        selectedCard = card;
     }
 
     public GamePanel(GUI gui){
+        selectedCard = null;
         setBackground(Color.GRAY); // setting the background
         setLayout(new BorderLayout()); // setting the layout
 
@@ -51,6 +52,7 @@ public class GamePanel extends JPanel{
         hand_Panel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
 
     }
+
     public void add_action_to_button(){
          for (int i = 0; i < hand_Panel.getComponentCount(); i++){
              JLabel label = (JLabel) hand_Panel.getComponent(i);
@@ -60,7 +62,7 @@ public class GamePanel extends JPanel{
                  public void mouseClicked(MouseEvent e) {
                      create_panel(player_cards, hand_Panel);
                      create_panel(pegging_cards,pegPanel);
-                     setSelected_Card(player_cards.get(finalI)); // get the selected card
+                     setSelectedCard(player_cards.get(finalI)); // get the selected card
 
                  }
              });
