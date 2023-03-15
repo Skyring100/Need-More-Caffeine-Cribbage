@@ -121,8 +121,11 @@ public class Game {
 				if(p instanceof Bot){
 					currentCard =  p.discard(((Bot) p).discardAlgorithm());
 				}else{
+
 					//let the player choose a card
-					currentCard = null;
+					do {
+						currentCard = gui.getSelectedCard();
+					}while (currentCard == null);
 				}
 				crib.add(currentCard);
 			}

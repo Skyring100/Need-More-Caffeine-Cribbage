@@ -12,27 +12,12 @@ import java.util.ArrayList;
 public class GamePanel extends JPanel{
 
     private JPanel handPanel, cribPanel, pegPanel, botPanel;
-    ArrayList<Card> pegging_cards ,player_cards, crib_card;
+    private ArrayList<Card> pegging_cards ,player_cards, crib_card;
+    private GUI gui;
 
-  private Card selectedCard;
-
-    /**
-     * gets a currently selected card. Will reset the card everytime it is called
-     * @return the selected card
-     */
-    public Card getSelectedCard() {
-        //as soon as the card has been read, reset it
-        Card temp = selectedCard;
-        setSelectedCard(null);
-        return temp;
-    }
-
-    public void setSelectedCard(Card card) {
-        selectedCard = card;
-    }
 
     public GamePanel(GUI gui){
-        selectedCard = null;
+        this.gui = gui;
         setBackground(Color.GRAY); // setting the background
         setLayout(new BorderLayout()); // setting the layout
 
@@ -70,7 +55,7 @@ public class GamePanel extends JPanel{
                  public void mouseClicked(MouseEvent e) {
                      create_panel(player_cards, handPanel);
                      create_panel(pegging_cards,pegPanel);
-                     setSelectedCard(player_cards.get(finalI)); // get the selected card
+                     gui.setSelectedCard(player_cards.get(finalI)); // get the selected card
 
                  }
              });

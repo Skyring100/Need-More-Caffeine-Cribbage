@@ -13,16 +13,16 @@ public class CardButton extends JLabel {
     private final Card card;
     private final ImageIcon image;
     private final ImageIcon backImage;
-    private GamePanel mainScreen;
-    public CardButton(Card c, GamePanel m){
-        mainScreen = m;
+    private GUI gui;
+    public CardButton(Card c, GUI g){
+        gui = g;
         card = c;
         image = new ImageIcon("Card/images/card/fronts/" + card.toString() + ".png");
         backImage = new ImageIcon("Card/images/card/backs/blue.png");
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                m.setSelectedCard(card);
+                g.setSelectedCard(card);
             }
         });
     }

@@ -14,10 +14,20 @@ public class GUI{
     private final int START_HEIGHT = 1000;
 
     private static JFrame window;
-    private Card selected_card_by_player;
+    private Card selectedCard;
+    /**
+     * gets a currently selected card. Will reset the card everytime it is called
+     * @return the selected card
+     */
+    public Card getSelectedCard() {
+        //as soon as the card has been read, reset it
+        Card temp = selectedCard;
+        setSelectedCard(null);
+        return temp;
+    }
 
-    public Card getSelected_card_by_player() {
-        return selected_card_by_player;
+    public void setSelectedCard(Card card) {
+        selectedCard = card;
     }
 
 
@@ -41,6 +51,7 @@ public class GUI{
     public GUI(Game game) {
         window = new JFrame();
         this.game = game;
+        selectedCard = null;
         window.setTitle("Cribbage");
         window.setSize(START_WIDTH, START_HEIGHT);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
