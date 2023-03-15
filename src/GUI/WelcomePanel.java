@@ -105,6 +105,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
         textField1.setForeground(Color.BLACK); // setting the text color
         textField1.setBackground((Color.lightGray)); // setting the background color
         textField1.setEditable(false); //makes it so the user cannot change the text
+        textField1.setEnabled(false);
 
 
         //---------------------------------label1----------------------------------------------------------------------
@@ -172,13 +173,14 @@ public class WelcomePanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        gui.showGame();
+
         // getting players name from the text field
         playerName = textField.getText();
         System.out.println(playerName); // printing it out in the terminal
         if (!playerName.strip().equals("")) {
             submitButton.setEnabled(false); // setting enable option to false
             submitButton.setBackground(Color.lightGray); // changing the color state of the button
+             gui.showGame();
         }
 
     }

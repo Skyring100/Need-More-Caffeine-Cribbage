@@ -15,6 +15,13 @@ public class GUI{
     private final int START_HEIGHT = 1000;
 
     private static JFrame window;
+    private Card selected_card_by_player;
+
+    public Card getSelected_card_by_player() {
+        return selected_card_by_player;
+    }
+
+
     private WelcomePanel introScreen;
     private GamePanel mainScreen;
     private ArrayList<Card> pegging_cards ,player_cards, crib_card;
@@ -57,6 +64,7 @@ public class GUI{
         mainScreen = new GamePanel(this);
         window.add(introScreen);
         window.setVisible(true);
+        selected_card_by_player = mainScreen.getSelected_Card();
         setPegging_cards(game.getCurrentPegList());
         setPlayer_cards(game.getPlayer1().getPegHand());
         //this call is temporary, take it out later
@@ -65,16 +73,6 @@ public class GUI{
     public void showGame(){
         introScreen.setVisible(false);
         window.add(mainScreen);
-    }
-
-    /**
-     * Moves a card from a hand to the pegging place
-     */
-    public void pegCard(Player p, Card c){
-
-    }
-    public void discard(){
-
     }
 }
 

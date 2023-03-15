@@ -55,6 +55,7 @@ public class Game {
 		deck = new Deck();
 		javax.swing.SwingUtilities.invokeLater(()-> gui = new GUI(this));
 		run();
+//		gui = new GUI(this);
     }
 	/**
 	 * Creates a single-player game with a human vs. a bot

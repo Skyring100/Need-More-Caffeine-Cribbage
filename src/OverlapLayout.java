@@ -89,7 +89,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable
 	 *  Create an overlapping layout.
 	 *
 	 *  @param overlapPosition a Point defining the relative amount of overlap
-	 *  @param overlayAbove when true components are painted above the previous
+	 *  @param overlapAbove when true components are painted above the previous
 	 *                      component, otherwise they are painted below.
 	 */
 	public OverlapLayout(Point overlapPosition, boolean overlapAbove)
@@ -260,7 +260,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable
 	/**
 	 * Removes the specified component from the layout.
 	 *
-	 * @param comp the component to be removed
+	 * @param component the component to be removed
 	 */
 	public void removeLayoutComponent(Component component)
 	{
@@ -271,7 +271,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable
 	/**
 	 *	Determine the minimum size on the Container
 	 *
-	 *  @param	 target   the container in which to do the layout
+	 *  @param	 parent   the container in which to do the layout
 	 *  @return	 the minimum dimensions needed to lay out the
 	 *			 subcomponents of the specified container
 	 */
@@ -361,7 +361,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable
 	 * Lays out the specified container using this layout.
 	 * <p>
 	 *
-	 * @param	  target   the container in which to do the layout
+	 * @param	  parent   the container in which to do the layout
 	 */
 	public void layoutContainer(Container parent)
 	{
