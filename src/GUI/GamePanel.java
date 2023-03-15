@@ -48,7 +48,7 @@ public class GamePanel extends JPanel{
         for (int i = 0; i < user_cards.length; i++){
             user_cards[i] = new JLabel(); // creating card label
             user_cards[i].setIcon(imageIcons_player.get(i)); // assigning it an image
-            if (player.checkAllCard(game)){ // checking if the
+            if (player.canPeg(game)){ // checking if the
                 int finalI = i;
                 user_cards[i].addMouseListener(new MouseAdapter() {
                 @Override
