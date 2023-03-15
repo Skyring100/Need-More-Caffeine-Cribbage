@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 
 public class GamePanel extends JPanel{
 
-    private JPanel player1Panel, cribPanel, pegPanel, player2Panel;
+    private JPanel player1Panel, cribPanel, pegPanel, player2Panel, crib_board;
     //private ArrayList<Card> pegging_cards ,player_cards, crib_card;
     private ArrayList<CardButton> player1Hand = new ArrayList<>();
     private ArrayList<CardButton> player2Hand = new ArrayList<>();
@@ -26,12 +26,7 @@ public class GamePanel extends JPanel{
         create_crib_panel();
         create_pegging_panel();
         create_bot_panel();
-        // creating cards
 
-        //JLabel[] cards = new JLabel[6];
-        //bot_initialization(cards);
-        //player_cards = gui.getPlayer1Cards();
-        //pegging_cards = gui.getPeggingCards();
 
 
 
@@ -110,31 +105,8 @@ public class GamePanel extends JPanel{
         repaint();
     }
 
-    /*
-    public void add_action_to_button(){
-         for (int i = 0; i < handPanel.getComponentCount(); i++){
-             JLabel label = (JLabel) handPanel.getComponent(i);
-             int finalI = i; //  to see which card has selected
-             label.addMouseListener(new MouseAdapter() {
-                 @Override
-                 public void mouseClicked(MouseEvent e) {
-                     create_panel(player_cards, handPanel);
-                     create_panel(pegging_cards,pegPanel);
-                     gui.setSelectedCard(player_cards.get(finalI)); // get the selected card
 
-                 }
-             });
-         }
-    }
 
-     */
-
-//    // for user panel
-//    public void remove_card(Card card, JPanel panel){
-//        ImageIcon imageIcon = new ImageIcon( "Card.images/card.fronts/"+card.toString() +".png");
-//        JLabel card_image = new JLabel(imageIcon);
-//        panel.remove(card_image);
-//    }// for bot panel
     public void create_panel(ArrayList<Card> cards, JPanel panel){
         for (Card card : cards) {
             panel.removeAll();
@@ -145,20 +117,22 @@ public class GamePanel extends JPanel{
     }
     private void create_bot_panel(){
         player2Panel = new JPanel();
-//        bot_panel.setBackground(Color.ORANGE);
         player2Panel.setLayout(new FlowLayout());
     }
     private void create_pegging_panel(){
         OverlapLayout layout = new OverlapLayout(new Point(20, 0));
         layout.setPopupInsets(new Insets(20, 0, 0, 0));
         pegPanel = new JPanel(layout);
-//        tablePanel.setBackground(Color.BLACK);
     }
     private void create_crib_panel(){
         cribPanel = new JPanel();
-//        deckPanel.setBackground(Color.BLUE);
         cribPanel.setSize(200,400);
         cribPanel.setLayout(new FlowLayout());
+
+    }
+    private void create_board(){
+        crib_board = new JPanel();
+        JLayeredPane layeredPane = new JLayeredPane();
 
     }
 

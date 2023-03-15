@@ -1,18 +1,20 @@
 package src.GUI;
 
-import src.Bot;
+import src.card.Card;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Game_logs extends JPanel {
     JTable User_Score_table ;
     JTable Bot_score_table ;
+
     JButton next_round_button, start_again_button;
     
     JPanel title_panel,logs_panel,button_panel;
     String[][] Player_data = {
-            {"pairs","1"},{"Fifteens","2"},{"Straits","3"},{"your _score ","211"}
+            {"pairs",},{"Fifteens",},{"Straits","3"},{"your _score ","211"}
     };
     String[] Player_colum_names = {"your score", "Score"};
     String[][] Bot_data = {
@@ -89,6 +91,17 @@ public class Game_logs extends JPanel {
         title_label.setFont(new Font("Arial",Font.ITALIC,30));
         title_panel.setBackground(Color.ORANGE);
         title_panel.add(title_label);
+    }
+    // same thing can be used for 15s as well
+
+    private String get_strait(ArrayList<ArrayList<Card>> strait_cards){
+        StringBuilder strait = new StringBuilder();
+        for (ArrayList<Card> straitCard : strait_cards) {
+            for (Card card : straitCard) {
+                strait.append(card.toString()).append(" ");
+            }
+        }
+        return strait.toString();
     }
 
 }
