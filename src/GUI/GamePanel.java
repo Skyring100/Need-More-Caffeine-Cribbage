@@ -12,8 +12,8 @@ public class GamePanel extends JPanel{
 
     private JPanel player1Panel, cribPanel, pegPanel, player2Panel;
     //private ArrayList<Card> pegging_cards ,player_cards, crib_card;
-    private ArrayList<CardButton> player1Hand;
-    private ArrayList<CardButton> player2Hand;
+    private ArrayList<CardButton> player1Hand = new ArrayList<>();
+    private ArrayList<CardButton> player2Hand = new ArrayList<>();
     private GUI gui;
 
 
@@ -73,7 +73,7 @@ public class GamePanel extends JPanel{
     }
     /**
      * Adds a new hand to the gui
-     * @param hand the player's hand of cards
+     * @param hand the hand to add
      */
     public void addPlayer1Cards(ArrayList<Card> hand){
         for(Card c : hand){
@@ -83,8 +83,17 @@ public class GamePanel extends JPanel{
             //adding the button to the screen
             player1Panel.add(clickable);
         }
-        //i think we need to repaint here, but im not sure
-        repaint();
+    }
+    /**
+     * Adds a new card to the gui
+     * @param card the card to add
+     */
+    public void addPlayer1Card(Card card){
+        CardButton clickable = new CardButton(card,gui);
+        //tracking the button in a variable
+        player1Hand.add(clickable);
+        //adding the button to the screen
+        player1Panel.add(clickable);
     }
 
     /**

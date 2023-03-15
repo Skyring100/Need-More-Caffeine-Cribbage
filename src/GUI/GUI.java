@@ -1,7 +1,11 @@
 package src.GUI;
 
+import src.Bot;
 import src.Game;
 import src.card.Card;
+import src.card.Deck;
+import src.card.Rank;
+import src.card.Suit;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -15,22 +19,6 @@ public class GUI{
 
     private static JFrame window;
     private Card selectedCard;
-    /**
-     * gets a currently selected card. Will reset the card everytime it is called
-     * @return the selected card
-     */
-    public Card getSelectedCard() {
-        //as soon as the card has been read, reset it
-        Card temp = selectedCard;
-        setSelectedCard(null);
-        return temp;
-    }
-
-    public void setSelectedCard(Card card) {
-        selectedCard = card;
-    }
-
-
     private WelcomePanel introScreen;
     private GamePanel mainScreen;
 
@@ -67,13 +55,41 @@ public class GUI{
         window.remove(introScreen);
         window.add(mainScreen);
     }
-    public void drawCard(boolean isPlayer1, Card c){
+    /**
+     * gets a currently selected card. Will reset the card everytime it is called
+     * @return the selected card
+     */
+    public Card getSelectedCard() {
+        //as soon as the card has been read, reset it
+        Card temp = selectedCard;
+        setSelectedCard(null);
+        return temp;
+    }
 
+    public void setSelectedCard(Card card) {
+        selectedCard = card;
+    }
+    public void drawCard(boolean isPlayer1, Card c){
+        if(isPlayer1){
+            mainScreen.addPlayer1Card(c);
+        }else{
+            mainScreen.addPlayer2Cards(1);
+        }
+        window.repaint();
     }
     public void discard(boolean isPlayer1, Card c){
 
     }
     public void pegCard(boolean isPlayer1, Card c){
+
+    }
+
+    //FOR DEBUGGING GUI
+    public static void main(String[] args) {
+        GUI gui = new GUI();
+        Game game = new Game(new Bot(), new  Bot(), gui);
+        gui.showGame(game);
+        gui.drawCard(true,new Deck().draw());
 
     }
 }
