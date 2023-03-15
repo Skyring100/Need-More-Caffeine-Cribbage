@@ -39,9 +39,9 @@ public class GamePanel extends JPanel{
 
 
 
-        add(hand_Panel, BorderLayout.SOUTH);
-        add(crib_panel, BorderLayout.EAST);
-        add(pegPanel, BorderLayout.CENTER);
+        add(handPanel, BorderLayout.SOUTH);
+        add(cribpanel, BorderLayout.EAST);
+        add(peggingPanel, BorderLayout.CENTER);
         add(bot_panel,BorderLayout.NORTH);
     }
     private void create_user_panel() {
@@ -87,7 +87,9 @@ public class GamePanel extends JPanel{
         bot_panel.setLayout(new FlowLayout());
     }
     private void create_pegging_panel(){
-        pegPanel = new JPanel();
+        OverlapLayout layout = new OverlapLayout(new Point(20, 0));
+        layout.setPopupInsets(new Insets(20, 0, 0, 0));
+        peggingPanel = new JPanel(layout);
 //        tablePanel.setBackground(Color.BLACK);
     }
     private void create_crib_panel(){
