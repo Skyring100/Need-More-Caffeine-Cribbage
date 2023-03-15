@@ -34,8 +34,8 @@ public class GamePanel extends JPanel{
         // creating cards
         JLabel[] cards = new JLabel[6];
         bot_initialization(cards);
-            player_cards = gui.getPlayer_cards();
-            pegging_cards = gui.getPegging_cards();
+            player_cards = gui.getPlayer1Cards();
+            pegging_cards = gui.getPeggingCards();
 
 
 

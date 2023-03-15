@@ -63,6 +63,11 @@ public class Game {
 	public ArrayList<Card> getCurrentPegList() {
 		return currentPegList;
 	}
+
+	public ArrayList<Card> getCrib() {
+		return crib;
+	}
+
 	/**
 	 * The main game method, which executes a round in cribbage
 	 */
