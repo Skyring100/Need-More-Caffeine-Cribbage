@@ -41,8 +41,8 @@ public class Deck {
     public void shuffleDiscard(){
         //add all discarded cards back in
         cards.addAll(discarded);
+        discarded.clear();
         //shuffle the cards
-        //
         shuffle();
     }
 }

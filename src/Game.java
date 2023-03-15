@@ -94,7 +94,6 @@ public class Game {
 		//that way, the game will not run until the player presses a button
 		switchDealer();
 		deck.shuffleDiscard();
-		System.out.println(deck.showDeck());
 		run();
 	}
 

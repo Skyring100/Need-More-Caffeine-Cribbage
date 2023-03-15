@@ -34,6 +34,10 @@ public class GUI{
         introScreen.setVisible(false);
         window.add(mainScreen);
     }
+
+    /**
+     * Moves a card from a hand to the pegging place
+     */
     public void pegCard(){
 
     }
