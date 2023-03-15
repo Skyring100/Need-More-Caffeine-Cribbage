@@ -11,15 +11,25 @@ import java.awt.event.MouseEvent;
  */
 public class CardButton extends JLabel {
     private Card card;
-    private ImageIcon image;
+    private ImageIcon frontImage;
     private ImageIcon backImage;
+    private ImageIcon currentImage;
     private boolean backOnly = false;
+    private boolean isFlipped = true;
     private GUI gui;
+
+    /**
+     * Creates an intractable card for a GUI
+     * @param c the card to transform into a card on a GUI
+     * @param g the gui it is connected to
+     */
     public CardButton(Card c, GUI g){
         gui = g;
         card = c;
-        image = new ImageIcon("Card/images/card/fronts/" + card.toString() + ".png");
+        frontImage = new ImageIcon("Card/images/card/fronts/" + card.toString() + ".png");
         backImage = new ImageIcon("Card/images/card/backs/blue.png");
+        currentImage = frontImage;
+        setIcon(currentImage);
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -30,32 +40,51 @@ public class CardButton extends JLabel {
 
     /**
      * If you just want a card back, we do not store a card
-     * @param g the gui this card is connected to
      */
-    public CardButton(GUI g){
-        gui = g;
+    public CardButton(){
         backImage = new ImageIcon("Card/images/card/backs/blue.png");
+        currentImage = backImage;
         backOnly = true;
+        isFlipped = false;
+        setIcon(currentImage);
         //if we use this constructor, set to null as these are not intractable and only for display
         card = null;
-        image = null;
+        frontImage = null;
+        //we do not need a gui reference sense there is no mouse listener
+        gui = null;
     }
 
     public Card getCard() {
         return card;
     }
 
-    public ImageIcon getImageRaw() {
-        return image;
+    public ImageIcon getFrontImageRaw() {
+        return frontImage;
     }
 
     public ImageIcon getBackImageRaw() {
         return backImage;
     }
     public ImageIcon getImage(){
+        return currentImage;
+    }
+
+    /**
+     * Flips over the card
+     */
+    public void flipCard(){
         if(!backOnly){
-            return image;
+            if(isFlipped){
+                isFlipped = false;
+                setIcon(backImage);
+                return;
+            }
+            isFlipped = true;
+            setCurrentImage(frontImage);
         }
-        return backImage;
+    }
+    private void setCurrentImage(ImageIcon i){
+        currentImage = i;
+        setIcon(currentImage);
     }
 }

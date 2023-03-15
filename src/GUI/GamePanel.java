@@ -96,7 +96,7 @@ public class GamePanel extends JPanel{
      */
     public void addPlayer2Cards(int cardAmount){
         for(int i = 1; i <= cardAmount; i++){
-            CardButton noClick = new CardButton(gui);
+            CardButton noClick = new CardButton();
             player2Hand.add(noClick);
             player2Panel.add(noClick);
         }
