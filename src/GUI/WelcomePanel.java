@@ -1,5 +1,7 @@
 package src.GUI;
+import src.Bot;
 import src.Game;
+import src.Player;
 
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
@@ -180,7 +182,11 @@ public class WelcomePanel extends JPanel implements ActionListener {
         if (!playerName.strip().equals("")) {
             submitButton.setEnabled(false); // setting enable option to false
             submitButton.setBackground(Color.lightGray); // changing the color state of the button
-             gui.showGame();
+            //we are temporarily gonna not use player for now
+            Player p1 = new Bot(playerName);
+            Player p2 = new Bot();
+            //create a new thread for the game class
+            javax.swing.SwingUtilities.invokeLater(()->gui.showGame(new Game(p1, p2, gui)));
         }
 
     }

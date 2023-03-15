@@ -31,7 +31,8 @@ public class Game {
 	 * @param one player one
 	 * @param two player two
 	 */
-    public Game(Player one, Player two) {
+    public Game(Player one, Player two, GUI g) {
+		gui = g;
 		player1 = one;
 		player2 = two;
 		//this is an EXTREMELY compact way of getting a random dealer
@@ -43,16 +44,14 @@ public class Game {
 			currentPone = player1;
 		}
 		deck = new Deck();
-		javax.swing.SwingUtilities.invokeLater(()-> gui = new GUI(this));
 		run();
-//		gui = new GUI(this);
     }
 	/**
 	 * Creates a single-player game with a human vs. a bot
 	 * @param p the user
 	 */
-	public Game(Player p){
-		this(p, new Bot());
+	public Game(Player p, GUI g){
+		this(p, new Bot(), g);
 	}
 	public Player getPlayer1() {
 		return player1;
@@ -111,7 +110,24 @@ public class Game {
 		deck.shuffleDiscard();
 		run();
 	}
+	/**
+	 * Deals 6 cards to each player
+	 */
+	public void dealPlayers(){
+		player1.getHand().clear();
+		player2.getHand().clear();
+		Card c;
+		for (int i = 0; i <= 5; i++) {
+			c = deck.draw();
+			player1.addCard(c);
+			gui.drawCard(true, c);
 
+			c = deck.draw();
+			player2.addCard(c);
+			gui.drawCard(false, c);
+
+		}
+	}
 	private void discardPhase() {
 		Card currentCard;
 		//loop through all 2 players
@@ -249,19 +265,6 @@ public class Game {
 	 */
 	private static boolean isWin(Player p){
 		return p.getScore() >= WINNING_SCORE;
-	}
-	/**
-	 * Deals 6 cards to each player
-	 */
-	public void dealPlayers(){
-		player1.getHand().clear();
-		player2.getHand().clear();
-		for (int i = 0; i <= 5; i++) {
-			player1.addCard(deck.draw());
-			//do gui card animation
-			player2.addCard(deck.draw());
-			//do gui card animation
-		}
 	}
 	/**
 	 * Adds cards to the crib

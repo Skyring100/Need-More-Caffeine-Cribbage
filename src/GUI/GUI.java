@@ -48,9 +48,8 @@ public class GUI{
         return game.getCrib();
     }
 
-    public GUI(Game game) {
+    public GUI() {
         window = new JFrame();
-        this.game = game;
         selectedCard = null;
         window.setTitle("Cribbage");
         window.setSize(START_WIDTH, START_HEIGHT);
@@ -61,12 +60,21 @@ public class GUI{
         mainScreen = new GamePanel(this);
         window.add(introScreen);
         window.setVisible(true);
-        //this call is temporary, take it out later
-        //showGame();
     }
-    public void showGame(){
+    public void showGame(Game g){
+        game = g;
         introScreen.setVisible(false);
+        window.remove(introScreen);
         window.add(mainScreen);
+    }
+    public void drawCard(boolean isPlayer1, Card c){
+
+    }
+    public void discard(boolean isPlayer1, Card c){
+
+    }
+    public void pegCard(boolean isPlayer1, Card c){
+
     }
 }
 

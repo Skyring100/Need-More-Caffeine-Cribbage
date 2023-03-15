@@ -9,6 +9,9 @@ public class Bot extends Player{
 	public Bot() {
 		super();
 	}
+	public Bot(String name){
+		super(name);
+	}
 
 	
 	/**

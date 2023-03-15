@@ -1,7 +1,9 @@
 package src;
+
+import src.GUI.GUI;
+
 public class Main {
     public static void main(String[] args) {
-        new Game(new Bot(), new Bot());
+        new GUI();
     }
 }
-////
