@@ -15,16 +15,6 @@ import java.util.Random;
 public class Game {
 	private final static int WINNING_SCORE = 121;
 	private final Player player1;
-
-	public Player getPlayer1() {
-		return player1;
-	}
-
-
-	public ArrayList<Card> getCurrentPegList() {
-		return currentPegList;
-	}
-
 	private final Player player2;
 	private Player currentDealer;
 	private Player currentPone;
@@ -63,7 +53,15 @@ public class Game {
 	public Game(Player p){
 		this(p, new Bot());
 	}
-
+	public Player getPlayer1() {
+		return player1;
+	}
+	public Player getPlayer2() {
+		return player2;
+	}
+	public ArrayList<Card> getCurrentPegList() {
+		return currentPegList;
+	}
 	/**
 	 * The main game method, which executes a round in cribbage
 	 */
