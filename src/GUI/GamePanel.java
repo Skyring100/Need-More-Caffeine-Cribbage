@@ -1,6 +1,7 @@
 package src.GUI;
 
 import src.Game;
+import src.OverlapLayout;
 import src.card.Card;
 
 import javax.swing.*;
@@ -36,8 +37,9 @@ public class GamePanel extends JPanel{
         add(bot_panel,BorderLayout.NORTH);
     }
     private void create_user_panel(Game game){
-        handPanel = new JPanel(); // creating a hand panel
-        handPanel.setLayout(new FlowLayout()); // setting the layout of the hand panel
+        OverlapLayout layout = new OverlapLayout(new Point(20, 0));
+        layout.setPopupInsets(new Insets(20, 0, 0, 0));
+        handPanel = new JPanel(layout); // creating a hand panel
 //        handPanel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
 
     }
@@ -92,9 +94,9 @@ public class GamePanel extends JPanel{
 //
 //    }
     private void create_bot_panel(){
-        bot_panel = new JPanel();
-//        bot_panel.setBackground(Color.ORANGE);
-        bot_panel.setLayout(new FlowLayout());
+        OverlapLayout layout = new OverlapLayout(new Point(20, 0));
+        layout.setPopupInsets(new Insets(20, 0, 0, 0));
+        bot_panel = new JPanel(layout);
     }
     private void create_pegging_panel(){
         tablePanel = new JPanel();
