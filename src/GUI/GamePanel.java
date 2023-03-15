@@ -47,6 +47,13 @@ public class GamePanel extends JPanel{
        panel.add(card_image);
 
     }
+    public void addCards(Card card, JPanel panel, JPanel remove_panel){
+        ImageIcon imageIcon = new ImageIcon( "Card.images/card.fronts/"+card.toString() +".png");
+        JLabel card_image = new JLabel(imageIcon);
+        panel.add(card_image);
+        remove_panel.remove(0);
+
+    }
 
 
 //        for (int i = 0; i < user_cards.length; i++){
