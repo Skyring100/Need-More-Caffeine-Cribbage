@@ -43,7 +43,7 @@ public class Game {
 			currentPone = player1;
 		}
 		deck = new Deck();
-		//javax.swing.SwingUtilities.invokeLater(()-> gui = new GUI());
+		javax.swing.SwingUtilities.invokeLater(()-> gui = new GUI(this));
 		run();
     }
 	/**

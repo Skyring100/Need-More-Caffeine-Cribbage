@@ -31,6 +31,7 @@ public class GUI{
         showGame();
     }
     public void showGame(){
+        introScreen.setVisible(false);
         window.add(mainScreen);
     }
     public void pegCard(){
