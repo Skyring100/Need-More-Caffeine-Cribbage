@@ -1,5 +1,6 @@
 package src.GUI;
 
+import src.OverlapLayout;
 import src.Game;
 import src.card.Card;
 
@@ -113,10 +114,11 @@ public class GamePanel extends JPanel{
     }
     private void create_crib_panel(){
         cribpanel = new JPanel();
+        OverlapLayout layout = new OverlapLayout(new Point(20, 0));
+        layout.setPopupInsets(new Insets(20, 0, 0, 25));
+        cribpanel = new JPanel(layout); // creating a hand panel
 //        deckPanel.setBackground(Color.BLUE);
         cribpanel.setSize(200,400);
-        cribpanel.setLayout(new FlowLayout());
-
     }
     private void bot_initialization(JLabel[] cards){
         for (int i = 0; i< 6 ; i++){
