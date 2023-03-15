@@ -41,23 +41,12 @@ public class GamePanel extends JPanel{
 //        handPanel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
 
     }
-    public ArrayList<JLabel> addCards_pegging_area(ArrayList<ImageIcon> imageIcons){
-        ArrayList<JLabel> labels = new ArrayList<>();
-        for (ImageIcon imageIcon : imageIcons) {
-            JLabel label = new JLabel(imageIcon);
-            labels.add(label);
-        }
-        return labels;
-    }
-    public  ArrayList<JLabel> addCards_to_the_player(ArrayList<ImageIcon> imageIcons) {
-        ArrayList<JLabel> labels = new ArrayList<>();
-        for (ImageIcon imageIcon : imageIcons) {
-            JLabel label = new JLabel(imageIcon);
-            labels.add(label);
-        }
-        return labels;
-    }
+    public void addCards(Card card, JPanel panel){
+        ImageIcon imageIcon = new ImageIcon( "Card.images/card.fronts/"+card.toString() +".png");
+       JLabel card_image = new JLabel(imageIcon);
+       panel.add(card_image);
 
+    }
 
 
 //        for (int i = 0; i < user_cards.length; i++){
@@ -115,13 +104,5 @@ public class GamePanel extends JPanel{
                 bot_panel.add(cards[i]);
             }
         }
-    }
-    private ArrayList<ImageIcon> getCardImages(ArrayList<Card> cards){
-        ArrayList<ImageIcon> imageIcons = new ArrayList<>();
-        for (Card c : cards) {
-            ImageIcon imageIcon = new ImageIcon( "Card.images/card.fronts/"+c.toString() +".png");
-            imageIcons.add(imageIcon);
-        }
-        return imageIcons;
     }
 }
