@@ -90,11 +90,13 @@ public class GUI{
         GUI gui = new GUI();
         Game game = new Game(new Bot(), new  Bot(), gui);
         gui.showGame(game);
-        gui.drawCard(true,new Deck().draw());
-        JPanel p = new JPanel();
-        p.setBackground(Color.BLACK);
-        p.setSize(100,110);
-        window.add(p);
+        Card c = new Deck().draw();
+        System.out.println(c);
+        gui.drawCard(true,c);
+//        JPanel p = new JPanel();
+//        p.setBackground(Color.BLACK);
+//        p.setSize(100,110);
+//        window.add(p);
 
     }
 }
