@@ -1,6 +1,4 @@
 package src;
-
-import src.GUI.GUI;
 import src.card.Card;
 import src.card.Deck;
 import src.card.Rank;
@@ -24,15 +22,12 @@ public class Game {
 	private Card flippedCard;
 	private int currentPegValue;
 	private final Deck deck;
-	private GUI gui;
-
 	/**
 	 * Creates a two game with two human players
 	 * @param one player one
 	 * @param two player two
 	 */
-    public Game(Player one, Player two, GUI g) {
-		gui = g;
+    public Game(Player one, Player two) {
 		player1 = one;
 		player2 = two;
 		//this is an EXTREMELY compact way of getting a random dealer
@@ -50,8 +45,8 @@ public class Game {
 	 * Creates a single-player game with a human vs. a bot
 	 * @param p the user
 	 */
-	public Game(Player p, GUI g){
-		this(p, new Bot(), g);
+	public Game(Player p){
+		this(p, new Bot());
 	}
 	public Player getPlayer1() {
 		return player1;
@@ -120,12 +115,9 @@ public class Game {
 		for (int i = 0; i <= 5; i++) {
 			c = deck.draw();
 			player1.addCard(c);
-			gui.drawCard(true, c);
 
 			c = deck.draw();
 			player2.addCard(c);
-			gui.drawCard(false, c);
-
 		}
 	}
 	private void discardPhase() {
@@ -138,11 +130,7 @@ public class Game {
 					currentCard =  p.discard(((Bot) p).discardAlgorithm());
 				}else{
 
-					//let the player choose a card
-					do {
-						currentCard = gui.getSelectedCard();
-						System.out.println(currentCard);
-					}while (currentCard == null);
+					currentCard = null;
 				}
 				crib.add(currentCard);
 			}
