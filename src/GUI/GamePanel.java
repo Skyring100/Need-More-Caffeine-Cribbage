@@ -109,14 +109,16 @@ public class GamePanel extends JPanel{
         bot_panel.setLayout(new FlowLayout());
     }
     private void create_pegging_panel(){
-        tablePanel = new JPanel();
+        OverlapLayout layout = new OverlapLayout(new Point(20, 0));
+        layout.setPopupInsets(new Insets(20, 0, 0, 0));
+        tablePanel = new JPanel(layout);
 //        tablePanel.setBackground(Color.BLACK);
     }
     private void create_crib_panel(){
         cribpanel = new JPanel();
         OverlapLayout layout = new OverlapLayout(new Point(20, 0));
         layout.setPopupInsets(new Insets(20, 0, 0, 25));
-        cribpanel = new JPanel(layout); // creating a hand panel
+        cribpanel = new JPanel(layout);
 //        deckPanel.setBackground(Color.BLUE);
         cribpanel.setSize(200,400);
     }
