@@ -1,8 +1,6 @@
 package src.GUI;
 
-import src.Bot;
 import src.Game;
-import src.Player;
 import src.card.Card;
 
 import javax.swing.*;
@@ -15,7 +13,8 @@ public class GamePanel extends JPanel{
 
     private int cribCount = 0;
     private JPanel handPanel, cribpanel, tablePanel, bot_panel;
-    JLabel[] user_cards = new JLabel[6];
+    ArrayList<JLabel> pegging_cards = new ArrayList<>();
+    ArrayList<JLabel> player_cards = new ArrayList<>();
 
     public GamePanel(Game game){
         setBackground(Color.GRAY); // setting the background
@@ -30,6 +29,7 @@ public class GamePanel extends JPanel{
         bot_initialization(cards);
 
 
+
         add(handPanel, BorderLayout.SOUTH);
         add(cribpanel, BorderLayout.EAST);
         add(tablePanel, BorderLayout.CENTER);
@@ -41,48 +41,52 @@ public class GamePanel extends JPanel{
 //        handPanel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
 
     }
-    public void addCards(ArrayList<Card> cards){
-        ArrayList<ImageIcon> imageIcons_player = getCardImages(cards); // images for player
-        //ArrayList<ImageIcon> imageIcons_bot = get_cards_from_bot(bot); // images for bot
-
-        // creating user cards
-        /*
-        for (int i = 0; i < user_cards.length; i++){
-            user_cards[i] = new JLabel(); // creating card label
-            user_cards[i].setIcon(imageIcons_player.get(i)); // assigning it an image
-            if (player.canPeg(game)){ // checking if the
-                int finalI = i;
-                user_cards[i].addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        JLabel label = (JLabel) e.getSource();
-                        if (cribCount < 2) {
-                            cribpanel.add(label);
-                            cribCount++;
-                            validate();
-                            repaint();
-                        } else {
-                            tablePanel.add(new JLabel(imageIcons_bot.get(finalI)));
-                            bot_panel.remove(0);
-                            tablePanel.add(label,FlowLayout.CENTER);
-                            validate();
-                            repaint();
-                        }
-                    }
-                });
-
-            }
-            else {
-                tablePanel.add(new JLabel(imageIcons_bot.get(i)));
-                bot_panel.remove(0);
-                validate();
-                repaint();
-                this.setToolTipText("Sorry the count is more than 31");
-            }
-            handPanel.add(user_cards[i]);
-            */
-
+    public ArrayList<JLabel> addCards_pegging_area(ArrayList<ImageIcon> imageIcons){
+        ArrayList<JLabel> labels = new ArrayList<>();
+        for (ImageIcon imageIcon : imageIcons) {
+            JLabel label = new JLabel(imageIcon);
+            labels.add(label);
+        }
+        return labels;
     }
+    public  ArrayList<JLabel> addCards_to_the_player(ArrayList<ImageIcon> imageIcons) {
+        ArrayList<JLabel> labels = new ArrayList<>();
+        for (ImageIcon imageIcon : imageIcons) {
+            JLabel label = new JLabel(imageIcon);
+            labels.add(label);
+        }
+        return labels;
+    }
+
+
+
+//        for (int i = 0; i < user_cards.length; i++){
+//            user_cards[i] = new JLabel(); // creating card label
+//            user_cards[i].setIcon(imageIcons.get(i)); // assigning it an image
+//                int finalI = i;
+//                user_cards[i].addMouseListener(new MouseAdapter() {
+//                    @Override
+//                    public void mouseClicked(MouseEvent e) {
+//                        JLabel label = (JLabel) e.getSource();
+//                        if (cribCount < 2) {
+//                            cribpanel.add(label);
+//                            cribCount++;
+//                            validate();
+//                            repaint();
+//                        } else {
+//                            tablePanel.add(new JLabel());
+//                            bot_panel.remove(0);
+//                            tablePanel.add(label,FlowLayout.CENTER);
+//                            validate();
+//                            repaint();
+//                        }
+//                    }
+//                });
+//
+//            }
+//            handPanel.add(user_cards[i]);
+//
+//    }
     private void create_bot_panel(){
         bot_panel = new JPanel();
 //        bot_panel.setBackground(Color.ORANGE);
