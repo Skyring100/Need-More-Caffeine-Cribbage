@@ -91,5 +91,4 @@ public class Game_logs extends JPanel {
         title_panel.add(title_label);
     }
 
-
 }
