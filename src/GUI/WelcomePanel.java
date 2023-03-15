@@ -182,8 +182,12 @@ public class WelcomePanel extends JPanel implements ActionListener {
         if (!playerName.strip().equals("")) {
             submitButton.setEnabled(false); // setting enable option to false
             submitButton.setBackground(Color.lightGray); // changing the color state of the button
-            //we are temporarily gonna not use player for now
-            Player p1 = new Bot(playerName);
+            Player p1;
+            if(!playerName.equals("bot")){
+                p1 = new Player(playerName);
+            }else{
+                p1 = new Bot(playerName);
+            }
             Player p2 = new Bot();
             //create a new thread for the game class
             javax.swing.SwingUtilities.invokeLater(()->gui.showGame(new Game(p1, p2, gui)));

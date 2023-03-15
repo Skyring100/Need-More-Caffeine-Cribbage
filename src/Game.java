@@ -141,6 +141,7 @@ public class Game {
 					//let the player choose a card
 					do {
 						currentCard = gui.getSelectedCard();
+						System.out.println(currentCard);
 					}while (currentCard == null);
 				}
 				crib.add(currentCard);
