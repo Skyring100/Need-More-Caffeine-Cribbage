@@ -38,6 +38,7 @@ public class GamePanel extends JPanel{
     private void create_user_panel(Game game){
         handPanel = new JPanel(); // creating a hand panel
         handPanel.setLayout(new FlowLayout()); // setting the layout of the hand panel
+        add_action_to_button();
 //        handPanel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
 
     }
@@ -46,21 +47,31 @@ public class GamePanel extends JPanel{
         ImageIcon imageIcon = new ImageIcon( "Card.images/card.fronts/"+card.toString() +".png");
        JLabel card_image = new JLabel(imageIcon);
        panel.add(card_image);
+    }
+    public void add_action_to_button(){
+         for (int i = 0; i < handPanel.getComponentCount();i++){
+             JLabel label = (JLabel) handPanel.getComponent(i);
+             label.addMouseListener(new MouseAdapter() {
+                 @Override
+                 public void mouseClicked(MouseEvent e) {
 
+                     handPanel.remove(label);
+
+                 }
+             });
+         }
     }
     // for user panel
     public void remove_card(Card card, JPanel panel){
         ImageIcon imageIcon = new ImageIcon( "Card.images/card.fronts/"+card.toString() +".png");
         JLabel card_image = new JLabel(imageIcon);
         panel.remove(card_image);
-    }
-    // for bot panel
+    }// for bot panel
     public void addCards(Card card, JPanel panel, JPanel remove_panel){
         ImageIcon imageIcon = new ImageIcon( "Card.images/card.fronts/"+card.toString() +".png");
         JLabel card_image = new JLabel(imageIcon);
         panel.add(card_image);
-        remove_panel.remove(0);
-
+        remove_panel.remove(card_image);
     }
 
 
