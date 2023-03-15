@@ -17,7 +17,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
     private ImageIcon imageIcon;
     private Image backgroundImage;
     private JButton submitButton;
-    private TextField textField;
+    private TextField textField, textField1;
     public static String playerName;
     private JLayeredPane layeredPane;
     //getters and setters
@@ -35,7 +35,8 @@ public class WelcomePanel extends JPanel implements ActionListener {
         team_name_title = new JLabel();  // initializing label3
         border_label = new JLabel();  // initializing label4
         submitButton = new JButton("Submit"); // initializing
-        textField= new TextField();
+        textField1 = new TextField();
+        textField = new TextField();
         textField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -86,17 +87,27 @@ public class WelcomePanel extends JPanel implements ActionListener {
 
         //-----------------------------------------Text field-----------------------------------------------------------
             // Creating a text field
-        textField.setText("USERNAME :-    Player 1"); // creating a text box and assigning it to a default text
-        textField.setBounds(100,100,350,30); // setting the parameters
+        textField.setText("Player 1"); // creating a text box and assigning it to a default text
+        textField.setBounds(275,100,125,30); // setting the parameters
         textField.setFont(new Font("MV Boil",Font.BOLD,20)); //customizing font
         textField.setForeground(Color.BLACK); // setting the text color
         textField.setBackground((Color.lightGray)); // setting the background color
         textField.setCursor(new Cursor(Cursor.TEXT_CURSOR)); // setting a cursor for the text bar
 
+        //-----------------------------------------Text field-----------------------------------------------------------
+        textField1.setText("Enter Name:");
+        textField1.setBounds(150,100,175,30); //sets the position
+        textField1.setFont(new Font("MV Boil",Font.BOLD,20));
+        textField1.setForeground(Color.BLACK); // setting the text color
+        textField1.setBackground((Color.lightGray)); // setting the background color
+        textField1.setEditable(false); //makes it so the user cannot change the text
+
+
         //---------------------------------label1----------------------------------------------------------------------
 
         text_field_label.setBounds(400,300,600,600); //its dimensions
         text_field_label.add(textField,BorderLayout.CENTER); // adding a text field to a label1
+        text_field_label.add(textField1, BorderLayout.CENTER);
 
         //-----------------------------------------button---------------------------------------------------------------
 
@@ -154,6 +165,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
      * @param e the event to be processed
      */
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
         // getting players name from the text field
@@ -166,6 +178,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
         }
 
     }
+
 
     /**
      * setting height of the frame

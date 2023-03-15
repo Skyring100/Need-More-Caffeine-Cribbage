@@ -6,8 +6,6 @@ import src.card.Card;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel{
@@ -20,7 +18,6 @@ public class GamePanel extends JPanel{
     public GamePanel(Game game){
         setBackground(Color.GRAY); // setting the background
         setLayout(new BorderLayout()); // setting the layout
-//        create_user_panel(,game);
         create_user_panel(game);
         create_crib_panel();
         create_pegging_panel();
@@ -48,7 +45,6 @@ public class GamePanel extends JPanel{
         ImageIcon imageIcon = new ImageIcon( "Card.images/card.fronts/"+card.toString() +".png");
        JLabel card_image = new JLabel(imageIcon);
        panel.add(card_image);
-
     }
     // for user panel
     public void remove_card(Card card, JPanel panel){

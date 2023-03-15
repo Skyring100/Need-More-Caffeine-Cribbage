@@ -1,6 +1,8 @@
 package src.GUI;
 
 import src.Game;
+import src.Player;
+import src.card.Card;
 
 import javax.swing.*;
 
@@ -12,8 +14,8 @@ public class GUI{
     private final int START_HEIGHT = 1000;
 
     private static JFrame window;
-    private static WelcomePanel introScreen;
-    private static GamePanel mainScreen;
+    private WelcomePanel introScreen;
+    private GamePanel mainScreen;
     private Game game;
     public GUI(Game game) {
         window = new JFrame();
@@ -38,7 +40,7 @@ public class GUI{
     /**
      * Moves a card from a hand to the pegging place
      */
-    public void pegCard(){
+    public void pegCard(Player p, Card c){
 
     }
     public void discard(){
