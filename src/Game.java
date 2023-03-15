@@ -83,7 +83,7 @@ public class Game {
 		}else if(player1 instanceof Bot && player2 instanceof Bot){
 			//if there are just bots playing, we can let them do the whole game without the need for a gui
 			reRun();
-		}
+		}//
 	}
 
 	/**
