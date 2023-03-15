@@ -17,11 +17,11 @@ public class GamePanel extends JPanel{
     private JPanel handPanel, cribpanel, tablePanel, bot_panel;
     JLabel[] user_cards = new JLabel[6];
 
-    public GamePanel(Player player, Game game, Bot bot){
+    public GamePanel(Game game){
         setBackground(Color.GRAY); // setting the background
         setLayout(new BorderLayout()); // setting the layout
 //        create_user_panel(,game);
-        create_user_panel(game,player, bot);
+        create_user_panel(game);
         create_crib_panel();
         create_pegging_panel();
         create_bot_panel();
@@ -35,40 +35,43 @@ public class GamePanel extends JPanel{
         add(tablePanel, BorderLayout.CENTER);
         add(bot_panel,BorderLayout.NORTH);
     }
-    private void create_user_panel(Game game, Player player, Bot bot){
+    private void create_user_panel(Game game){
         handPanel = new JPanel(); // creating a hand panel
         handPanel.setLayout(new FlowLayout()); // setting the layout of the hand panel
 //        handPanel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
 
-        ArrayList<ImageIcon> imageIcons_player = get_cards_from_user(player); // images for player
-        ArrayList<ImageIcon> imageIcons_bot = get_cards_from_bot(bot); // images for bot
+    }
+    public void addCards(ArrayList<Card> cards){
+        ArrayList<ImageIcon> imageIcons_player = getCardImages(cards); // images for player
+        //ArrayList<ImageIcon> imageIcons_bot = get_cards_from_bot(bot); // images for bot
 
         // creating user cards
-
+        /*
         for (int i = 0; i < user_cards.length; i++){
             user_cards[i] = new JLabel(); // creating card label
             user_cards[i].setIcon(imageIcons_player.get(i)); // assigning it an image
             if (player.canPeg(game)){ // checking if the
                 int finalI = i;
                 user_cards[i].addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    JLabel label = (JLabel) e.getSource();
-                    if (cribCount < 2) {
-                        cribpanel.add(label);
-                        cribCount++;
-                        validate();
-                        repaint();
-                    } else {
-                        tablePanel.add(new JLabel(imageIcons_bot.get(finalI)));
-                        bot_panel.remove(0);
-                        tablePanel.add(label,FlowLayout.CENTER);
-                        validate();
-                        repaint();
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        JLabel label = (JLabel) e.getSource();
+                        if (cribCount < 2) {
+                            cribpanel.add(label);
+                            cribCount++;
+                            validate();
+                            repaint();
+                        } else {
+                            tablePanel.add(new JLabel(imageIcons_bot.get(finalI)));
+                            bot_panel.remove(0);
+                            tablePanel.add(label,FlowLayout.CENTER);
+                            validate();
+                            repaint();
+                        }
                     }
-                }
-            });
-        }
+                });
+
+            }
             else {
                 tablePanel.add(new JLabel(imageIcons_bot.get(i)));
                 bot_panel.remove(0);
@@ -77,7 +80,8 @@ public class GamePanel extends JPanel{
                 this.setToolTipText("Sorry the count is more than 31");
             }
             handPanel.add(user_cards[i]);
-        }
+            */
+
     }
     private void create_bot_panel(){
         bot_panel = new JPanel();
@@ -108,20 +112,10 @@ public class GamePanel extends JPanel{
             }
         }
     }
-    private ArrayList<ImageIcon> get_cards_from_user(Player p){
+    private ArrayList<ImageIcon> getCardImages(ArrayList<Card> cards){
         ArrayList<ImageIcon> imageIcons = new ArrayList<>();
-        ArrayList<Card> cards_images = p.getHand();
-        for (Card cardsImage : cards_images) {
-            ImageIcon imageIcon = new ImageIcon( "Card.images/card.fronts/"+cardsImage.toString() +"4.png");
-            imageIcons.add(imageIcon);
-        }
-        return imageIcons;
-    }
-    private ArrayList<ImageIcon> get_cards_from_bot(Bot bot){
-        ArrayList<ImageIcon> imageIcons = new ArrayList<>();
-        ArrayList<Card> cards_images = bot.getPegHand();
-        for (Card cardsImage : cards_images) {
-            ImageIcon imageIcon = new ImageIcon("Card.images/card.fronts/"+cardsImage.toString() +"4.png");
+        for (Card c : cards) {
+            ImageIcon imageIcon = new ImageIcon( "Card.images/card.fronts/"+c.toString() +".png");
             imageIcons.add(imageIcon);
         }
         return imageIcons;

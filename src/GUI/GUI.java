@@ -1,8 +1,6 @@
 package src.GUI;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.event.ActionListener;
+import src.Game;
 
 import javax.swing.*;
 
@@ -16,24 +14,31 @@ public class GUI{
     private static JFrame window;
     private static WelcomePanel introScreen;
     private static GamePanel mainScreen;
-    public GUI() {
+    private Game game;
+    public GUI(Game game) {
         window = new JFrame();
+        this.game = game;
         window.setTitle("Cribbage");
         window.setSize(START_WIDTH, START_HEIGHT);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLocationRelativeTo(null);//opens the window at center
         window.setResizable(false); // disabling the resizable function
         introScreen = new WelcomePanel();
-       // mainScreen = new GamePanel();
+        mainScreen = new GamePanel(game);
         window.add(introScreen);
         window.setVisible(true);
+        //this call is temporary, take it out later
         showGame();
     }
-    public static void showGame(){
-
-        window.add(introScreen);
+    public void showGame(){
+        window.add(mainScreen);
     }
+    public void pegCard(){
 
+    }
+    public void discard(){
+
+    }
 }
 
 
