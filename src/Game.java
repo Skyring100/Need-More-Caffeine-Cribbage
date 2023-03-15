@@ -93,6 +93,7 @@ public class Game {
 		//this part might be added into the gui class when a "submit" button or something is pressed
 		//that way, the game will not run until the player presses a button
 		switchDealer();
+		System.out.println(deck.showDeck());
 		deck.shuffleDiscard();
 		run();
 	}
