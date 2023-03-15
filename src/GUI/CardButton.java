@@ -10,9 +10,10 @@ import java.awt.event.MouseEvent;
  * Represents a clickable card in the gui
  */
 public class CardButton extends JLabel {
-    private final Card card;
-    private final ImageIcon image;
-    private final ImageIcon backImage;
+    private Card card;
+    private ImageIcon image;
+    private ImageIcon backImage;
+    private boolean backOnly = false;
     private GUI gui;
     public CardButton(Card c, GUI g){
         gui = g;
@@ -27,15 +28,34 @@ public class CardButton extends JLabel {
         });
     }
 
+    /**
+     * If you just want a card back, we do not store a card
+     * @param g the gui this card is connected to
+     */
+    public CardButton(GUI g){
+        gui = g;
+        backImage = new ImageIcon("Card/images/card/backs/blue.png");
+        backOnly = true;
+        //if we use this constructor, set to null as these are not intractable and only for display
+        card = null;
+        image = null;
+    }
+
     public Card getCard() {
         return card;
     }
 
-    public ImageIcon getImage() {
+    public ImageIcon getImageRaw() {
         return image;
     }
 
-    public ImageIcon getBackImage() {
+    public ImageIcon getBackImageRaw() {
+        return backImage;
+    }
+    public ImageIcon getImage(){
+        if(!backOnly){
+            return image;
+        }
         return backImage;
     }
 }
