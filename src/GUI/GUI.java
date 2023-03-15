@@ -50,7 +50,6 @@ public class GUI{
         mainScreen = new GamePanel(this);
         window.add(introScreen);
         window.setVisible(true);
-        selected_card_by_player = mainScreen.getSelected_Card();
         //this call is temporary, take it out later
         //showGame();
     }
