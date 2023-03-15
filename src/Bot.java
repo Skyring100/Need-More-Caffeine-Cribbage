@@ -16,6 +16,7 @@ public class Bot extends Player{
 	 * 
 	 */
 	public Card pegAlgorithm(ArrayList<Card> pegList,int pegScore){
+		
 		ArrayList<Card> temp = new ArrayList<>();
 		Card c1;
 		Card c2;
@@ -27,6 +28,7 @@ public class Bot extends Player{
 				temp.add(card);
 			}
 		}
+		
 		if(temp.size() == 1) {
 			returnedCard = temp.get(0);
 		}
@@ -40,48 +42,42 @@ public class Bot extends Player{
 			}
 		}
 		if(temp.size() == 3) {
-			c1 = temp.get(0);
-			c2 = temp.get(1);
-			c3 = temp.get(2);
-			int maxOfNums = Math.max(Game.botPegPoints(pegList, c1), Math.max(Game.botPegPoints(pegList, c2),Game.botPegPoints(pegList, c3)));
-			
-			if(Game.botPegPoints(pegList, c1) == maxOfNums) {
-				returnedCard = c1;
-			}
-			if(Game.botPegPoints(pegList, c2) == maxOfNums) {
-				returnedCard = c2;
-			}
-			if(Game.botPegPoints(pegList, c3) == maxOfNums) {
-				returnedCard = c3;
-			}
+			Card maxtemp = temp.get(0);
+			c1 = temp.get(1);
+			c2 = temp.get(2);
 			
 			
+			if(Game.botPegPoints(pegList, maxtemp) <= Game.botPegPoints(pegList, c1)){
+				maxtemp = c1;
+			}
+			if(Game.botPegPoints(pegList, maxtemp)<= Game.botPegPoints(pegList, c2)) {
+				maxtemp = c2;
+			}
+			returnedCard = maxtemp;
 		}
 		if(temp.size() == 4) {
-			c1 = temp.get(0);
-			c2 = temp.get(1);
-			c3 = temp.get(2);
-			c4=temp.get(3);
-			int maxOfNums = Math.max(Game.botPegPoints(pegList, c1), Math.max(Game.botPegPoints(pegList, c2),Math.max(Game.botPegPoints(pegList, c3),Game.botPegPoints(pegList, c4))));
+			Card maxtemp = temp.get(0);
+			c1 = temp.get(1);
+			c2 = temp.get(2);
+			c3 = temp.get(3);
 			
-			if(Game.botPegPoints(pegList, c1) == maxOfNums) {
-				returnedCard = c1;
+			
+			if(Game.botPegPoints(pegList, maxtemp) <= Game.botPegPoints(pegList, c1)){
+				maxtemp = c1;
 			}
-			if(Game.botPegPoints(pegList, c2) == maxOfNums) {
-				returnedCard = c2;
+			if(Game.botPegPoints(pegList, maxtemp)<= Game.botPegPoints(pegList, c2)) {
+				maxtemp = c2;
 			}
-			if(Game.botPegPoints(pegList, c3) == maxOfNums) {
-				returnedCard = c3;
+			if(Game.botPegPoints(pegList, maxtemp)<= Game.botPegPoints(pegList, c3)) {
+				maxtemp = c3;
 			}
-			if(Game.botPegPoints(pegList, c4) == maxOfNums) {
-				returnedCard = c4;
-			}
+			
+			returnedCard = maxtemp;
+				
 		}
 		//this is a haphazard default, might wanna have intelligent decision later on
 		if(returnedCard == null){
-			System.out.println("\n----------------------------------");
-			System.out.println("NULL DETECTED IN PEGGING, SETTING TO ANY CARD");
-			System.out.println("----------------------------------\n");
+			System.out.println("\n----------------------------------\nNULL DETECTED IN PEGGING, SETTING TO ANY CARD\n----------------------------------\n");
 			return pegHand.get(0);
 		}
 		return returnedCard;
@@ -93,26 +89,24 @@ public class Bot extends Player{
 		ArrayList<ArrayList<Card>> sets = Game.makeSubset(this.hand);
 		ArrayList<Card> highest = sets.get(0);
 		ArrayList<Card> temp;
-		
-		for(int i = 0;i<sets.size();i++) { // goes through each subset
-			
-			if(sets.get(i).size() == 4) { // if subset is length 4, check if the points from this hand is higher than of the previous highest hand
-				temp = sets.get(i);
-				
-				if(Game.countPoints(highest) <= Game.countPoints(temp)) {
+
+		for (ArrayList<Card> set : sets) { // goes through each subset
+
+			if (set.size() == 4) { // if subset is length 4, check if the points from this hand is higher than of the previous highest hand
+				temp = set;
+
+				if (Game.countPoints(highest) <= Game.countPoints(temp)) {
 					highest = temp;
 				}
 			}
 		}
 		// everything below this discards a card which is not contained within the 4 highest scoring cards
-		for(int k = 0;k<hand.size();k++) {
-			if(!highest.contains(hand.get(k))) {
-				return hand.get(k);
+		for (Card card : hand) {
+			if (!highest.contains(card)) {
+				return card;
 			}
 		}
-		System.out.println("\n----------------------------------");
-		System.out.println("NULL DETECTED IN DISCARDING, SETTING TO ANY CARD");
-		System.out.println("----------------------------------\n");
+		System.out.println("\n----------------------------------\nNULL DETECTED IN DISCARDING, SETTING TO ANY CARD\n----------------------------------\n");
 		return hand.get(0);
 	}
 	

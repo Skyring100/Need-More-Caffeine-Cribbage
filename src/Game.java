@@ -3,6 +3,7 @@ package src;
 import src.GUI.GUI;
 import src.card.Card;
 import src.card.Deck;
+import src.card.Rank;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +21,7 @@ public class Game {
 	private Player winner = null;
 	private ArrayList<Card> crib = new ArrayList<>();
 	private ArrayList<Card> currentPegList = new ArrayList<>();
+	private Card flippedCard;
 	private int currentPegValue;
 	private final Deck deck;
 	private GUI gui;
@@ -51,6 +53,10 @@ public class Game {
 	public Game(Player p){
 		this(p, new Bot());
 	}
+
+	/**
+	 * The main game method, which executes a round in cribbage
+	 */
 	private void run(){
 		System.out.println("\nNew Round!\n");
 		dealPlayers();
@@ -61,15 +67,32 @@ public class Game {
 		System.out.println("\nDiscarding");
 		System.out.println(player1+": "+player1.getHand());
 		System.out.println(player2+": "+player2.getHand());
+		flippedCard = deck.draw();
+		System.out.println("Flipped card: "+flippedCard);
+		if(flippedCard.getRank() == Rank.JACK) {
+			currentPone.addScore(2);
+		}
 		peg();
+		System.out.println(player1+": "+player1.getScore());
+		System.out.println(player2+": "+player2.getScore());
 		winner = checkWinner();
 		if(winner != null){
 			System.out.println(winner+" is the winner");
-		}else {
-			switchDealer();
-			deck.shuffleDiscard();
-			run();
+		}else if(player1 instanceof Bot && player2 instanceof Bot){
+			//if there are just bots playing, we can let them do the whole game without the need for a gui
+			reRun();
 		}
+	}
+
+	/**
+	 * To go onto the next round, use this method to set up everything again
+	 */
+	public void reRun(){
+		//this part might be added into the gui class when a "submit" button or something is pressed
+		//that way, the game will not run until the player presses a button
+		switchDealer();
+		deck.shuffleDiscard();
+		run();
 	}
 
 	private void discardPhase() {
@@ -94,8 +117,6 @@ public class Game {
 		// this is the pegging section, hasn't been tested, however I do believe that it should work
 
 		Player currentPlayer;
-		//clear the crib for a new round
-		crib.clear();
 		//sets the pegging hands of all players. This will be manipulated and checked as pegging occurs
 		currentPone.readyPegging();
 		currentDealer.readyPegging();
@@ -116,30 +137,23 @@ public class Game {
 			System.out.println("Peg List:"+currentPegList);
 
 			//checks if the player has cards and is able to play a card
-			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.checkAllCard(this)) {
-
-				/*
-				if(currentPlayer instanceof Bot) { // checks to see if it is a bot
-					Card temp =((Bot) currentPlayer).pegCard(); // discards card in the pone pegging hand, and assigns it to temp
-					currentPegList.add(temp); // adds temp card to the pegging list
-				}else {
-					currentPlayer.pegCard(this, currentPlayer.getPegHand().get(0)); // the card for this method will need to be changed to the card selected
-				}
-
-				 */
+			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.canPeg(this)) {
+				Card peggingCard;
 				//if a player is a bot, use an algorithm to find a suitable card for pegging
 				if(currentPlayer instanceof Bot) {
-					currentPlayer.pegCard(this, ((Bot) currentPlayer).pegAlgorithm(currentPegList,currentPegValue));
-					
+					peggingCard =  ((Bot) currentPlayer).pegAlgorithm(currentPegList,currentPegValue);
 				}
 				else {
-					currentPlayer.pegCard(this,currentPlayer.getPegHand().get(0));// the card for this method will need to be changed to the card selected
-					
+					peggingCard = currentPlayer.getPegHand().get(0);
+					// the card for this method will need to be changed to the card selected
 				}
-				
-				currentPlayer.addScore(pegPoints(currentPegList)); // adds the score to the pone NEED TO USE DIFFERENT COUNT POINT METHOD
+				currentPlayer.pegCard(this,peggingCard);
+				//gui for pegged card
+				currentPlayer.addScore(pegPoints(currentPegList));
 				if(checkWinner()!= null) {
-					break;
+					//we want to return instead of break; we do not care about any extra points now that someone has already won
+					//if we do not return, there is a chance the other player might appear to win as well which is not possible
+					return;
 				}
 			}
 			System.out.println("Peg List: "+currentPegList+" Peg value: "+currentPegValue);
@@ -148,17 +162,19 @@ public class Game {
 			System.out.println();
 			counter++;
 
-			if(!currentDealer.checkAllCard(this) && !currentPone.checkAllCard(this)) { // checking to see if both players can't play a card
+			if(!currentDealer.canPeg(this) && !currentPone.canPeg(this)) { // checking to see if both players can't play a card
 				System.out.println("No possible plays from either player, new peg list");
 				if(currentPegValue == 31) {
 					currentPlayer.addScore(2);
+					//gui for hitting 31 exactly
 				}else {
 					currentPlayer.addScore(1);
+					//gui for finishing last
 				}
 				
 				if(checkWinner() != null) {
-					
-					break;
+					//we want to return instead of break; we do not care about any extra points now that someone has already won
+					return;
 				}
 					currentPegList.clear();
 					currentPegValue = 0;
@@ -166,21 +182,32 @@ public class Game {
 			}
 		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
 		System.out.println("\nDone pegging");
-		currentPone.addScore(countPoints(currentPone.getHand()));
-		currentPone.addScore(countPoints(crib));
-		currentDealer.addScore(countPoints(currentDealer.getHand()));
-		System.out.printf("Dealer: %s%nPone: %s%n",currentDealer,currentPone);
-		System.out.printf("Crib: %s%n%s: %s%n%s: %s%n",crib,player1,player1.getHand(),player2,player2.getHand());
-		System.out.println(player1+": "+player1.getScore());
-		System.out.println(player2+": "+player2.getScore());
-	
+		System.out.printf("Crib: %s%n%s (Dealer): %s%n%s (Pone): %s%n",crib,currentDealer,currentDealer.getHand(),currentPone,currentPone.getHand());
+		System.out.println("Flipped card: "+flippedCard);
+		//adding the flipped card to the scoring hands
+		ArrayList<Card> tempHandScoring = combineFlippedCard(currentPone.getHand());
+		currentPone.addScore(countPoints(tempHandScoring)+countNob(tempHandScoring));
+
+		tempHandScoring = combineFlippedCard(crib);
+
+		currentPone.addScore(countPoints(tempHandScoring)+countNob(tempHandScoring));
+		//in case the pone won here, return immediately
+		//this prevents both the pone and dealer winning at the same time
+		if(isWin(currentPone)){
+			return;
+		}
+
+		tempHandScoring = combineFlippedCard(currentDealer.getHand());
+
+		currentDealer.addScore(countPoints(tempHandScoring)+countNob(tempHandScoring));
+		//clear the crib for the next round
+		crib.clear();
 	}
 	/**
 	 * determines a winner if a player has enough points
 	 * @return the player who won, or null if there isn't one
 	 */
 	private Player checkWinner() {
-		
 		if(isWin(currentPone)){
 			return currentPone;
 		}else if(isWin(currentDealer)){
@@ -221,8 +248,8 @@ public class Game {
 	 * @param list the cards which will be added to the crib
 	 */
 	public void addToCrib(ArrayList<Card> list) {
-		for(int i = 0;i<list.size();i++) {
-			crib.add(list.get(i));
+		for (Card card : list) {
+			crib.add(card);
 		}
 	}
 	/**
@@ -231,15 +258,8 @@ public class Game {
 	 */
 	public void addToPegList(Card c) {
 		currentPegList.add(c);
-	}
-	/**
-	 * 
-	 * @param c card whose value will be added to the current pegList value
-	 */
-	public void addToPegValue(Card c) {
 		currentPegValue += c.getCribCount();
 	}
-
 	public int getPegValue() {
 		return currentPegValue;
 	}
@@ -289,10 +309,10 @@ public class Game {
     	ArrayList<ArrayList<Card>> sets = makeSubset(list);
     	int count = 0;
 		//goes through every subset
-		for(int i = 0;i<sets.size();i++) {
+		for (ArrayList<Card> set : sets) {
 			//per subset, loop through all their elements
 			//check all subsets of size 2 and compare their face cards
-			if(sets.get(i).size() == 2 && (sets.get(i).get(0).getRank() == sets.get(i).get(1).getRank())) {
+			if (set.size() == 2 && (set.get(0).getRank() == set.get(1).getRank())) {
 				count++;
 				break;
 			}
@@ -335,14 +355,14 @@ public class Game {
 		int count = 0;
 		int c;
 		//for each subset of the list
-		for(int i = 0;i<sets.size();i++) {
+		for (ArrayList<Card> set : sets) {
 			c = 0;
 			//add up all of that subset's values
-			for(int j = 0;j<sets.get(i).size();j++) {
-				c += sets.get(i).get(j).getCribCount();
+			for (Card card : set) {
+				c += card.getCribCount();
 			}
 			//if 15, then there is a pair of 15's so increment the big count
-			if(c == 15) {
+			if (c == 15) {
 				count++;
 			}
 		}
@@ -358,27 +378,27 @@ public class Game {
 		int total = 0;
 		ArrayList<ArrayList<Card>> sets = makeSubset(list);
 		Collections.reverse(sets); // reverses the order of the sets so the length 5 sets will be counted before length 4 and 3 sets
-		
-		for(int i = 0;i<sets.size();i++) {
+
+		for (ArrayList<Card> set : sets) {
 			ArrayList<Integer> Hand = new ArrayList<>(); // new hand to store integer values of each card
-			for(int j = 0;j<sets.get(i).size();j++) {
-				Hand.add(sets.get(i).get(j).getValue());
-				
+			for (Card card : set) {
+				Hand.add(card.getValue());
+
 			}
 			Collections.sort(Hand); // sorting the cards by value
-			
-			if(Hand.size() == 5) { // checking if it is a 5 length straight
-				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4)) {
+
+			if (Hand.size() == 5) { // checking if it is a 5 length straight
+				if (Hand.get(0) == (Hand.get(1) - 1) && Hand.get(0) == (Hand.get(2) - 2) && Hand.get(0) == (Hand.get(3) - 3) && Hand.get(0) == (Hand.get(4) - 4)) {
 					return 5;
 				}
 			}
-			if(Hand.size() == 4) { // checking if it is a 4 length straight
-				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3)) {
+			if (Hand.size() == 4) { // checking if it is a 4 length straight
+				if (Hand.get(0) == (Hand.get(1) - 1) && Hand.get(0) == (Hand.get(2) - 2) && Hand.get(0) == (Hand.get(3) - 3)) {
 					return 4;
 				}
 			}
-			if(Hand.size() == 3) { // checking if it is a 3 length straight
-				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2)) {
+			if (Hand.size() == 3) { // checking if it is a 3 length straight
+				if (Hand.get(0) == (Hand.get(1) - 1) && Hand.get(0) == (Hand.get(2) - 2)) {
 					total += 3;
 				}
 			}
@@ -396,6 +416,14 @@ public class Game {
 	public static int countPoints(ArrayList<Card> list) {
     	return count15s(list) * 2 + countFlush(list) + countPairs(list) * 2 + countStraight(list);
     }
+	public int countNob(ArrayList<Card> list) {
+		for(int i = 0;i<list.size();i++) {
+			if(list.get(i).getSuit() == flippedCard.getSuit() && list.get(i).getRank() == Rank.JACK) {
+				return 1;
+			}
+		}
+		return 0;
+	}
     
     
     private static ArrayList<ArrayList<Card>> getPairs(ArrayList<Card> list) {
@@ -403,11 +431,11 @@ public class Game {
     	ArrayList<ArrayList<Card>> allPoints = new ArrayList<>();
     	int count = 0;
 		//goes through every subset
-		for(int i = 0;i<sets.size();i++) {
+		for (ArrayList<Card> set : sets) {
 			//per subset, loop through all their elements
 			//check all subsets of size 2 and compare their face cards
-			if(sets.get(i).size() == 2 && (sets.get(i).get(0).getRank() == sets.get(i).get(1).getRank())) {
-				allPoints.add(sets.get(i));
+			if (set.size() == 2 && (set.get(0).getRank() == set.get(1).getRank())) {
+				allPoints.add(set);
 				break;
 			}
 		}
@@ -482,30 +510,30 @@ public class Game {
 		ArrayList<ArrayList<Card>> sets = makeSubset(list);
     	ArrayList<ArrayList<Card>> allPoints = new ArrayList<>();
 		Collections.reverse(sets); // reverses the order of the sets so the length 5 sets will be counted before length 4 and 3 sets
-		
-		for(int i = 0;i<sets.size();i++) {
+
+		for (ArrayList<Card> set : sets) {
 			ArrayList<Integer> Hand = new ArrayList<>(); // new hand to store integer values of each card
-			for(int j = 0;j<sets.get(i).size();j++) {
-				Hand.add(sets.get(i).get(j).getValue());
-				
+			for (Card card : set) {
+				Hand.add(card.getValue());
+
 			}
 			Collections.sort(Hand); // sorting the cards by value
-			
-			if(Hand.size() == 5) { // checking if it is a 5 length straight
-				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3) && Hand.get(0) == (Hand.get(4)-4)) {
-					allPoints.add(sets.get(i));
+
+			if (Hand.size() == 5) { // checking if it is a 5 length straight
+				if (Hand.get(0) == (Hand.get(1) - 1) && Hand.get(0) == (Hand.get(2) - 2) && Hand.get(0) == (Hand.get(3) - 3) && Hand.get(0) == (Hand.get(4) - 4)) {
+					allPoints.add(set);
 					return allPoints;
 				}
 			}
-			if(Hand.size() == 4) { // checking if it is a 4 length straight
-				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2) && Hand.get(0) == (Hand.get(3)-3)) {
-					allPoints.add(sets.get(i));
+			if (Hand.size() == 4) { // checking if it is a 4 length straight
+				if (Hand.get(0) == (Hand.get(1) - 1) && Hand.get(0) == (Hand.get(2) - 2) && Hand.get(0) == (Hand.get(3) - 3)) {
+					allPoints.add(set);
 					return allPoints;
 				}
 			}
-			if(Hand.size() == 3) { // checking if it is a 3 length straight
-				if(Hand.get(0) == (Hand.get(1)-1) && Hand.get(0) == (Hand.get(2)-2)) {
-					allPoints.add(sets.get(i));
+			if (Hand.size() == 3) { // checking if it is a 3 length straight
+				if (Hand.get(0) == (Hand.get(1) - 1) && Hand.get(0) == (Hand.get(2) - 2)) {
+					allPoints.add(set);
 				}
 			}
 		}
@@ -636,8 +664,8 @@ public class Game {
 }
 	public static int peg15(ArrayList<Card> list) {
 		int counter = 0;
-		for(int i = 0;i<list.size();i++) {
-			counter += list.get(i).getCribCount();
+		for (Card card : list) {
+			counter += card.getCribCount();
 		}
 		if(counter == 15) {
 			return 2;
@@ -648,6 +676,13 @@ public class Game {
 	public static int pegPoints(ArrayList<Card> list) {
 		return peg15(list) + pegPairs(list) + pegStraight(list);
 	}
+
+	/**
+	 * Duplicates a hand of cards. This is needed for the reference type nature of ArrayList where directly assigning
+	 * a card will result in the original being modified
+	 * @param src the hand that will be copied
+	 * @return a duplicate version of the hand that is free to modify
+	 */
 	private static ArrayList<Card> copyCards(ArrayList<Card> src){
 		ArrayList<Card> list = new ArrayList<>();
 		for(Card c : src){
@@ -655,16 +690,15 @@ public class Game {
 		}
 		return list;
 	}
-	public static boolean canPeg(Player p, int pegScore){
-		ArrayList<Card> pegHand = p.getPegHand();
-		ArrayList<Card> temp = new ArrayList<>();
-		for (Card card : pegHand) {
-			//find all possible cards that could be played without going overboard
-			if (card.getCribCount() <= 31 - pegScore) {
-				temp.add(card);
-			}
-		}
-		return temp.size() != 0;
+
+	/**
+	 * Creates a new temporary hand that includes the flipped card for scoring calculations
+	 * @param hand the hand the flipped card should be added to
+	 * @return a copy of the hand that includes the flipped card
+	 */
+	private ArrayList<Card> combineFlippedCard(ArrayList<Card> hand){
+		ArrayList<Card> list = copyCards(hand);
+		list.add(flippedCard);
+		return list;
 	}
 }
-//
