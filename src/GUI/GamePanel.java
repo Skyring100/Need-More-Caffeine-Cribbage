@@ -16,8 +16,15 @@ public class GamePanel extends JPanel{
 
   private Card selectedCard;
 
+    /**
+     * gets a currently selected card. Will reset the card everytime it is called
+     * @return the selected card
+     */
     public Card getSelectedCard() {
-        return selectedCard;
+        //as soon as the card has been read, reset it
+        Card temp = selectedCard;
+        setSelectedCard(null);
+        return temp;
     }
 
     public void setSelectedCard(Card card) {
