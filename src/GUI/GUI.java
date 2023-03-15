@@ -31,8 +31,13 @@ public class GUI{
         showGame();
     }
     public void showGame(){
+        introScreen.setVisible(false);
         window.add(mainScreen);
     }
+
+    /**
+     * Moves a card from a hand to the pegging place
+     */
     public void pegCard(){
 
     }

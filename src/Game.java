@@ -43,7 +43,7 @@ public class Game {
 			currentPone = player1;
 		}
 		deck = new Deck();
-		//javax.swing.SwingUtilities.invokeLater(()-> gui = new GUI());
+		javax.swing.SwingUtilities.invokeLater(()-> gui = new GUI(this));
 		run();
     }
 	/**
@@ -93,8 +93,8 @@ public class Game {
 		//this part might be added into the gui class when a "submit" button or something is pressed
 		//that way, the game will not run until the player presses a button
 		switchDealer();
-		deck.shuffleDiscard();
 		System.out.println(deck.showDeck());
+		deck.shuffleDiscard();
 		run();
 	}
 
