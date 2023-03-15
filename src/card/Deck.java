@@ -18,6 +18,9 @@ public class Deck {
     public void shuffle(){
         Collections.shuffle(cards);
     }
+    public ArrayList showDeck() {
+    	return cards;
+    }
 
     /**
      * draws a random card from the deck

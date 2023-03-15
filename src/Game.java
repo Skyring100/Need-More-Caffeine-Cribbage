@@ -59,7 +59,9 @@ public class Game {
 	 */
 	private void run(){
 		System.out.println("\nNew Round!\n");
+		
 		dealPlayers();
+		
 		System.out.println("\nDealing");
 		System.out.println(player1+": "+player1.getHand());
 		System.out.println(player2+": "+player2.getHand());
@@ -92,6 +94,7 @@ public class Game {
 		//that way, the game will not run until the player presses a button
 		switchDealer();
 		deck.shuffleDiscard();
+		System.out.println(deck.showDeck());
 		run();
 	}
 
