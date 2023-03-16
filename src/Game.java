@@ -298,6 +298,7 @@ public class Game {
 				int scoredPoints = (pegPoints(currentPegList));
 				currentPlayer.addScore(scoredPoints);
 				System.out.println("Peg list: "+currentPegList+" (value: "+currentPegValue+")");
+				clearScreen();
 				if(scoredPoints > 0){
 					showScores();
 				}
@@ -321,8 +322,6 @@ public class Game {
 					System.out.println(currentPlayer+" pegged last, earning them 1 point");
 				}
 				showScores();
-				System.out.println("Press enter to continue");
-				input.nextLine();
 				if(checkWinner() != null) {
 					//we want to return instead of break; we do not care about any extra points now that someone has already won
 					return;
