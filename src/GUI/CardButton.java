@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 
 /**
  * Represents a clickable card in the gui
+ *  * Sorry that we couldn't finish it on time but we gave our best
  */
 public class CardButton extends JLabel {
     private final Card card;

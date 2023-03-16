@@ -85,18 +85,18 @@ public class GUI{
     }
 
     //FOR DEBUGGING GUI
-    public static void main(String[] args) {
-        GUI gui = new GUI();
+//    public static void main(String[] args) {
+//        GUI gui = new GUI();
+//
+//        gui.showGame();
+//        Card c = new Deck().draw();
+//        System.out.println(c);
+////        gui.drawCard(true,c);
+////        JPanel p = new JPanel();
+////        p.setBackground(Color.BLACK);
+////        p.setSize(100,110);
+////        window.add(p);
 
-        gui.showGame();
-        Card c = new Deck().draw();
-        System.out.println(c);
-//        gui.drawCard(true,c);
-//        JPanel p = new JPanel();
-//        p.setBackground(Color.BLACK);
-//        p.setSize(100,110);
-//        window.add(p);
-
-    }
+//    }
 }
 
