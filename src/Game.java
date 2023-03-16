@@ -96,6 +96,7 @@ public class Game {
 		discardPhase();
 		System.out.println("Crib: "+crib);
 		handUpdate();
+		clearScreen();
 		flippedCard = deck.draw();
 		System.out.println("Flipping the deck's top card");
 		System.out.println("Flipped card: "+flippedCard);
@@ -337,7 +338,6 @@ public class Game {
 		System.out.println("Flipped card: "+flippedCard);
 		System.out.println("Press enter to continue");
 		input.nextLine();
-		//----------------------------------------------------------------------------SHOW HOW MUCH SCORE YOU GAIN HERE----------------
 		//adding the flipped card to the scoring hands
 		ArrayList<Card> tempHandScoring = combineFlippedCard(currentPone.getHand());
 		currentPone.addScore(countPoints(tempHandScoring)+countNob(tempHandScoring));
