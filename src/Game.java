@@ -24,6 +24,8 @@ public class Game {
 	private int currentPegValue;
 	private final Deck deck;
 	private Scanner input;
+	private String inputString;
+	private int inputNumber;
 	/**
 	 * Creates a two game with two human players
 	 * @param one player one
@@ -179,7 +181,11 @@ public class Game {
 					for (int i = 0; i < currentPlayer.getHand().size(); i++) {
 						System.out.println(i+1 + "." + currentPlayer.getHand().get(i).toString());
 					}
-					peggingCard = currentPlayer.getPegHand().get(input.nextInt() - 1);
+					do {
+						inputString = input.nextLine();
+						inputNumber = Integer.parseInt(inputString);
+						peggingCard = currentPlayer.getPegHand().get(inputNumber - 1);
+					} while ((inputNumber >= 1) && (inputNumber <=6));
 					// prints out the players current hand and waits for them to choose a card
 				}
 				currentPlayer.pegCard(this,peggingCard);
