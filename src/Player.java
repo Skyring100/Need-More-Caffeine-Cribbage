@@ -9,7 +9,7 @@ import java.util.Random;
 public class Player {
 	private static String[] randomName = new String[]{"Joe","Wizard","Bonk","Snake","Mad Lad","USB Lad","Mastermind",
 			"Fire","Ice","Nerd"};
-	protected String name; // name of the player
+	protected String name;
 	protected int score;
 	protected ArrayList<Card> hand;
 	protected ArrayList<Card> pegHand;
@@ -41,19 +41,10 @@ public class Player {
 	public ArrayList<Card> getPegHand(){
 		return pegHand;
 	}
-	public void discard(Game game, ArrayList<Card> list) {
-
-		for (Card card : list) {
-			hand.remove(hand.indexOf(card));
-		}
-		game.addToCrib(list);
-		pegHand = hand;
-	}
 	public Card discard(Card c){
 		hand.remove(c);
 		return c;
 	}
-	
 	/**
 	 * 
 	 * @param game game object to access the variables

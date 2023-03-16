@@ -190,7 +190,9 @@ public class WelcomePanel extends JPanel implements ActionListener {
             }
             Player p2 = new Bot();
             //create a new thread for the game class
-            javax.swing.SwingUtilities.invokeLater(()->gui.showGame(new Game(p1, p2)));
+            javax.swing.SwingUtilities.invokeLater(()-> {
+                    gui.showGame(new Game(p1, p2));
+            });
         }
 
     }

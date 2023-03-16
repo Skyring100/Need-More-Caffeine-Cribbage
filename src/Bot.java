@@ -78,9 +78,8 @@ public class Bot extends Player{
 			returnedCard = maxtemp;
 				
 		}
-		//this is a haphazard default, might wanna have intelligent decision later on
+		//if there is no card chose, just choose the first card
 		if(returnedCard == null){
-			System.out.println("\n----------------------------------\nNULL DETECTED IN PEGGING, SETTING TO ANY CARD\n----------------------------------\n");
 			return pegHand.get(0);
 		}
 		return returnedCard;
@@ -109,7 +108,6 @@ public class Bot extends Player{
 				return card;
 			}
 		}
-		System.out.println("\n----------------------------------\nNULL DETECTED IN DISCARDING, SETTING TO ANY CARD\n----------------------------------\n");
 		return hand.get(0);
 	}
 	

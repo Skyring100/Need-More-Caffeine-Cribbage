@@ -7,20 +7,20 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Game_logs extends JPanel {
-    JTable User_Score_table ;
-    JTable Bot_score_table ;
+    private JTable User_Score_table ;
+    private JTable Bot_score_table ;
 
-    JButton next_round_button, start_again_button;
+    private JButton next_round_button, start_again_button;
     
-    JPanel title_panel,logs_panel,button_panel;
-    String[][] Player_data = {
+    private JPanel title_panel,logs_panel,button_panel;
+    private String[][] Player_data = {
             {"pairs",},{"Fifteens",},{"Straits","3"},{"your _score ","211"}
     };
-    String[] Player_colum_names = {"your score", "Score"};
-    String[][] Bot_data = {
+    private String[] Player_colum_names = {"your score", "Score"};
+    private String[][] Bot_data = {
             {"pairs","1"},{"Fifteens","2"},{"Straits","3"},{"Your mom's score","121"}
     };
-    String[] Bot_colum_names = {"your Mom", "score"};
+    private String[] Bot_colum_names = {"your Mom", "score"};
     public Game_logs(){
         create_user_table();
         create_buttons();
