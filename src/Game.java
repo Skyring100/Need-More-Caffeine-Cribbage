@@ -106,7 +106,6 @@ public class Game {
 		showScores();
 		System.out.println("Pegging cards");
 		peg();
-		System.out.println("Finished pegging");
 		showScores();
 		winner = checkWinner();
 		if(winner != null){
@@ -260,6 +259,7 @@ public class Game {
 		currentPone.readyPegging();
 		currentDealer.readyPegging();
 		System.out.printf("%s (Dealer)%n%s (Pone)%n",currentDealer,currentPone);
+		clearScreen();
 		//A turn counter
 		int counter = 0;
 		do {
@@ -335,7 +335,7 @@ public class Game {
 		System.out.printf("%s(Dealer)%n%s(Pone)%n",currentDealer,currentPone);
 		System.out.println("Crib: "+crib);
 		System.out.println("Flipped card: "+flippedCard);
-		System.out.println("Pres enter to continue");
+		System.out.println("Press enter to continue");
 		input.nextLine();
 		//----------------------------------------------------------------------------SHOW HOW MUCH SCORE YOU GAIN HERE----------------
 		//adding the flipped card to the scoring hands
