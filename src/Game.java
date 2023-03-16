@@ -73,7 +73,6 @@ public class Game {
 	 */
 	private void run(){
 		System.out.println("\nNew Round!\n");
-		
 		dealPlayers();
 		
 		System.out.println("\nDealing");
@@ -94,10 +93,8 @@ public class Game {
 		winner = checkWinner();
 		if(winner != null){
 			System.out.println(winner+" is the winner");
-		}else if(player1 instanceof Bot && player2 instanceof Bot){
-			//if there are just bots playing, we can let them do the whole game without the need for a gui
-			reRun();
 		}
+		reRun();
 	}
 
 	/**
@@ -128,7 +125,59 @@ public class Game {
 	}
 
 	/**
-	 *
+	 * Lets the player select one of the cards
+	 * @return the selected card
+	 */
+	private Card selectCard(ArrayList<Card> hand){
+		System.out.println("Select a card");
+		//print all cards in the hand
+		for(int i = 1; i <= hand.size(); i++){
+			System.out.print(i+": "+hand.get(i-1)+" ");
+		}
+		System.out.println();
+		int index = -100;
+		String text;
+		//ask the user for input until there is a valid card selected
+		do{
+			System.out.println("Input the number corresponding to the card you want");
+			text = input.nextLine().strip();
+			if(isNumber(text)){
+				index = Integer.valueOf(text);
+			}
+		}while(index < 1 || index > hand.size());
+		index -= 1;
+		return hand.get(index);
+	}
+	/**
+	 * Checks if a string can be converted to a number
+	 * @param check the string to check
+	 * @return if the string is a number
+	 */
+	private boolean isNumber(String check){
+		char[] intWords = new char[]{'0','1','2','3','4','5','6','7','8','9'};
+		char[] letters = check.toCharArray();
+		//if the string is empty, it is not a number
+		if(check.equals("")){
+			return false;
+		}
+		//for each letter, check if it is a digit
+		for(char l : letters){
+			boolean isDigit = false;
+			for(char n : intWords){
+				//if there is a digit found, we know it isnt the other digits so break
+				if(l == n){
+					isDigit = true;
+					break;
+				}
+			}
+			if(!isDigit){
+				return false;
+			}
+		}
+		return true;
+	}
+	/**
+	 * Makes players discard two cards into the crib
 	 */
 	private void discardPhase() {
 		Card currentCard;
@@ -140,7 +189,7 @@ public class Game {
 					currentCard =  p.discard(((Bot) p).discardAlgorithm());
 				}else{
 
-					currentCard = null;
+					currentCard = p.discard(selectCard(p.getHand()));
 				}
 				crib.add(currentCard);
 			}
@@ -177,7 +226,9 @@ public class Game {
 					peggingCard =  ((Bot) currentPlayer).pegAlgorithm(currentPegList,currentPegValue);
 				}
 				else {
-					System.out.println("Pick a Card");
+					System.out.println("Pick a card to peg");
+					peggingCard = selectCard(currentPlayer.getPegHand());
+					/*
 					for (int i = 0; i < currentPlayer.getHand().size(); i++) {
 						System.out.println(i+1 + "." + currentPlayer.getHand().get(i).toString());
 					}
@@ -187,6 +238,9 @@ public class Game {
 						peggingCard = currentPlayer.getPegHand().get(inputNumber - 1);
 					} while ((inputNumber >= 1) && (inputNumber <=6));
 					// prints out the players current hand and waits for them to choose a card
+
+
+					 */
 				}
 				currentPlayer.pegCard(this,peggingCard);
 				currentPlayer.addScore(pegPoints(currentPegList));
@@ -706,6 +760,7 @@ public class Game {
 		return peg15(list) + pegPairs(list) + pegStraight(list);
 	}
 
+
 	
 
 	/**
@@ -718,5 +773,18 @@ public class Game {
 		list.addAll(hand);
 		list.add(flippedCard);
 		return list;
+	}
+	private int checkValidityOfInput(String number){
+		int valid_number = 0;
+		boolean validity = false;
+		do {
+			for (int i = 1; i <=6;i++){
+				if (number.strip().equals(""+i)) {
+					valid_number = i;
+					validity = true;
+				}
+			}
+		} while (validity);
+		return valid_number;
 	}
 }
