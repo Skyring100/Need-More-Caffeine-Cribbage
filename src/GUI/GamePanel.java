@@ -44,21 +44,25 @@ public class GamePanel extends JPanel{
 //        handPanel.setBackground(Color.LIGHT_GRAY); // set background of the hand panel
         for (int i = 0; i < userCards.length; i++){
             userCards[i] = new JLabel();
-            ImageIcon imageIcon1 = new ImageIcon(new ImageIcon("src/GUI/Card.images/card.fronts/C2.png").getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
+            ImageIcon imageIcon1 = new ImageIcon(new ImageIcon("src/GUI/Card.images/card.fronts/H"+(i+2)+".png").getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
             userCards[i].setIcon(imageIcon1);
 
+            int finalI1 = i;
             userCards[i].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     JLabel label = (JLabel) e.getSource();
                     if (cribCount < 2) {
+                        label.setIcon(new ImageIcon(new ImageIcon("blue.png").getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT)));
                         cribPanel.add(label);
                         cribCount++;
                     } else {
-                        ImageIcon imageIcon1 = new ImageIcon(new ImageIcon("src/GUI/Card.images/card.fronts/C2.png").getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
-                        tablePanel.add(new JLabel(imageIcon1));
+
+                        ImageIcon imageIcon1 = new ImageIcon(new ImageIcon("src/GUI/Card.images/card.fronts/C"+ (finalI1+2)+".png").getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
+                        tablePanel.add(label);tablePanel.add(new JLabel(imageIcon1));
+
                         botPanel.remove(0);
-                        tablePanel.add(label,FlowLayout.CENTER);
+
                     }
                     validate();
                     repaint();
