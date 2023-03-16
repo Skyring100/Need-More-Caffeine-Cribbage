@@ -47,6 +47,8 @@ public class Game {
 		}else{
 			currentPone = player1;
 		}
+		System.out.println("Dealer: "+currentDealer);
+		System.out.println("Pone: "+currentPone);
 		deck = new Deck();
 		//to get input from the user, we use a scanner
 		input = new Scanner(System.in);
@@ -265,8 +267,6 @@ public class Game {
 			//if it's an even turn, the pone goes, else the dealer goes
 			if(counter % 2 == 0) {
 				currentPlayer = currentPone;
-				
-				
 			}else {
 				currentPlayer = currentDealer;
 				
@@ -343,6 +343,15 @@ public class Game {
 		currentDealer.addScore(countPoints(tempHandScoring)+countNob(tempHandScoring));
 		//clear the crib for the next round
 		crib.clear();
+	}
+
+	/**
+	 * Determines if a card is playable in the current pegging list
+	 * @param card the card to be checked
+	 * @return if the card is able to be played
+	 */
+	private boolean peggableCard(Card card){
+		return card.getCribCount() <= 31 - getPegValue();
 	}
 	/**
 	 * determines a winner if a player has enough points
