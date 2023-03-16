@@ -1,21 +1,16 @@
 package src.GUI;
-import src.Bot;
-import src.Game;
-import src.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
-
-
+/**
+ * Creating a welcome screen to get a username and assigning a static frame which just override by different panels.
+ * * Sorry that we couldn't finish it on time but we gave our best
+ */
 
 public class WelcomePanel extends JPanel implements ActionListener {
 
-    private int width = 1500;
     public static JFrame frame = new JFrame();
     private final JLabel title_label;
     private final JLabel team_name_title;
@@ -33,6 +28,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
         // rendering the image
         ImageIcon imageIcon = new ImageIcon("jack-hamilton-9SewS6lowEU-unsplash.jpg");
         int height = 1000;
+        int width = 1500;
         Image backgroundImage = imageIcon.getImage().getScaledInstance(width, height, Image.SCALE_AREA_AVERAGING);
         imageIcon = new ImageIcon(backgroundImage);
         JLayeredPane layeredPane = new JLayeredPane(); // initializing layerPane
@@ -55,10 +51,10 @@ public class WelcomePanel extends JPanel implements ActionListener {
         this.setForeground(new Color(0x7f0000));// setting the title of the frame
         this.setLayout(new BorderLayout()); // using the borderLayout
 
-        layeredPane.setBounds(0,0,width, height); // setting the parameter of the pane
+        layeredPane.setBounds(0,0, width, height); // setting the parameter of the pane
 
         // using a label to add an image to it
-        imageLabel.setBounds(0,0,width, height);
+        imageLabel.setBounds(0,0, width, height);
 
         createTitleLabel();
 
@@ -87,6 +83,10 @@ public class WelcomePanel extends JPanel implements ActionListener {
         this.setVisible(true); // rendering the frame
     }
 
+    /**
+     * creating a menu bar which assigned a background, menus and other attributes that make it appear good on the screen
+     */
+
    private void createMenuBar(){
        JMenuBar menuBar = new JMenuBar(); // creating a menu bar.
        menuBar.setBackground(Color.darkGray);
@@ -103,6 +103,10 @@ public class WelcomePanel extends JPanel implements ActionListener {
        menuBar.add(helpMenu);
        this.add(menuBar, BorderLayout.NORTH);
    }
+
+    /**
+     * creating a submit button which has a listener which change the screen and get the name from the user.
+     */
     private void createSubmitButton(){
         submitButton.addActionListener(this); // adding an action listener to a button
         submitButton.setBounds(225,200,100,40); // setting its parameter
@@ -133,6 +137,10 @@ public class WelcomePanel extends JPanel implements ActionListener {
         }
 
     }
+
+    /**
+     * create title label
+     */
     private void createTitleLabel(){
         String s = "C(♣)RIBBAGE BY \n"; // setting a title of the game as a string
         title_label.setText(s); // setting it to the label2
@@ -142,6 +150,10 @@ public class WelcomePanel extends JPanel implements ActionListener {
         title_label.setHorizontalAlignment(JLabel.CENTER); // setting the horizontal parameter of the text
         title_label.setVerticalAlignment(JLabel.TOP); // setting the vertical parameter of the text
     }
+
+    /**
+     * create a team title
+     */
     private void createTeamTitle(){
         String s1 =  "TEAM C(♣)AFFEINE"; // Title string
         team_name_title.setText(s1); // setting a title of the game
@@ -152,6 +164,10 @@ public class WelcomePanel extends JPanel implements ActionListener {
         team_name_title.setHorizontalAlignment(JLabel.CENTER); // setting horizontal restriction
         team_name_title.setVerticalAlignment(JLabel.TOP); // setting vertical restriction
     }
+
+    /**
+     * creating a border between the title
+     */
     private void createBorderLabel(){
         String s3 =  "♣♦♥♠♣♦♥♠♣♦♥♠♣♦♥♠♣♦♥♠♣♦♥♠♣♦♥♠♣♦♥♠♣♠♣♦♥♠♠♣♦♥"; // setting the border between two title
         border_label.setText(s3); // setting the text to the label
@@ -162,6 +178,10 @@ public class WelcomePanel extends JPanel implements ActionListener {
         border_label.setVerticalAlignment(JLabel.TOP);// setting vertical restriction
     }
 
+    /**
+     * creating a text_field to get the name from user
+     */
+
     private void inputTextField(){
         textField.setText("Player 1"); // creating a text box and assigning it to a default text
         textField.setBounds(275,100,125,30); // setting the parameters
@@ -171,6 +191,10 @@ public class WelcomePanel extends JPanel implements ActionListener {
         textField.setCursor(new Cursor(Cursor.TEXT_CURSOR)); // setting a cursor for the text bar
 
     }
+
+    /**
+     * creating a text field for "enter name" to show that the name goes here
+     */
 
     private void userNameTextField(){
         textField1.setText("Enter Name:");
