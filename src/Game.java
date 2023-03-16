@@ -136,15 +136,15 @@ public class Game {
 			System.out.print(i+": "+hand.get(i-1)+" ");
 		}
 		System.out.println();
-		int index = -1;
+		int index = -100;
 		String text;
 		do{
 			System.out.println("Input the number corresponding to the card you want");
 			text = input.nextLine().strip();
-			if(isNumber(text) && !text.equals("")){
+			if(isNumber(text)){
 				index = Integer.valueOf(text);
 			}
-		}while(index < 0 || index > hand.size()-1);
+		}while(index <= 0 || index > hand.size());
 		index -= 1;
 		return hand.get(index);
 	}
@@ -157,6 +157,10 @@ public class Game {
 	private boolean isNumber(String check){
 		char[] intWords = new char[]{'0','1','2','3','4','5','6','7','8','9'};
 		char[] letters = check.toCharArray();
+		//if the string is empty, it is not a number
+		if(check.equals("")){
+			return false;
+		}
 		//for each letter, check if it is a digit
 		for(char l : letters){
 			boolean isDigit = false;
