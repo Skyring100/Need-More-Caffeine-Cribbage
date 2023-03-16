@@ -124,6 +124,10 @@ public class Game {
 			player2.addCard(c);
 		}
 	}
+
+	/**
+	 *
+	 */
 	private void discardPhase() {
 		Card currentCard;
 		//loop through all 2 players
