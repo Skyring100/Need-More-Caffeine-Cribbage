@@ -11,15 +11,14 @@ import java.awt.event.MouseEvent;
  * Represents a clickable card in the gui
  */
 public class CardButton extends JLabel {
-    private static String frontPicPath = "Card.images/card.fronts/";
-    private Card card;
-    private ImageIcon frontImage;
+    private final Card card;
+    private final ImageIcon frontImage;
     private ImageIcon backImage = new ImageIcon("Card.images/card.backs/blue.png");
     private ImageIcon currentImage;
     private boolean backOnly = false;
     private boolean isFlipped = true;
-    private GUI gui;
-    private Dimension size = new Dimension(100,150);
+    private final GUI gui;
+    private final Dimension size = new Dimension(100,150);
 
     /**
      * Creates an intractable card for a GUI
@@ -29,8 +28,9 @@ public class CardButton extends JLabel {
     public CardButton(Card c, GUI g){
         gui = g;
         card = c;
+        String frontPicPath = "Card.images/card.fronts/";
         frontImage = new ImageIcon(frontPicPath + card.toString() + ".png");
-        //backImage = new ImageIcon("Card.images/card.backs/blue.png");
+        backImage = new ImageIcon("Card.images/card.backs/blue.png");
         currentImage = frontImage;
         setSize(size);
         setIcon(currentImage);
@@ -46,7 +46,7 @@ public class CardButton extends JLabel {
      * If you just want a card back, we do not store a card
      */
     public CardButton(){
-        //backImage = new ImageIcon("Card.images/card.backs/blue.png");
+        backImage = new ImageIcon("Card.images/card.backs/blue.png");
         currentImage = backImage;
         backOnly = true;
         isFlipped = false;

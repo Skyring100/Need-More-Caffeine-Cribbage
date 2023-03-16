@@ -140,7 +140,7 @@ public class Game {
 					currentCard =  p.discard(((Bot) p).discardAlgorithm());
 				}else{
 
-					currentCard = p.getHand().get(checkValidityOfInput(input.nextLine()));
+					currentCard = null;
 				}
 				crib.add(currentCard);
 			}
@@ -718,18 +718,5 @@ public class Game {
 		list.addAll(hand);
 		list.add(flippedCard);
 		return list;
-	}
-	private int checkValidityOfInput(String number){
-		int valid_number = 0;
-		boolean validity = false;
-		do {
-			for (int i = 1; i <=6;i++){
-				if (number.strip().equals(""+i)) {
-					valid_number = i;
-					validity = true;
-				}
-			}
-		} while (validity);
-		return valid_number;
 	}
 }

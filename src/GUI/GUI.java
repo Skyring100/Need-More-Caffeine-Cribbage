@@ -45,13 +45,12 @@ public class GUI{
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLocationRelativeTo(null);//opens the window at center
         window.setResizable(false); // disabling the resizable function
-        introScreen = new WelcomePanel(this);
-        mainScreen = new GamePanel(this);
+//        introScreen = new WelcomePanel(this);
+//        mainScreen = new GamePanel(this);
         window.add(introScreen);
         window.setVisible(true);
     }
-    public void showGame(Game g){
-        game = g;
+    public void showGame(){
         introScreen.setVisible(false);
         window.remove(introScreen);
         window.add(mainScreen);
@@ -70,14 +69,14 @@ public class GUI{
     public void setSelectedCard(Card card) {
         selectedCard = card;
     }
-    public void drawCard(boolean isPlayer1, Card c){
-        if(isPlayer1){
-            mainScreen.addPlayer1Card(c);
-        }else{
-            mainScreen.addPlayer2Cards(1);
-        }
-        window.repaint();
-    }
+//    public void drawCard(boolean isPlayer1, Card c){
+//        if(isPlayer1){
+//            mainScreen.addPlayer1Card(c);
+//        }else{
+//            mainScreen.addPlayer2Cards(1);
+//        }
+//        window.repaint();
+//    }
     public void discard(boolean isPlayer1, Card c){
 
     }
@@ -88,11 +87,11 @@ public class GUI{
     //FOR DEBUGGING GUI
     public static void main(String[] args) {
         GUI gui = new GUI();
-        Game game = new Game(new Bot());
-        gui.showGame(game);
+
+        gui.showGame();
         Card c = new Deck().draw();
         System.out.println(c);
-        gui.drawCard(true,c);
+//        gui.drawCard(true,c);
 //        JPanel p = new JPanel();
 //        p.setBackground(Color.BLACK);
 //        p.setSize(100,110);

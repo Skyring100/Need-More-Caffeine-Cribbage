@@ -13,14 +13,14 @@ public class Game_logs extends JPanel {
     private JButton next_round_button, start_again_button;
     
     private JPanel title_panel,logs_panel,button_panel;
-    private String[][] Player_data = {
-            {"pairs",},{"Fifteens",},{"Straits","3"},{"your _score ","211"}
+    private final String[][] Player_data = {
+            {"pairs",""},{"Fifteens",""},{"Straits","3"},{"your _score ","211"}
     };
-    private String[] Player_colum_names = {"your score", "Score"};
-    private String[][] Bot_data = {
+    private final String[] Player_colum_names = {"your score", "Score"};
+    private final String[][] Bot_data = {
             {"pairs","1"},{"Fifteens","2"},{"Straits","3"},{"Your mom's score","121"}
     };
-    private String[] Bot_colum_names = {"your Mom", "score"};
+    private final String[] Bot_colum_names = {"your Mom", "score"};
     public Game_logs(){
         create_user_table();
         create_buttons();
@@ -48,10 +48,10 @@ public class Game_logs extends JPanel {
     User_Score_table.setForeground(Color.BLUE);
 
     User_Score_table.setEnabled(false);
-        JScrollPane scrollPane = new JScrollPane(User_Score_table);
+
         User_Score_table.setFillsViewportHeight(true);
 
-        logs_panel.add(scrollPane);
+        logs_panel.add(User_Score_table);
     Bot_score_table = new JTable(Bot_data,Bot_colum_names);
     Bot_score_table.setRowHeight(50);
     Bot_score_table.setEnabled(false);
@@ -59,9 +59,9 @@ public class Game_logs extends JPanel {
     Bot_score_table.setForeground(Color.BLUE);
     Bot_score_table.setFont(new Font("Serif", Font.BOLD, 20));
     Bot_score_table.setPreferredScrollableViewportSize(Bot_score_table.getPreferredSize());
-    scrollPane = new JScrollPane(Bot_score_table);
+
     Bot_score_table.setFillsViewportHeight(true);
-        logs_panel.add(scrollPane);
+        logs_panel.add(Bot_score_table);
 
 
     }
@@ -74,9 +74,14 @@ public class Game_logs extends JPanel {
         start_again_button = new JButton("Start Again");
         start_again_button.setSize(200,50);
         next_round_button.addActionListener(e -> {
+            Game_logs.this.setVisible(false);
+            WelcomePanel.frame.remove(Game_logs.this);
+            WelcomePanel.frame.add(new GamePanel());
         });
         start_again_button.addActionListener(e -> {
-
+            Game_logs.this.setVisible(false);
+            WelcomePanel.frame.remove(Game_logs.this);
+            WelcomePanel.frame.add(new GamePanel());
         });
         button_panel.add(start_again_button);
         button_panel.add(next_round_button);
@@ -103,5 +108,15 @@ public class Game_logs extends JPanel {
         }
         return strait.toString();
     }
+
+//    public static void main(String[] args) {
+//        JFrame frame = new JFrame();
+//        frame.setLayout(new BorderLayout());
+//        frame.add(new Game_logs(),BorderLayout.CENTER);
+//        frame.setSize(1500,1000);
+//        frame.setLocationRelativeTo(null);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setVisible(true);
+//    }
 
 }
