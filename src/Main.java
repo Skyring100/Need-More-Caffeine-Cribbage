@@ -18,7 +18,7 @@ public class Main {
         do {
             System.out.print("Enter Name: ");
             inputName = input.nextLine().trim();
-        } while (!((inputName.length() > 1) && (inputName.length() < 20)));
+        } while (!((inputName.length() > 0) && (inputName.length() < 20)));
         return inputName;
     }
     //eclipse sucks
