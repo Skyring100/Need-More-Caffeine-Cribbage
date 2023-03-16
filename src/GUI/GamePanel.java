@@ -14,7 +14,6 @@ import java.awt.event.MouseEvent;
 public class GamePanel extends JPanel{
 
     private int cribCount = 0;
-    private int hand_count = 0;
     private JPanel handPanel, cribPanel, tablePanel, botPanel;
     JLabel[] userCards = new JLabel[6];
     public GamePanel(){
@@ -55,17 +54,15 @@ public class GamePanel extends JPanel{
                     if (cribCount < 2) {
                         cribPanel.add(label);
                         cribCount++;
-                        hand_count++;
                     } else {
                         ImageIcon imageIcon1 = new ImageIcon(new ImageIcon("src/GUI/Card.images/card.fronts/C2.png").getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
                         tablePanel.add(new JLabel(imageIcon1));
                         botPanel.remove(0);
-                        hand_count++;
                         tablePanel.add(label,FlowLayout.CENTER);
                     }
                     validate();
                     repaint();
-                    if (hand_count == 6&& handPanel.getComponentCount() == 0){
+                    if ( handPanel.getComponentCount() == 0){
 
                         if (WelcomePanel.frame.getContentPane() instanceof GamePanel){
                             WelcomePanel.frame.getContentPane().removeAll();
@@ -78,8 +75,6 @@ public class GamePanel extends JPanel{
                             WelcomePanel.frame.invalidate();
                             WelcomePanel.frame.validate();
                         }
-                        hand_count=0;
-
                     }
                 }
             });
