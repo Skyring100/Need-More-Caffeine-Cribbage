@@ -127,7 +127,54 @@ public class Game {
 	}
 
 	/**
-	 *
+	 * Lets the player select one of the cards
+	 * @return the selected card
+	 */
+	private Card selectCard(ArrayList<Card> hand){
+		System.out.println("Select a card");
+		for(int i = 1; i <= hand.size(); i++){
+			System.out.print(i+": "+hand.get(i-1)+" ");
+		}
+		System.out.println();
+		int index = -1;
+		String text;
+		do{
+			System.out.println("Input the number corresponding to the card you want");
+			text = input.nextLine().strip();
+			if(isNumber(text)){
+				index = Integer.valueOf(text);
+			}
+		}while(index < 0 || index > hand.size()-1);
+		index -= 1;
+		return hand.get(index);
+	}
+
+	/**
+	 * Checks if a string can be converted to a number
+	 * @param check the string to check
+	 * @return if the string is a number
+	 */
+	private boolean isNumber(String check){
+		char[] intWords = new char[]{'0','1','2','3','4','5','6','7','8','9'};
+		char[] letters = check.toCharArray();
+		//for each letter, check if it is a digit
+		for(char l : letters){
+			boolean isDigit = false;
+			for(char n : intWords){
+				//if there is a digit found, we know it isnt the other digits so break
+				if(l == n){
+					isDigit = true;
+					break;
+				}
+			}
+			if(!isDigit){
+				return false;
+			}
+		}
+		return true;
+	}
+	/**
+	 * Makes players discard two cards into the crib
 	 */
 	private void discardPhase() {
 		Card currentCard;
@@ -139,7 +186,7 @@ public class Game {
 					currentCard =  p.discard(((Bot) p).discardAlgorithm());
 				}else{
 
-					currentCard = p.getHand().get(checkValidityOfInput(input.nextLine()));
+					currentCard = p.discard(selectCard(p.getHand()));
 				}
 				crib.add(currentCard);
 			}
@@ -176,7 +223,9 @@ public class Game {
 					peggingCard =  ((Bot) currentPlayer).pegAlgorithm(currentPegList,currentPegValue);
 				}
 				else {
-					System.out.println("Pick a Card");
+					System.out.println("Pick a card to peg");
+					peggingCard = selectCard(currentPlayer.getPegHand());
+					/*
 					for (int i = 0; i < currentPlayer.getHand().size(); i++) {
 						System.out.println(i+1 + "." + currentPlayer.getHand().get(i).toString());
 					}
@@ -186,6 +235,9 @@ public class Game {
 						peggingCard = currentPlayer.getPegHand().get(inputNumber - 1);
 					} while ((inputNumber >= 1) && (inputNumber <=6));
 					// prints out the players current hand and waits for them to choose a card
+
+
+					 */
 				}
 				currentPlayer.pegCard(this,peggingCard);
 				currentPlayer.addScore(pegPoints(currentPegList));
