@@ -177,7 +177,7 @@ public class Game {
 					for (int i = 0; i < currentPlayer.getHand().size(); i++) {
 						System.out.println(i+1 + "." + currentPlayer.getHand().get(i).toString());
 					}
-					peggingCard = currentPlayer.getPegHand().get(input.nextInt());
+					peggingCard = currentPlayer.getPegHand().get(input.nextInt() - 1);
 					// prints out the players current hand and waits for them to choose a card
 				}
 				currentPlayer.pegCard(this,peggingCard);
