@@ -141,7 +141,7 @@ public class Game {
 		do{
 			System.out.println("Input the number corresponding to the card you want");
 			text = input.nextLine().strip();
-			if(isNumber(text)){
+			if(isNumber(text) && !text.equals("")){
 				index = Integer.valueOf(text);
 			}
 		}while(index < 0 || index > hand.size()-1);
