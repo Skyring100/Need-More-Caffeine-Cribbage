@@ -78,7 +78,7 @@ public class Bot extends Player{
 			returnedCard = maxtemp;
 				
 		}
-		//this is a haphazard default, might wanna have intelligent decision later on
+		//if there is no card chose, just choose the first card
 		if(returnedCard == null){
 			return pegHand.get(0);
 		}

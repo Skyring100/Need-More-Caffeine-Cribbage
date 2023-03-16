@@ -9,7 +9,7 @@ import java.util.Random;
 public class Player {
 	private static String[] randomName = new String[]{"Joe","Wizard","Bonk","Snake","Mad Lad","USB Lad","Mastermind",
 			"Fire","Ice","Nerd"};
-	protected String name; // name of the player
+	protected String name;
 	protected int score;
 	protected ArrayList<Card> hand;
 	protected ArrayList<Card> pegHand;

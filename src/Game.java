@@ -6,6 +6,7 @@ import src.card.Rank;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * This holds all necessary rules and functionality to play a game of cribbage
@@ -22,6 +23,7 @@ public class Game {
 	private Card flippedCard;
 	private int currentPegValue;
 	private final Deck deck;
+	private Scanner input;
 	/**
 	 * Creates a two game with two human players
 	 * @param one player one
@@ -39,6 +41,8 @@ public class Game {
 			currentPone = player1;
 		}
 		deck = new Deck();
+		//to get input from the user, we use a scanner
+		input = new Scanner(System.in);
 		run();
     }
 	/**
