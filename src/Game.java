@@ -175,7 +175,7 @@ public class Game {
 				else {
 					System.out.println("Pick a Card");
 					for (int i = 0; i < currentPlayer.getHand().size(); i++) {
-						System.out.println(i+1 + "." + currentPlayer.getHand().get(i));
+						System.out.println(i+1 + "." + currentPlayer.getHand().get(i).toString());
 					}
 					peggingCard = currentPlayer.getPegHand().get(input.nextInt());
 					// prints out the players current hand and waits for them to choose a card
