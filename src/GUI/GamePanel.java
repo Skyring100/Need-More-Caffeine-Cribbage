@@ -65,9 +65,9 @@ public class GamePanel extends JPanel{
                     }
                     validate();
                     repaint();
-                    if (hand_count == 6){
+                    if (hand_count == 6&& handPanel.getComponentCount() == 0){
 
-                        if (WelcomePanel.frame.getContentPane().equals(GamePanel.this)){
+                        if (WelcomePanel.frame.getContentPane() instanceof GamePanel){
                             WelcomePanel.frame.getContentPane().removeAll();
                             WelcomePanel.frame.getContentPane().add(new Game_logs());
                             WelcomePanel.frame.invalidate();
