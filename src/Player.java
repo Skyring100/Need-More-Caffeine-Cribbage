@@ -79,25 +79,10 @@ public class Player {
 	public ArrayList<Card> getPegHand(){
 		return pegHand;
 	}
-
-	/**
-	 * Adds a card to the Hand (player) that called the method
-	 * @param c The card to add
-	 */
-	public void addCard(Card c) {
-		hand.add(c);
-	}
-
-	/**
-	 * Removes a card from the Hand (player) that called the method
-	 * @param c The card to remove
-	 * @return
-	 */
 	public Card discard(Card c){
 		hand.remove(c);
 		return c;
 	}
-	
 	/**
 	 * Checks whether or not the current player can play a card
 	 * @param game game object to access the variables

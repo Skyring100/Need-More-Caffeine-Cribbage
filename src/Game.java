@@ -6,6 +6,7 @@ import src.card.Rank;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * This holds all necessary rules and functionality to play a game of cribbage
@@ -22,6 +23,7 @@ public class Game {
 	private Card flippedCard;
 	private int currentPegValue;
 	private final Deck deck;
+	private Scanner input;
 	/**
 	 * Creates a two game with two human players
 	 * @param one player one
@@ -39,6 +41,8 @@ public class Game {
 			currentPone = player1;
 		}
 		deck = new Deck();
+		//to get input from the user, we use a scanner
+		input = new Scanner(System.in);
 		run();
     }
 	/**
@@ -130,7 +134,7 @@ public class Game {
 					currentCard =  p.discard(((Bot) p).discardAlgorithm());
 				}else{
 
-					currentCard = null;
+					currentCard = p.getHand().get(checkValidityOfInput(input.nextLine()));
 				}
 				crib.add(currentCard);
 			}
@@ -139,10 +143,8 @@ public class Game {
 
 	private void peg(){
 		System.out.println("\nPegging start");
-		// this is the pegging section, hasn't been tested, however I do believe that it should work
-
 		Player currentPlayer;
-		//sets the pegging hands of all players. This will be manipulated and checked as pegging occurs
+		//sets the pegging hands of all players. These are temporary will be manipulated and checked as pegging occurs
 		currentPone.readyPegging();
 		currentDealer.readyPegging();
 		//A turn counter
@@ -161,7 +163,7 @@ public class Game {
 			System.out.println(currentPlayer+"'s cards: "+currentPlayer.getPegHand());
 			System.out.println("Peg List:"+currentPegList);
 
-			//checks if the player has cards and is able to play a card
+			//checks if the player has cards and is able to play a card (if they have cards and can play at least one of those cards)
 			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.canPeg(this)) {
 				Card peggingCard;
 				//if a player is a bot, use an algorithm to find a suitable card for pegging
@@ -169,11 +171,14 @@ public class Game {
 					peggingCard =  ((Bot) currentPlayer).pegAlgorithm(currentPegList,currentPegValue);
 				}
 				else {
-					peggingCard = currentPlayer.getPegHand().get(0);
-					// the card for this method will need to be changed to the card selected
+					System.out.println("Pick a Card");
+					for (int i = 0; i < currentPlayer.getHand().size(); i++) {
+						System.out.println(i+1 + "." + currentPlayer.getHand().get(i).toString());
+					}
+					peggingCard = currentPlayer.getPegHand().get(input.nextInt() - 1);
+					// prints out the players current hand and waits for them to choose a card
 				}
 				currentPlayer.pegCard(this,peggingCard);
-				//gui for pegged card
 				currentPlayer.addScore(pegPoints(currentPegList));
 				if(checkWinner()!= null) {
 					//we want to return instead of break; we do not care about any extra points now that someone has already won
@@ -186,24 +191,24 @@ public class Game {
 			System.out.println(currentPlayer+"'s score "+currentPlayer.getScore());
 			System.out.println();
 			counter++;
-
-			if(!currentDealer.canPeg(this) && !currentPone.canPeg(this)) { // checking to see if both players can't play a card
+			//checking to see if both players can't play a card
+			if(!currentDealer.canPeg(this) && !currentPone.canPeg(this)) {
 				System.out.println("No possible plays from either player, new peg list");
+				//if you get exactly 31, get bonus points
 				if(currentPegValue == 31) {
 					currentPlayer.addScore(2);
-					//gui for hitting 31 exactly
 				}else {
+					//if you end last, get an extra point for it
 					currentPlayer.addScore(1);
-					//gui for finishing last
 				}
 				
 				if(checkWinner() != null) {
 					//we want to return instead of break; we do not care about any extra points now that someone has already won
 					return;
 				}
-					currentPegList.clear();
-					currentPegValue = 0;
-					
+				//clear the pegging cards and start another round
+				currentPegList.clear();
+				currentPegValue = 0;
 			}
 		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
 		System.out.println("\nDone pegging");
@@ -703,5 +708,18 @@ public class Game {
 		list.addAll(hand);
 		list.add(flippedCard);
 		return list;
+	}
+	private int checkValidityOfInput(String number){
+		int valid_number = 0;
+		boolean validity = false;
+		do {
+			for (int i = 1; i <=6;i++){
+				if (number.strip().equals(""+i)) {
+					valid_number = i;
+					validity = true;
+				}
+			}
+		} while (validity);
+		return valid_number;
 	}
 }
