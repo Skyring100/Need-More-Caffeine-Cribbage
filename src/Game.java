@@ -123,7 +123,6 @@ public class Game {
 		//this part might be added into the gui class when a "submit" button or something is pressed
 		//that way, the game will not run until the player presses a button
 		switchDealer();
-		System.out.println(deck.showDeck());
 		deck.shuffleDiscard();
 		run();
 	}
@@ -798,6 +797,8 @@ public class Game {
 		if(list.size() == 4) {
 			if(list.get(list.size()-1).getValue() == list.get(list.size()-2).getValue() && list.get(list.size()-1).getValue() == list.get(list.size()-3).getValue() && list.get(list.size()-1).getValue() == list.get(list.size()-4).getValue()  ) {
 				return 12;
+			}else {
+				list.remove(0);
 			}
 		}
 		// will remove the first index to reduce the number of cards to 3, then will check if all three cards are the same value
@@ -805,10 +806,11 @@ public class Game {
 			if(list.size() == 3) {
 				if(list.get(list.size()-1).getValue() == list.get(list.size()-2).getValue() && list.get(list.size()-1).getValue() == list.get(list.size()-3).getValue() ) {
 					return 6;
+				}else {
+					list.remove(0);
 				}
 			}
 			// will remove the first index to reduce the number of cards to 2, then will check if the 2 cards are the same value
-		
 		
 		if(list.size() == 2) {
 			if(list.get(list.size()-1).getValue() == list.get(list.size()-2).getValue()) {
