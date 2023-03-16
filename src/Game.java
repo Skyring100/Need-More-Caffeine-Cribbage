@@ -26,6 +26,7 @@ public class Game {
 	private Scanner input;
 	private String inputString;
 	private int inputNumber;
+	private String inputName;
 	/**
 	 * Creates a two game with two human players
 	 * @param one player one
@@ -73,7 +74,7 @@ public class Game {
 	 */
 	private void run(){
 		System.out.println("\nNew Round!\n");
-		
+		enterName();
 		dealPlayers();
 		
 		System.out.println("\nDealing");
@@ -704,6 +705,18 @@ public class Game {
 	}
 	public static int pegPoints(ArrayList<Card> list) {
 		return peg15(list) + pegPairs(list) + pegStraight(list);
+	}
+
+	/**
+	 * Prompts the user to enter their name
+	 * Will only accept names between 1 and 20 in length
+	 */
+	private void enterName() {
+		System.out.println("Enter Name: ");
+		do {
+			inputName = input.nextLine();
+			player1.name = inputName;
+		} while ((inputName.length() > 1) && (inputName.length() < 20));
 	}
 
 	
