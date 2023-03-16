@@ -93,10 +93,8 @@ public class Game {
 		winner = checkWinner();
 		if(winner != null){
 			System.out.println(winner+" is the winner");
-		}else if(player1 instanceof Bot && player2 instanceof Bot){
-			//if there are just bots playing, we can let them do the whole game without the need for a gui
-			reRun();
 		}
+		reRun();
 	}
 
 	/**
@@ -144,11 +142,10 @@ public class Game {
 			if(isNumber(text)){
 				index = Integer.valueOf(text);
 			}
-		}while(index <= 0 || index > hand.size());
+		}while(index < 1 || index >= hand.size());
 		index -= 1;
 		return hand.get(index);
 	}
-
 	/**
 	 * Checks if a string can be converted to a number
 	 * @param check the string to check
