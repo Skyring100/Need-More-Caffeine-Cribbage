@@ -388,7 +388,7 @@ public class Game {
 	 */
     private static int countStraight(ArrayList<Card> list) {
 		int total = 0;
-		ArrayList<ArrayList<Card>> sets = makeSubset(list);
+		ArrayList<ArrayList<Card>> sets = makeSubset(list); // this makes all the subsets so we can see if a straight is possible
 		Collections.reverse(sets); // reverses the order of the sets so the length 5 sets will be counted before length 4 and 3 sets
 
 		for (ArrayList<Card> set : sets) {
@@ -428,6 +428,12 @@ public class Game {
 	public static int countPoints(ArrayList<Card> list) {
     	return count15s(list) * 2 + countFlush(list) + countPairs(list) * 2 + countStraight(list);
     }
+	
+	/**
+	 * 
+	 * @param list the hand which will be checked if they have a jack as the same suit as the flipped over card
+	 * @return 1 or 0 whether or not the check is true
+	 */
 	public int countNob(ArrayList<Card> list) {
 		for(int i = 0;i<list.size();i++) {
 			if(list.get(i).getSuit() == flippedCard.getSuit() && list.get(i).getRank() == Rank.JACK) {
@@ -438,120 +444,7 @@ public class Game {
 	}
     
     
-    private static ArrayList<ArrayList<Card>> getPairs(ArrayList<Card> list) {
-    	ArrayList<ArrayList<Card>> sets = makeSubset(list);
-    	ArrayList<ArrayList<Card>> allPoints = new ArrayList<>();
-    	int count = 0;
-		//goes through every subset
-		for (ArrayList<Card> set : sets) {
-			//per subset, loop through all their elements
-			//check all subsets of size 2 and compare their face cards
-			if (set.size() == 2 && (set.get(0).getRank() == set.get(1).getRank())) {
-				allPoints.add(set);
-				break;
-			}
-		}
-		return allPoints;
-	}
-    /**
-     * 
-     * @param list the hand which will be checked for a flush
-     * @return the number of points for the flush, either 4, 5, or 0
-     */
-    private static ArrayList<ArrayList<Card>> getFlush(ArrayList<Card> list) {
-		//might want to review this: might be some edge cases missed and could be cleaner
-		//if all cards are the same
-    	ArrayList<ArrayList<Card>> allPoints = new ArrayList<>();
-		ArrayList<Card> cardsInHand = new ArrayList<>();
-    	if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit() && list.get(4).getSuit() == list.get(1).getSuit()) {
-    		cardsInHand.add(list.get(0));
-    		cardsInHand.add(list.get(1));
-    		cardsInHand.add(list.get(2));
-    		cardsInHand.add(list.get(3));
-    		cardsInHand.add(list.get(4));
-    	    allPoints.add(cardsInHand);
-    	    return allPoints;
-		//if 4 of the cards are the same
-		//this is where an edge case could be missed if the LAST card was the same as the other cards
-		//the current code ignores the last card so the case (D D D S D) would not be counted as a flush
-    	}else if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit()) {
-    		cardsInHand.add(list.get(0));
-    		cardsInHand.add(list.get(1));
-    		cardsInHand.add(list.get(2));
-    		cardsInHand.add(list.get(3));
-    	    allPoints.add(cardsInHand);
-    	    return allPoints;
-		//else, there is no flush, so return 0
-    	}else {
-    		return allPoints;
-    	}
-    }
-
-    /**
-     * 
-     * @param list the hand which will be checked for possible 15s
-     * @return the number of 15s which are in the hand
-     */
-    private static ArrayList<ArrayList<Card>> get15s(ArrayList<Card> list) {
-    	ArrayList<ArrayList<Card>> sets = makeSubset(list);
-    	ArrayList<ArrayList<Card>> allPoints = new ArrayList<>();
-		int count = 0;
-		int c;
-		//for each subset of the list
-		for(int i = 0;i<sets.size();i++) {
-			c = 0;
-			//add up all of that subset's values
-			for(int j = 0;j<sets.get(i).size();j++) {
-				c += sets.get(i).get(j).getCribCount();
-			}
-			//if 15, then there is a pair of 15's so increment the big count
-			if(c == 15) {
-				count++;
-				allPoints.add(sets.get(i));
-			}
-		}
-		return allPoints;
-	}
-	/**
-	 * 
-	 * @param list hand which will be checked for cards part of scoring straights
-	 * @return the cards part of scoring in straight
-	 */
-    public static ArrayList<ArrayList<Card>> getStraight(ArrayList<Card> list) {
-		int total = 0;
-		ArrayList<ArrayList<Card>> sets = makeSubset(list);
-    	ArrayList<ArrayList<Card>> allPoints = new ArrayList<>();
-		Collections.reverse(sets); // reverses the order of the sets so the length 5 sets will be counted before length 4 and 3 sets
-
-		for (ArrayList<Card> set : sets) {
-			ArrayList<Integer> Hand = new ArrayList<>(); // new hand to store integer values of each card
-			for (Card card : set) {
-				Hand.add(card.getValue());
-
-			}
-			Collections.sort(Hand); // sorting the cards by value
-
-			if (Hand.size() == 5) { // checking if it is a 5 length straight
-				if (Hand.get(0) == (Hand.get(1) - 1) && Hand.get(0) == (Hand.get(2) - 2) && Hand.get(0) == (Hand.get(3) - 3) && Hand.get(0) == (Hand.get(4) - 4)) {
-					allPoints.add(set);
-					return allPoints;
-				}
-			}
-			if (Hand.size() == 4) { // checking if it is a 4 length straight
-				if (Hand.get(0) == (Hand.get(1) - 1) && Hand.get(0) == (Hand.get(2) - 2) && Hand.get(0) == (Hand.get(3) - 3)) {
-					allPoints.add(set);
-					return allPoints;
-				}
-			}
-			if (Hand.size() == 3) { // checking if it is a 3 length straight
-				if (Hand.get(0) == (Hand.get(1) - 1) && Hand.get(0) == (Hand.get(2) - 2)) {
-					allPoints.add(set);
-				}
-			}
-		}
-		return allPoints;
-		//hello
-    }
+    
 
 	/**
 	 * The for loops in the method assign integer values to an arrayList, which allows them to be checked
@@ -562,64 +455,65 @@ public class Game {
 		//create a copy of the arraylist, so we do not modify the original
 		ArrayList<Card> list = new ArrayList<>();
 		list.addAll(pegList);
-		Collections.reverse(list);
 		if(list.size() == 8) { // a straight of 8 cannot exist
 			list.remove(0);
 		}
-		if(list.size() == 1 || list.size() == 2 || list.size() == 0) {
+		Collections.reverse(list); //reverses the arraylist so the most recent cards show up first
+		
+		if(list.size() == 1 || list.size() == 2 || list.size() == 0) { // a straight of 1 2 or 0 cannot exist
 			return 0;
 		}
 
 		ArrayList<Integer> hand = new ArrayList<>();
-		if(list.size() >= 7) {
+		if(list.size() == 7) { // making the new hand of the 7 most recent cards played
 			for(int i = 0;i<7;i++) {
 				hand.add(list.get(i).getValue());
 			}
-			Collections.sort(hand);
+			Collections.sort(hand); // sorting them so we can see if they form a straight
 			if(hand.size() == 7) { // checking if it is a 7 length straight
 				if(hand.get(0) == (hand.get(1)-1) && hand.get(0) == (hand.get(2)-2) && hand.get(0) == (hand.get(3)-3) && hand.get(0) == (hand.get(4)-4) && hand.get(0) == (hand.get(5)-5)  && hand.get(0) == (hand.get(6)-6) ) {
 					return 7;
 				}
 			}
-		}else if(list.size() >=6) {
+		}else if(list.size() ==6) { // making the new hand of the 6 most recent cards played
 			hand.clear();
 			for(int i = 0;i<6;i++) {
 				hand.add(list.get(i).getValue());
 			}
-			Collections.sort(hand);
+			Collections.sort(hand);// sorting them so we can see if they form a straight
 			if(hand.size() == 6) { // checking if it is a 6 length straight
 				if(hand.get(0) == (hand.get(1)-1) && hand.get(0) == (hand.get(2)-2) && hand.get(0) == (hand.get(3)-3) && hand.get(0) == (hand.get(4)-4) && hand.get(0) == (hand.get(5)-5)) {
 					return 6;
 				}
 			}
-		}else if(list.size() >= 5) {
+		}else if(list.size() == 5) { // making the new hand of the 5 most recent cards played
 			hand.clear();
 			for(int i = 0;i<5;i++) {
 				hand.add(list.get(i).getValue());
 			}
-			Collections.sort(hand);
+			Collections.sort(hand);// sorting them so we can see if they form a straight
 			if(hand.size() == 5) { // checking if it is a 5 length straight
 				if(hand.get(0) == (hand.get(1)-1) && hand.get(0) == (hand.get(2)-2) && hand.get(0) == (hand.get(3)-3) && hand.get(0) == (hand.get(4)-4)) {
 					return 5;
 				}
 			}
-		}else if(list.size() == 4) {
+		}else if(list.size() == 4) { // making the new hand of the 4 most recent cards played
 			hand.clear();
 			for(int i = 0;i<4;i++) {
 				hand.add(list.get(i).getValue());
 			}
-			Collections.sort(hand);
+			Collections.sort(hand);// sorting them so we can see if they form a straight
 			if(hand.size() == 4) { // checking if it is a 4 length straight
 				if(hand.get(0) == (hand.get(1)-1) && hand.get(0) == (hand.get(2)-2) && hand.get(0) == (hand.get(3)-3)) {
 					return 4;
 				}
 			}
-		}else if(list.size() == 3) {
+		}else if(list.size() == 3) { // making the new hand of the 3 most recent cards played
 			hand.clear();
 			for(int i = 0;i<3;i++) {
 				hand.add(list.get(i).getValue());
 			}
-			Collections.sort(hand);
+			Collections.sort(hand); // sorting them so we can see if they form a straight
 			if(hand.size() == 3) { // checking if it is a 3 length straight
 				if(hand.get(0) == (hand.get(1)-1) && hand.get(0) == (hand.get(2)-2)) {
 					return 3;
@@ -633,16 +527,25 @@ public class Game {
 		
 	}
 	/**
-	 * l
-	 * @param pegList the current pegging list which will be checked for pairs in pegging
-	 * @return the value of points for pairs
-	 */
+
+	This method takes an ArrayList of Card objects as input and calculates the total number of pairs that can be formed
+	from the cards in the array. It returns an integer value which represents the number of pairs found.
+	If there are no pairs, the method returns 0.
+	If there are two cards with the same value, the method returns 2.
+	If there are three cards with the same value, the method returns 6.
+	If there are four cards with the same value, the method returns 12.
+	The method does not modify the original ArrayList, but creates a copy of it to work with.
+	If the size of the input ArrayList is less than 2, the method returns 0. If the size of the input ArrayList is greater than or
+	equal to 5, the method considers only the last 4 cards in the ArrayList to find pairs.
+	@param pegList - an ArrayList of Card objects representing the cards in the pegging list.
+	@return an integer value representing the number of pairs found in the input ArrayList.
+	*/
 	public static int pegPairs(ArrayList<Card> pegList) {
 		//create a copy of the arraylist, so we do not modify the original
 		ArrayList<Card> list = new ArrayList<>();
-		list.addAll(pegList);
+		list.addAll(pegList); // making a new arraylist so it isnt pointing to the peglist
 		// if the pegging list is of size 1, it will return 0 as there are no possible pair combination
-		if(list.size() == 1 || list.size() == 0){
+		if(list.size() == 1 || list.size() == 0){ // will return 0 if it is of length 1 or 0, because a pair requires 2 or more cards
 			return 0;
 		}
 		// will remove the first index of the arraylist until there are 4 cards remaining
@@ -676,10 +579,15 @@ public class Game {
 		}
 		return  0;
 }
+	/**
+	 * 
+	 * @param list the currentpeglist which will check if the total is 15;
+	 * @return
+	 */
 	public static int peg15(ArrayList<Card> list) {
 		int counter = 0;
 		for (Card card : list) {
-			counter += card.getCribCount();
+			counter += card.getCribCount(); // will add the crib count of each card to see if it equals 15
 		}
 		if(counter == 15) {
 			return 2;
@@ -687,6 +595,11 @@ public class Game {
 		
 		return 0;
 	}
+	/**
+	 * 
+	 * @param list the currentpeglist which will check if the most recent card has added points
+	 * @return the number of points which the most recent card has generated
+	 */
 	public static int pegPoints(ArrayList<Card> list) {
 		return peg15(list) + pegPairs(list) + pegStraight(list);
 	}

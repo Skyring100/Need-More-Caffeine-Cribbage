@@ -32,7 +32,7 @@ public class GamePanel extends JPanel{
         add(cribPanel, BorderLayout.EAST);
         add(pegPanel, BorderLayout.CENTER);
         add(player2Panel,BorderLayout.NORTH);
-    }
+        }
     private void create_user_panel() {
         player1Panel = new JPanel(); // creating a hand panel
         player1Panel.setLayout(new FlowLayout()); // setting the layout of the hand panel
