@@ -132,7 +132,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
             this.setVisible(false);
 
             frame.getContentPane().remove(this);
-            frame.setContentPane(new GamePanel());
+            //frame.setContentPane(new GamePanel());
 
         }
 

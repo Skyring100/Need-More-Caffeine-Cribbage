@@ -84,12 +84,12 @@ public class Game_logs extends JPanel {
         next_round_button.addActionListener(e -> {
             Game_logs.this.setVisible(false);
             WelcomePanel.frame.remove(Game_logs.this);
-            WelcomePanel.frame.add(new GamePanel());
+           // WelcomePanel.frame.add(new GamePanel());
         });
         start_again_button.addActionListener(e -> {
             Game_logs.this.setVisible(false);
             WelcomePanel.frame.remove(Game_logs.this);
-            WelcomePanel.frame.add(new GamePanel());
+            //WelcomePanel.frame.add(new GamePanel());
         });
         button_panel.add(start_again_button);
         button_panel.add(next_round_button);

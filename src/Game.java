@@ -271,12 +271,12 @@ public class Game {
 				
 			}
 			System.out.println("-------------------------------------------------");
+			showHand(currentPlayer, currentPlayer.getPegHand());
 			System.out.println("Pegging list (current value: "+currentPegValue+")");
 			System.out.println(currentPegList);
 
 			//checks if the player has cards and is able to play a card (if they have cards and can play at least one of those cards)
 			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.canPeg(this)) {
-				showHand(currentPlayer, currentPlayer.getPegHand());
 				Card peggingCard;
 				//if a player is a bot, use an algorithm to find a suitable card for pegging
 				if(currentPlayer instanceof Bot) {
@@ -285,7 +285,7 @@ public class Game {
 				}
 				else {
 					do {
-						System.out.println("Pick a card to peg");
+						System.out.println("Pegging");
 						peggingCard = selectCard(currentPlayer.getPegHand());
 						//if the player chose an invalid card, loop again
 						if(!peggableCard(peggingCard)){
