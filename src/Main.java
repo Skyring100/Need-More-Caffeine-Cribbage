@@ -24,3 +24,7 @@ public class Main {
     //eclipse sucks
 
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'Console-Edition' of https://github.com/Skyring100/Need-More-Caffeine-Cribbage

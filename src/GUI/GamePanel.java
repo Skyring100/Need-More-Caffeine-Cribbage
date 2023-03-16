@@ -26,7 +26,7 @@ public class GamePanel extends JPanel{
         create_pegging_panel();
         create_bot_panel();
 
-
+//
 
 
         add(player1Panel, BorderLayout.SOUTH);
