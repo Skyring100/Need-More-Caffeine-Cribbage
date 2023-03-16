@@ -130,12 +130,14 @@ public class Game {
 	 */
 	private Card selectCard(ArrayList<Card> hand){
 		System.out.println("Select a card");
+		//print all cards in the hand
 		for(int i = 1; i <= hand.size(); i++){
 			System.out.print(i+": "+hand.get(i-1)+" ");
 		}
 		System.out.println();
 		int index = -100;
 		String text;
+		//ask the user for input until there is a valid card selected
 		do{
 			System.out.println("Input the number corresponding to the card you want");
 			text = input.nextLine().strip();
