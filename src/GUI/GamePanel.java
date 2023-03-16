@@ -1,6 +1,4 @@
 package src.GUI;
-
-import src.OverlapLayout;
 import src.card.Card;
 
 import javax.swing.*;
@@ -117,9 +115,7 @@ public class GamePanel extends JPanel{
         player2Panel.setLayout(new FlowLayout());
     }
     private void create_pegging_panel(){
-        OverlapLayout layout = new OverlapLayout(new Point(20, 0));
-        layout.setPopupInsets(new Insets(20, 0, 0, 0));
-        pegPanel = new JPanel(layout);
+        pegPanel = new JPanel();
     }
     private void create_crib_panel(){
         cribPanel = new JPanel();

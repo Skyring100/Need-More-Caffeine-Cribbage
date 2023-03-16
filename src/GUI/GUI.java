@@ -88,7 +88,7 @@ public class GUI{
     //FOR DEBUGGING GUI
     public static void main(String[] args) {
         GUI gui = new GUI();
-        Game game = new Game(new Bot(), new  Bot(), gui);
+        Game game = new Game(new Bot());
         gui.showGame(game);
         Card c = new Deck().draw();
         System.out.println(c);
