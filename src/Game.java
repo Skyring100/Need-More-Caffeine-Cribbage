@@ -284,8 +284,14 @@ public class Game {
 					System.out.println(currentPlayer+" pegged "+peggingCard);
 				}
 				else {
-					System.out.println("Pick a card to peg");
-					peggingCard = selectCard(currentPlayer.getPegHand());
+					do {
+						System.out.println("Pick a card to peg");
+						peggingCard = selectCard(currentPlayer.getPegHand());
+						//if the player chose an invalid card, loop again
+						if(!peggableCard(peggingCard)){
+							System.out.println("This card is too high, select another card");
+						}
+					}while(!peggableCard(peggingCard));
 					System.out.println("You pegged "+peggingCard);
 				}
 				currentPlayer.pegCard(this,peggingCard);
@@ -302,7 +308,7 @@ public class Game {
 			counter++;
 			//checking to see if both players can't play a card
 			if(!currentDealer.canPeg(this) && !currentPone.canPeg(this)) {
-				System.out.println("No possible plays from either player\n");
+				System.out.println("No possible plays from either player");
 				//if you get exactly 31, get bonus points
 				if(currentPegValue == 31) {
 					currentPlayer.addScore(2);
@@ -310,7 +316,9 @@ public class Game {
 					//if you end last, get an extra point for it
 					currentPlayer.addScore(1);
 				}
-				
+				showScores();
+				System.out.println("Press enter to continue");
+				input.nextLine();
 				if(checkWinner() != null) {
 					//we want to return instead of break; we do not care about any extra points now that someone has already won
 					return;
@@ -321,9 +329,11 @@ public class Game {
 			}
 		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
 		System.out.println("\nDone pegging\nScoring hands");
-		System.out.printf("%s(Dealer) %s(Pone)",currentDealer,currentPone);
+		System.out.printf("%s(Dealer)%n%s(Pone)%n",currentDealer,currentPone);
 		System.out.println("Crib: "+crib);
 		System.out.println("Flipped card: "+flippedCard);
+		System.out.println("Pres enter to continue");
+		input.nextLine();
 		//----------------------------------------------------------------------------SHOW HOW MUCH SCORE YOU GAIN HERE----------------
 		//adding the flipped card to the scoring hands
 		ArrayList<Card> tempHandScoring = combineFlippedCard(currentPone.getHand());
