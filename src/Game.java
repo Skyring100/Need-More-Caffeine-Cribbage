@@ -200,7 +200,7 @@ public class Game {
 	 * @param p the player that will have their hand shown
 	 */
 	private void showHand(Player p, ArrayList<Card> hand){
-		System.out.println(p+"'s hand:");
+		System.out.print(p+"'s hand: ");
 		if(!(p instanceof Bot)){
 			for(Card c : hand){
 				System.out.print("|"+c+"| ");
