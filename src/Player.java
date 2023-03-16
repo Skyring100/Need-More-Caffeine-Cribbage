@@ -79,6 +79,9 @@ public class Player {
 	public ArrayList<Card> getPegHand(){
 		return pegHand;
 	}
+	public void addCard(Card c) {
+		hand.add(c);
+	}
 	public Card discard(Card c){
 		hand.remove(c);
 		return c;
