@@ -104,9 +104,6 @@ public class Game {
 			System.out.println("The pone ("+currentPone+") scored two points for flipping a jack");
 		}
 		showScores();
-		//let the user continue when done looking at flipped card
-		System.out.println("Press enter when ready");
-		input.nextLine();
 		System.out.println("Pegging cards");
 		peg();
 		System.out.println("Finished pegging");
@@ -203,26 +200,28 @@ public class Game {
 	 * Shows a player's hand to the console
 	 * @param p the player that will have their hand shown
 	 */
-	private void showHand(Player p){
-		//if this is not a bot, show their hand
+	private void showHand(Player p, ArrayList<Card> hand){
+		System.out.println(p+"'s hand:");
 		if(!(p instanceof Bot)){
-			System.out.println(p+"'s hand:");
-			for(Card c : p.getHand()){
-				System.out.print(c+" ");
+			for(Card c : hand){
+				System.out.print("|"+c+"| ");
 			}
-			//in case of two players, we will clear the screen when the user is done looking
-			clearScreen();
+		}else{
+			for (Card c : hand) {
+				System.out.print("|??| ");
+			}
 		}
+		System.out.println();
 	}
 	private void handUpdate(){
-		showHand(player1);
-		showHand(player2);
+		showHand(player1, player1.getHand());
+		showHand(player2, player2.getHand());
 	}
 	private void showScores(){
 		System.out.println("\nCurrent scores");
 		System.out.println(player1+"'s score: "+player1.getScore());
 		System.out.println(player2+"'s score: "+player2.getScore());
-		System.out.println();
+		clearScreen();
 	}
 	/**
 	 * Clear the screen of the user when enter is pressed
@@ -261,6 +260,7 @@ public class Game {
 		//sets the pegging hands of all players. These are temporary will be manipulated and checked as pegging occurs
 		currentPone.readyPegging();
 		currentDealer.readyPegging();
+		System.out.printf("%s (Dealer)%n%s (Pone)%n",currentDealer,currentPone);
 		//A turn counter
 		int counter = 0;
 		do {
@@ -277,6 +277,7 @@ public class Game {
 
 			//checks if the player has cards and is able to play a card (if they have cards and can play at least one of those cards)
 			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.canPeg(this)) {
+				showHand(currentPlayer, currentPlayer.getPegHand());
 				Card peggingCard;
 				//if a player is a bot, use an algorithm to find a suitable card for pegging
 				if(currentPlayer instanceof Bot) {
@@ -295,10 +296,12 @@ public class Game {
 					System.out.println("You pegged "+peggingCard);
 				}
 				currentPlayer.pegCard(this,peggingCard);
-				currentPlayer.addScore(pegPoints(currentPegList));
-				System.out.println("Peg list: "+currentPegList+" (value: "+currentPegValue+")\nPress enter to continue");
-				input.nextLine();
-				showScores();
+				int scoredPoints = (pegPoints(currentPegList));
+				currentPlayer.addScore(scoredPoints);
+				System.out.println("Peg list: "+currentPegList+" (value: "+currentPegValue+")");
+				if(scoredPoints > 0){
+					showScores();
+				}
 				if(checkWinner()!= null) {
 					//we want to return instead of break; we do not care about any extra points now that someone has already won
 					//if we do not return, there is a chance the other player might appear to win as well which is not possible
@@ -312,9 +315,11 @@ public class Game {
 				//if you get exactly 31, get bonus points
 				if(currentPegValue == 31) {
 					currentPlayer.addScore(2);
+					System.out.println(currentPlayer+" got exactly 31! They get 2 points!");
 				}else {
 					//if you end last, get an extra point for it
 					currentPlayer.addScore(1);
+					System.out.println(currentPlayer+" pegged last, earning them 1 point");
 				}
 				showScores();
 				System.out.println("Press enter to continue");
