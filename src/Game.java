@@ -142,7 +142,7 @@ public class Game {
 			if(isNumber(text)){
 				index = Integer.valueOf(text);
 			}
-		}while(index < 1 || index >= hand.size());
+		}while(index < 1 || index > hand.size());
 		index -= 1;
 		return hand.get(index);
 	}
