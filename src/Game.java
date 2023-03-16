@@ -173,8 +173,12 @@ public class Game {
 					peggingCard =  ((Bot) currentPlayer).pegAlgorithm(currentPegList,currentPegValue);
 				}
 				else {
-					peggingCard = currentPlayer.getPegHand().get(0);
-					// the card for this method will need to be changed to the card selected
+					System.out.println("Pick a Card");
+					for (int i = 0; i < currentPlayer.getHand().size(); i++) {
+						System.out.println(i+1 + "." + currentPlayer.getHand().get(i));
+					}
+					peggingCard = currentPlayer.getPegHand().get(input.nextInt());
+					// prints out the players current hand and waits for them to choose a card
 				}
 				currentPlayer.pegCard(this,peggingCard);
 				//gui for pegged card
