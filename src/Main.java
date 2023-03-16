@@ -21,6 +21,7 @@ public class Main {
         } while (!((inputName.length() > 1) && (inputName.length() < 20)));
         return inputName;
     }
+    //eclipse sucks
 
 }
 
