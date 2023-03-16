@@ -277,7 +277,8 @@ public class Game {
 	}
 	
 	public static int botPegPoints(ArrayList<Card> list, Card c) {
-		ArrayList<Card> pegList = copyCards(list);
+		ArrayList<Card> pegList = new ArrayList<>();
+		pegList.addAll(list);
 		pegList.add(c);
 		int points = pegPoints(pegList);
 		pegList.remove(pegList.size()-1);
@@ -559,7 +560,8 @@ public class Game {
 	 */
 	public static int pegStraight(ArrayList<Card> pegList) {
 		//create a copy of the arraylist, so we do not modify the original
-		ArrayList<Card> list = copyCards(pegList);
+		ArrayList<Card> list = new ArrayList<>();
+		list.addAll(pegList);
 		Collections.reverse(list);
 		if(list.size() == 8) { // a straight of 8 cannot exist
 			list.remove(0);
@@ -637,7 +639,8 @@ public class Game {
 	 */
 	public static int pegPairs(ArrayList<Card> pegList) {
 		//create a copy of the arraylist, so we do not modify the original
-		ArrayList<Card> list = copyCards(pegList);
+		ArrayList<Card> list = new ArrayList<>();
+		list.addAll(pegList);
 		// if the pegging list is of size 1, it will return 0 as there are no possible pair combination
 		if(list.size() == 1 || list.size() == 0){
 			return 0;
@@ -688,19 +691,7 @@ public class Game {
 		return peg15(list) + pegPairs(list) + pegStraight(list);
 	}
 
-	/**
-	 * Duplicates a hand of cards. This is needed for the reference type nature of ArrayList where directly assigning
-	 * a card will result in the original being modified
-	 * @param src the hand that will be copied
-	 * @return a duplicate version of the hand that is free to modify
-	 */
-	private static ArrayList<Card> copyCards(ArrayList<Card> src){
-		ArrayList<Card> list = new ArrayList<>();
-		for(Card c : src){
-			list.add(c);
-		}
-		return list;
-	}
+	
 
 	/**
 	 * Creates a new temporary hand that includes the flipped card for scoring calculations
@@ -708,7 +699,8 @@ public class Game {
 	 * @return a copy of the hand that includes the flipped card
 	 */
 	private ArrayList<Card> combineFlippedCard(ArrayList<Card> hand){
-		ArrayList<Card> list = copyCards(hand);
+		ArrayList<Card> list = new ArrayList<>() ;
+		list.addAll(hand);
 		list.add(flippedCard);
 		return list;
 	}
