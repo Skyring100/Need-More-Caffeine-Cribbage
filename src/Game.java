@@ -107,7 +107,6 @@ public class Game {
 		showScores();
 		System.out.println("Pegging cards");
 		peg();
-		showScores();
 		winner = checkWinner();
 		if(winner != null){
 			System.out.println(winner+" is the winner");
