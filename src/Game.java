@@ -573,7 +573,7 @@ public class Game {
 	}
 
 	/**
-	 * Finds the cards that give a pair
+	 * Finds the cards that give a pair. was supposed to be used for the GUI
 	 * @param list the hand to be checked for pairs
 	 * @return an array of pairs
 	 */
@@ -594,7 +594,7 @@ public class Game {
 		return allPoints;
 	}
     /**
-     * Finds cards that cause a flush
+     * Finds cards that cause a flush. was supposed to be used for the GUI
      * @param list the hand which will be checked for a flush
      * @return the number of points for the flush, either 4, 5, or 0
      */
@@ -625,7 +625,7 @@ public class Game {
     }
 
     /**
-     * Finds cards that result in a 15
+     * Finds cards that result in a 15. was supposed to be used for the GUI
      * @param list the hand which will be checked for possible 15s
      * @return the number of 15s which are in the hand
      */
@@ -650,7 +650,7 @@ public class Game {
 		return allPoints;
 	}
 	/**
-	 * 
+	 * Finds cards which form a straight in a hand. was supposed to be used for the GUI
 	 * @param list hand which will be checked for cards part of scoring straights
 	 * @return the cards part of scoring in straight
 	 */
