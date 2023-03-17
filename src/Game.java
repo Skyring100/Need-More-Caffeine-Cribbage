@@ -96,7 +96,6 @@ public class Game {
 		discardPhase();
 		System.out.println("Crib: "+crib);
 		handUpdate();
-		clearScreen();
 		flippedCard = deck.draw();
 		System.out.println("Flipping the deck's top card");
 		System.out.println("Flipped card: "+flippedCard);
@@ -105,8 +104,13 @@ public class Game {
 			System.out.println("The pone ("+currentPone+") scored two points for flipping a jack");
 		}
 		showScores();
+		//let the user continue when done looking at flipped card
+		System.out.println("Press enter when ready");
+		input.nextLine();
 		System.out.println("Pegging cards");
 		peg();
+		System.out.println("Finished pegging");
+		showScores();
 		winner = checkWinner();
 		if(winner != null){
 			System.out.println(winner+" is the winner");
@@ -198,28 +202,26 @@ public class Game {
 	 * Shows a player's hand to the console
 	 * @param p the player that will have their hand shown
 	 */
-	private void showHand(Player p, ArrayList<Card> hand){
-		System.out.print(p+"'s hand: ");
+	private void showHand(Player p){
+		//if this is not a bot, show their hand
 		if(!(p instanceof Bot)){
-			for(Card c : hand){
-				System.out.print("|"+c+"| ");
+			System.out.println(p+"'s hand:");
+			for(Card c : p.getHand()){
+				System.out.print(c+" ");
 			}
-		}else{
-			for (Card c : hand) {
-				System.out.print("|??| ");
-			}
+			//in case of two players, we will clear the screen when the user is done looking
+			clearScreen();
 		}
-		System.out.println();
 	}
 	private void handUpdate(){
-		showHand(player1, player1.getHand());
-		showHand(player2, player2.getHand());
+		showHand(player1);
+		showHand(player2);
 	}
 	private void showScores(){
 		System.out.println("\nCurrent scores");
 		System.out.println(player1+"'s score: "+player1.getScore());
 		System.out.println(player2+"'s score: "+player2.getScore());
-		clearScreen();
+		System.out.println();
 	}
 	/**
 	 * Clear the screen of the user when enter is pressed
@@ -258,8 +260,6 @@ public class Game {
 		//sets the pegging hands of all players. These are temporary will be manipulated and checked as pegging occurs
 		currentPone.readyPegging();
 		currentDealer.readyPegging();
-		System.out.printf("%s (Dealer)%n%s (Pone)%n",currentDealer,currentPone);
-		clearScreen();
 		//A turn counter
 		int counter = 0;
 		do {
@@ -271,7 +271,6 @@ public class Game {
 				
 			}
 			System.out.println("-------------------------------------------------");
-			showHand(currentPlayer, currentPlayer.getPegHand());
 			System.out.println("Pegging list (current value: "+currentPegValue+")");
 			System.out.println(currentPegList);
 
@@ -285,7 +284,7 @@ public class Game {
 				}
 				else {
 					do {
-						System.out.println("Pegging");
+						System.out.println("Pick a card to peg");
 						peggingCard = selectCard(currentPlayer.getPegHand());
 						//if the player chose an invalid card, loop again
 						if(!peggableCard(peggingCard)){
@@ -295,13 +294,10 @@ public class Game {
 					System.out.println("You pegged "+peggingCard);
 				}
 				currentPlayer.pegCard(this,peggingCard);
-				int scoredPoints = (pegPoints(currentPegList));
-				currentPlayer.addScore(scoredPoints);
-				System.out.println("Peg list: "+currentPegList+" (value: "+currentPegValue+")");
-				clearScreen();
-				if(scoredPoints > 0){
-					showScores();
-				}
+				currentPlayer.addScore(pegPoints(currentPegList));
+				System.out.println("Peg list: "+currentPegList+" (value: "+currentPegValue+")\nPress enter to continue");
+				input.nextLine();
+				showScores();
 				if(checkWinner()!= null) {
 					//we want to return instead of break; we do not care about any extra points now that someone has already won
 					//if we do not return, there is a chance the other player might appear to win as well which is not possible
@@ -315,13 +311,13 @@ public class Game {
 				//if you get exactly 31, get bonus points
 				if(currentPegValue == 31) {
 					currentPlayer.addScore(2);
-					System.out.println(currentPlayer+" got exactly 31! They get 2 points!");
 				}else {
 					//if you end last, get an extra point for it
 					currentPlayer.addScore(1);
-					System.out.println(currentPlayer+" pegged last, earning them 1 point");
 				}
 				showScores();
+				System.out.println("Press enter to continue");
+				input.nextLine();
 				if(checkWinner() != null) {
 					//we want to return instead of break; we do not care about any extra points now that someone has already won
 					return;
@@ -332,11 +328,12 @@ public class Game {
 			}
 		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
 		System.out.println("\nDone pegging\nScoring hands");
-		System.out.printf("%s(Dealer): %s%n%s(Pone): %s%n",currentDealer, currentDealer.getHand(),currentPone, currentPone.getHand());
+		System.out.printf("%s(Dealer)%n%s(Pone)%n",currentDealer,currentPone);
 		System.out.println("Crib: "+crib);
 		System.out.println("Flipped card: "+flippedCard);
-		System.out.println("Press enter to continue");
+		System.out.println("Pres enter to continue");
 		input.nextLine();
+		//----------------------------------------------------------------------------SHOW HOW MUCH SCORE YOU GAIN HERE----------------
 		//adding the flipped card to the scoring hands
 		ArrayList<Card> tempHandScoring = combineFlippedCard(currentPone.getHand());
 		currentPone.addScore(countPoints(tempHandScoring)+countNob(tempHandScoring));
@@ -579,6 +576,7 @@ public class Game {
 	 * @param list the hand to be checked for pairs
 	 * @return an array of pairs
 	 */
+	
     private static ArrayList<ArrayList<Card>> getPairs(ArrayList<Card> list) {
     	ArrayList<ArrayList<Card>> sets = makeSubset(list);
     	ArrayList<ArrayList<Card>> allPoints = new ArrayList<>();
@@ -689,6 +687,7 @@ public class Game {
 		}
 		return allPoints;
 		//hello
+		//
     }
 
 	/**
