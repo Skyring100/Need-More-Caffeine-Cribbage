@@ -199,17 +199,25 @@ public class Game {
 	 * @param p the player that will have their hand shown
 	 */
 	private void showHand(Player p, ArrayList<Card> hand){
-		System.out.print(p+"'s hand: ");
+		System.out.println(p+"'s hand: ");
+		String top = "";
+		String middle = "";
+		String bottom = "";
 		if(!(p instanceof Bot)){
-			for(Card c : hand){
-				System.out.print("|"+c+"| ");
+			for (Card card : hand) {
+				top += "┌────┐\t";
+				middle += "│ " + card + " │\t";
+				bottom += "└────┘\t";
 			}
 		}else{
 			for (Card c : hand) {
-				System.out.print("|??| ");
+				top +=  "┌────┐\t";
+				middle += "│ ?? │\t";
+				bottom += "└────┘\t";
 			}
 		}
-		System.out.println();
+		System.out.println(top+"\n" + middle+ "\n"+bottom);
+
 	}
 	private void handUpdate(){
 		showHand(player1, player1.getHand());
@@ -227,7 +235,7 @@ public class Game {
 	private void clearScreen(){
 		System.out.println("\nPress enter to continue");
 		input.nextLine();
-		for(int i = 1; i <= 50; i++){
+		for(int i = 1; i <= 20; i++){
 			System.out.println();
 		}
 	}
