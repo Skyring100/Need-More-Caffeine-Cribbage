@@ -94,12 +94,14 @@ public class Game {
 		dealPlayers();
 		handUpdate();
 		discardPhase();
-		System.out.println("Crib: "+crib);
+		System.out.println("Crib: ");
+		print_cards(getCrib());
 		handUpdate();
 		clearScreen();
 		flippedCard = deck.draw();
 		System.out.println("Flipping the deck's top card");
-		System.out.println("Flipped card: "+flippedCard);
+		System.out.println("Flipped card: ");
+		print_card(flippedCard);
 		if(flippedCard.getRank() == Rank.JACK) {
 			currentPone.addScore(2);
 			System.out.println("The pone ("+currentPone+") scored two points for flipping a jack");
@@ -148,8 +150,11 @@ public class Game {
 	private Card selectCard(ArrayList<Card> hand){
 		System.out.println("Select a card");
 		//print all cards in the hand
+		print_cards(hand);
 		for(int i = 1; i <= hand.size(); i++){
-			System.out.print("("+i+"): "+hand.get(i-1)+" ");
+			System.out.print("  ("+i +")   ");
+
+
 		}
 		System.out.println();
 		int index = -100;
@@ -200,25 +205,21 @@ public class Game {
 	 */
 	private void showHand(Player p, ArrayList<Card> hand){
 		System.out.println(p+"'s hand: ");
-		String top = "";
-		String middle = "";
-		String bottom = "";
-		if(!(p instanceof Bot)){
-			for (Card card : hand) {
-				top += "┌────┐\t";
-				middle += "│ " + card + " │\t";
-				bottom += "└────┘\t";
-			}
-		}else{
-			for (Card c : hand) {
-				top +=  "┌────┐\t";
-				middle += "│ ?? │\t";
-				bottom += "└────┘\t";
-			}
-		}
-		System.out.println(top+"\n" + middle+ "\n"+bottom);
 
-	}
+		if(!(p instanceof Bot)){
+			print_cards(hand);
+		}else{
+			StringBuilder top = new StringBuilder();
+			StringBuilder middle = new StringBuilder();
+			StringBuilder bottom = new StringBuilder();
+			for (Card c : hand) {
+				top.append("┌────┐\t");
+				middle.append("│ ?? │\t");
+				bottom.append("└────┘\t");
+			}
+			System.out.println(top+"\n" + middle+ "\n"+bottom);
+		}
+		}
 	private void handUpdate(){
 		showHand(player1, player1.getHand());
 		showHand(player2, player2.getHand());
@@ -281,7 +282,7 @@ public class Game {
 			System.out.println("-------------------------------------------------");
 			showHand(currentPlayer, currentPlayer.getPegHand());
 			System.out.println("Pegging list (current value: "+currentPegValue+")");
-			System.out.println(currentPegList);
+			print_cards(currentPegList);
 
 			//checks if the player has cards and is able to play a card (if they have cards and can play at least one of those cards)
 			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.canPeg(this)) {
@@ -289,18 +290,20 @@ public class Game {
 				//if a player is a bot, use an algorithm to find a suitable card for pegging
 				if(currentPlayer instanceof Bot) {
 					peggingCard =  ((Bot) currentPlayer).pegAlgorithm(currentPegList,currentPegValue);
-					System.out.println(currentPlayer+" pegged "+peggingCard);
+					System.out.println(currentPlayer+" pegged ");
+					print_card(peggingCard);
 				}
 				else {
 					do {
 						System.out.println("Pegging");
 						peggingCard = selectCard(currentPlayer.getPegHand());
 						//if the player chose an invalid card, loop again
-						if(!peggableCard(peggingCard)){
+						if(peggableCard(peggingCard)){
 							System.out.println("This card is too high, select another card");
 						}
-					}while(!peggableCard(peggingCard));
-					System.out.println("You pegged "+peggingCard);
+					}while(peggableCard(peggingCard));
+					System.out.println("You pegged ");
+					print_card(peggingCard);
 				}
 				currentPlayer.pegCard(this,peggingCard);
 				int scoredPoints = (pegPoints(currentPegList));
@@ -340,8 +343,12 @@ public class Game {
 			}
 		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
 		System.out.println("\nDone pegging\nScoring hands");
-		System.out.printf("%s(Dealer): %s%n%s(Pone): %s%n",currentDealer, currentDealer.getHand(),currentPone, currentPone.getHand());
-		System.out.println("Crib: "+crib);
+		System.out.println(currentDealer+"(Dealer):");
+		print_cards(currentDealer.getHand());
+		System.out.println(currentPone+"(Pone):");
+		print_cards(currentPone.getHand());
+		System.out.println("Crib: ");
+		print_cards(crib);
 		System.out.println("Flipped card: "+flippedCard);
 		System.out.println("Press enter to continue");
 		input.nextLine();
@@ -371,7 +378,7 @@ public class Game {
 	 * @return if the card is able to be played
 	 */
 	private boolean peggableCard(Card card){
-		return card.getCribCount() <= 31 - getPegValue();
+		return card.getCribCount() > 31 - getPegValue();
 	}
 	/**
 	 * determines a winner if a player has enough points
@@ -405,9 +412,7 @@ public class Game {
 	 * @param list the cards which will be added to the crib
 	 */
 	public void addToCrib(ArrayList<Card> list) {
-		for (Card card : list) {
-			crib.add(card);
-		}
+		crib.addAll(list);
 	}
 	/**
 	 * 
@@ -421,8 +426,7 @@ public class Game {
 		return currentPegValue;
 	}
 	public static int botPegPoints(ArrayList<Card> list, Card c) {
-		ArrayList<Card> pegList = new ArrayList<>();
-		pegList.addAll(list);
+		ArrayList<Card> pegList = new ArrayList<>(list);
 		pegList.add(c);
 		int points = pegPoints(pegList);
 		pegList.remove(pegList.size()-1);
@@ -853,5 +857,34 @@ public class Game {
 		list.addAll(hand);
 		list.add(flippedCard);
 		return list;
+	}
+
+	/**
+	 * printing cards in more visualize way
+	 * @param hand arraylist of card
+	 */
+	private void print_cards(ArrayList<Card> hand){
+		String top = "";
+		String middle = "";
+		String bottom = "";
+		for (Card c : hand) {
+			top +=  "┌────┐\t";
+			middle += "│ "+c+" │\t";
+			bottom += "└────┘\t";
+		}System.out.println(top+"\n" + middle+ "\n"+bottom);
+	}
+
+	/**
+	 * printing a card
+	 * @param c card to print
+	 */
+	private void print_card(Card c){
+		String top = "";
+		String middle = "";
+		String bottom = "";
+		top +=  "┌────┐\t";
+		middle += "│ "+c+" │\t";
+		bottom += "└────┘\t";
+		System.out.println(top+"\n" + middle+ "\n"+bottom);
 	}
 }
