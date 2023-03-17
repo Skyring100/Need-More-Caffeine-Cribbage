@@ -45,27 +45,27 @@ public class Game_logs extends JPanel {
 
         JTable user_Score_table = new JTable(Player_data, Player_colum_names);
 
-    user_Score_table.setRowHeight(50);
-    user_Score_table.setBackground(Color.lightGray);
-    user_Score_table.setPreferredScrollableViewportSize(user_Score_table.getPreferredSize());
-    user_Score_table.setFont(new Font("Serif", Font.BOLD, 20));
-    user_Score_table.setForeground(Color.BLUE);
+        user_Score_table.setRowHeight(50);
+        user_Score_table.setBackground(Color.lightGray);
+        user_Score_table.setPreferredScrollableViewportSize(user_Score_table.getPreferredSize());
+        user_Score_table.setFont(new Font("Serif", Font.BOLD, 20));
+        user_Score_table.setForeground(Color.BLUE);
 
-    user_Score_table.setEnabled(false);
+        user_Score_table.setEnabled(false);
 
-    user_Score_table.setFillsViewportHeight(true);
+        user_Score_table.setFillsViewportHeight(true);
 
-    logs_panel.add(user_Score_table);
+        logs_panel.add(user_Score_table);
         JTable bot_score_table = new JTable(Bot_data, Bot_colum_names);
-    bot_score_table.setRowHeight(50);
-    bot_score_table.setEnabled(false);
-    bot_score_table.setBackground(new Color(0x0fff0f));
-    bot_score_table.setForeground(Color.BLUE);
-    bot_score_table.setFont(new Font("Serif", Font.BOLD, 20));
-    bot_score_table.setPreferredScrollableViewportSize(bot_score_table.getPreferredSize());
+        bot_score_table.setRowHeight(50);
+        bot_score_table.setEnabled(false);
+        bot_score_table.setBackground(new Color(0x0fff0f));
+        bot_score_table.setForeground(Color.BLUE);
+        bot_score_table.setFont(new Font("Serif", Font.BOLD, 20));
+        bot_score_table.setPreferredScrollableViewportSize(bot_score_table.getPreferredSize());
 
-    bot_score_table.setFillsViewportHeight(true);
-    logs_panel.add(bot_score_table);
+        bot_score_table.setFillsViewportHeight(true);
+        logs_panel.add(bot_score_table);
 
 
     }
@@ -84,12 +84,12 @@ public class Game_logs extends JPanel {
         next_round_button.addActionListener(e -> {
             Game_logs.this.setVisible(false);
             WelcomePanel.frame.remove(Game_logs.this);
-           // WelcomePanel.frame.add(new GamePanel());
+            WelcomePanel.frame.add(new GamePanel());
         });
         start_again_button.addActionListener(e -> {
             Game_logs.this.setVisible(false);
             WelcomePanel.frame.remove(Game_logs.this);
-            //WelcomePanel.frame.add(new GamePanel());
+            WelcomePanel.frame.add(new GamePanel());
         });
         button_panel.add(start_again_button);
         button_panel.add(next_round_button);

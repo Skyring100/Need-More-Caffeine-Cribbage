@@ -29,6 +29,7 @@ public class Game {
 	 * Sets up a game of cribbage between two players
 	 * @param one player one
 	 * @param two player two
+	 * 
 	 */
     public Game(Player one, Player two) {
 		//set debugging mode to true if both players are bots
