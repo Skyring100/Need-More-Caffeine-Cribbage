@@ -58,7 +58,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
 
         createTitleLabel();
 
-       createTeamTitle();
+        createTeamTitle();
 
         createBorderLabel();
 
@@ -87,22 +87,22 @@ public class WelcomePanel extends JPanel implements ActionListener {
      * creating a menu bar which assigned a background, menus and other attributes that make it appear good on the screen
      */
 
-   private void createMenuBar(){
-       JMenuBar menuBar = new JMenuBar(); // creating a menu bar.
-       menuBar.setBackground(Color.darkGray);
-       menuBar.setBorderPainted(false);
-       JMenu helpMenu = new JMenu("Help"); // setting a help menu which provides navigation instructions about game and rules
-       JMenu infoMenu = new JMenu("Information"); // setting info menu which shows information
-       helpMenu.setForeground(new Color(0x7f0000));
-       infoMenu.setForeground(new Color(0x7f0000));
-       JMenuItem creator_info = new JMenuItem("Creator's INFO"); // give the information about the creator of the game
-       JMenuItem Game_info = new JMenuItem("Game's information");//  give information about game (history)
-       infoMenu.add(creator_info);
-       infoMenu.add(Game_info);
-       menuBar.add(infoMenu);
-       menuBar.add(helpMenu);
-       this.add(menuBar, BorderLayout.NORTH);
-   }
+    private void createMenuBar(){
+        JMenuBar menuBar = new JMenuBar(); // creating a menu bar.
+        menuBar.setBackground(Color.darkGray);
+        menuBar.setBorderPainted(false);
+        JMenu helpMenu = new JMenu("Help"); // setting a help menu which provides navigation instructions about game and rules
+        JMenu infoMenu = new JMenu("Information"); // setting info menu which shows information
+        helpMenu.setForeground(new Color(0x7f0000));
+        infoMenu.setForeground(new Color(0x7f0000));
+        JMenuItem creator_info = new JMenuItem("Creator's INFO"); // give the information about the creator of the game
+        JMenuItem Game_info = new JMenuItem("Game's information");//  give information about game (history)
+        infoMenu.add(creator_info);
+        infoMenu.add(Game_info);
+        menuBar.add(infoMenu);
+        menuBar.add(helpMenu);
+        this.add(menuBar, BorderLayout.NORTH);
+    }
 
     /**
      * creating a submit button which has a listener which change the screen and get the name from the user.
@@ -132,7 +132,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
             this.setVisible(false);
 
             frame.getContentPane().remove(this);
-            //frame.setContentPane(new GamePanel());
+            frame.setContentPane(new GamePanel());
 
         }
 
