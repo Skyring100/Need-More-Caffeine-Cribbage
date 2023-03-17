@@ -332,7 +332,7 @@ public class Game {
 			}
 		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
 		System.out.println("\nDone pegging\nScoring hands");
-		System.out.printf("%s(Dealer)%n%s(Pone)%n",currentDealer,currentPone);
+		System.out.printf("%s(Dealer): %s%n%s(Pone): %s%n",currentDealer, currentDealer.getHand(),currentPone, currentPone.getHand());
 		System.out.println("Crib: "+crib);
 		System.out.println("Flipped card: "+flippedCard);
 		System.out.println("Press enter to continue");
