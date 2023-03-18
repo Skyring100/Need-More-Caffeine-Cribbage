@@ -732,9 +732,9 @@ public class Game {
 			if(hand.size() == 7) { // checking if it is a 7 length straight
 				if(hand.get(0) == (hand.get(1)-1) && hand.get(0) == (hand.get(2)-2) && hand.get(0) == (hand.get(3)-3) && hand.get(0) == (hand.get(4)-4) && hand.get(0) == (hand.get(5)-5)  && hand.get(0) == (hand.get(6)-6) ) {
 					return 7;
+				}else {
+					list.remove(list.size()-1);
 				}
-			}else {
-				list.remove(list.size()-1);
 			}
 		}else if(list.size() ==6) {
 			hand.clear();
@@ -745,9 +745,9 @@ public class Game {
 			if(hand.size() == 6) { // checking if it is a 6 length straight
 				if(hand.get(0) == (hand.get(1)-1) && hand.get(0) == (hand.get(2)-2) && hand.get(0) == (hand.get(3)-3) && hand.get(0) == (hand.get(4)-4) && hand.get(0) == (hand.get(5)-5)) {
 					return 6;
+				}else {
+					list.remove(list.size()-1);
 				}
-			}else {
-				list.remove(list.size()-1);
 			}
 		}else if(list.size() == 5) {
 			hand.clear();
@@ -758,9 +758,9 @@ public class Game {
 			if(hand.size() == 5) { // checking if it is a 5 length straight
 				if(hand.get(0) == (hand.get(1)-1) && hand.get(0) == (hand.get(2)-2) && hand.get(0) == (hand.get(3)-3) && hand.get(0) == (hand.get(4)-4)) {
 					return 5;
+				}else {
+					list.remove(list.size()-1);
 				}
-			}else {
-				list.remove(list.size()-1);
 			}
 		}else if(list.size() == 4) {
 			hand.clear();
@@ -771,9 +771,9 @@ public class Game {
 			if(hand.size() == 4) { // checking if it is a 4 length straight
 				if(hand.get(0) == (hand.get(1)-1) && hand.get(0) == (hand.get(2)-2) && hand.get(0) == (hand.get(3)-3)) {
 					return 4;
+				}else {
+					list.remove(list.size()-1);
 				}
-			}else {
-				list.remove(list.size()-1);
 			}
 		}else if(list.size() == 3) {
 			hand.clear();
