@@ -338,9 +338,11 @@ public class Game {
 		//adding the flipped card to the scoring hands
 		ArrayList<Card> tempHandScoring = combineFlippedCard(currentPone.getHand());
 		currentPone.addScore(countPoints(tempHandScoring)+countNob(tempHandScoring));
-
+		System.out.println("Pones Hand");
+		printScores(tempHandScoring);
 		tempHandScoring = combineFlippedCard(crib);
-
+		System.out.println("Crib Hand (to pone)");
+		printScores(tempHandScoring);
 		currentPone.addScore(countPoints(tempHandScoring)+countNob(tempHandScoring));
 		//in case the pone won here, return immediately
 		//this prevents both the pone and dealer winning at the same time
@@ -349,10 +351,25 @@ public class Game {
 		}
 
 		tempHandScoring = combineFlippedCard(currentDealer.getHand());
-
+		System.out.println("Dealer Hand");
+		printScores(tempHandScoring);
 		currentDealer.addScore(countPoints(tempHandScoring)+countNob(tempHandScoring));
 		//clear the crib for the next round
 		crib.clear();
+	}
+	public void printScores(ArrayList hand) {
+		for(int i = 0;i<getStraight(hand).size();i++) {
+			System.out.println("Straight"+getStraight(hand).get(i));
+		}
+		for(int i = 0;i<get15s(hand).size();i++) {
+			System.out.println("15s " + get15s(hand).get(i));
+		}
+		for(int i = 0;i<getPairs(hand).size();i++) {
+			System.out.println("Pairs " +getPairs(hand).get(i));
+		}
+		for(int i = 0;i<getFlush(hand).size();i++) {
+			System.out.println("Flush " + getFlush(hand).get(i));
+		}
 	}
 
 	/**
@@ -456,7 +473,6 @@ public class Game {
 			//check all subsets of size 2 and compare their face cards
 			if (set.size() == 2 && (set.get(0).getRank() == set.get(1).getRank())) {
 				count++;
-				break;
 			}
 		}
 		return count;
@@ -588,7 +604,6 @@ public class Game {
 			//check all subsets of size 2 and compare their face cards
 			if (set.size() == 2 && (set.get(0).getRank() == set.get(1).getRank())) {
 				allPoints.add(set);
-				break;
 			}
 		}
 		return allPoints;
@@ -709,7 +724,7 @@ public class Game {
 		}
 		Collections.reverse(list);
 		ArrayList<Integer> hand = new ArrayList<>();
-		if(list.size() >= 7) {
+		if(list.size() == 7) {
 			for(int i = 0;i<7;i++) {
 				hand.add(list.get(i).getValue());
 			}
@@ -718,8 +733,10 @@ public class Game {
 				if(hand.get(0) == (hand.get(1)-1) && hand.get(0) == (hand.get(2)-2) && hand.get(0) == (hand.get(3)-3) && hand.get(0) == (hand.get(4)-4) && hand.get(0) == (hand.get(5)-5)  && hand.get(0) == (hand.get(6)-6) ) {
 					return 7;
 				}
+			}else {
+				list.remove(list.size()-1);
 			}
-		}else if(list.size() >=6) {
+		}else if(list.size() ==6) {
 			hand.clear();
 			for(int i = 0;i<6;i++) {
 				hand.add(list.get(i).getValue());
@@ -729,8 +746,10 @@ public class Game {
 				if(hand.get(0) == (hand.get(1)-1) && hand.get(0) == (hand.get(2)-2) && hand.get(0) == (hand.get(3)-3) && hand.get(0) == (hand.get(4)-4) && hand.get(0) == (hand.get(5)-5)) {
 					return 6;
 				}
+			}else {
+				list.remove(list.size()-1);
 			}
-		}else if(list.size() >= 5) {
+		}else if(list.size() == 5) {
 			hand.clear();
 			for(int i = 0;i<5;i++) {
 				hand.add(list.get(i).getValue());
@@ -740,6 +759,8 @@ public class Game {
 				if(hand.get(0) == (hand.get(1)-1) && hand.get(0) == (hand.get(2)-2) && hand.get(0) == (hand.get(3)-3) && hand.get(0) == (hand.get(4)-4)) {
 					return 5;
 				}
+			}else {
+				list.remove(list.size()-1);
 			}
 		}else if(list.size() == 4) {
 			hand.clear();
@@ -751,6 +772,8 @@ public class Game {
 				if(hand.get(0) == (hand.get(1)-1) && hand.get(0) == (hand.get(2)-2) && hand.get(0) == (hand.get(3)-3)) {
 					return 4;
 				}
+			}else {
+				list.remove(list.size()-1);
 			}
 		}else if(list.size() == 3) {
 			hand.clear();
@@ -842,8 +865,9 @@ public class Game {
 	 */
 	private ArrayList<Card> combineFlippedCard(ArrayList<Card> hand){
 		ArrayList<Card> list = new ArrayList<>() ;
-		list.addAll(hand);
 		list.add(flippedCard);
+		list.addAll(hand);
+		
 		return list;
 	}
 }
