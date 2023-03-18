@@ -700,14 +700,14 @@ public class Game {
 		//create a copy of the arraylist, so we do not modify the original
 		ArrayList<Card> list = new ArrayList<>();
 		list.addAll(pegList);
-		Collections.reverse(list);
+		
 		if(list.size() == 8) { // a straight of 8 cannot exist
 			list.remove(0);
 		}
 		if(list.size() == 1 || list.size() == 2 || list.size() == 0) {
 			return 0;
 		}
-
+		Collections.reverse(list);
 		ArrayList<Integer> hand = new ArrayList<>();
 		if(list.size() >= 7) {
 			for(int i = 0;i<7;i++) {
