@@ -301,7 +301,6 @@ public class Game {
 				if(currentPegPoints > 0){
 					showScores();
 				}
-				showScores();
 				if(checkWinner()!= null) {
 					//we want to return instead of break; we do not care about any extra points now that someone has already won
 					//if we do not return, there is a chance the other player might appear to win as well which is not possible
