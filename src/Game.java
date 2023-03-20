@@ -95,8 +95,8 @@ public class Game {
 		dealPlayers();
 		handUpdate();
 		discardPhase();
-		System.out.println("Crib: "+crib);
 		handUpdate();
+
 		flippedCard = deck.draw();
 		System.out.println("Flipping the deck's top card");
 		System.out.println("Flipped card: "+flippedCard);
@@ -104,10 +104,8 @@ public class Game {
 			currentPone.addScore(2);
 			System.out.println("The pone ("+currentPone+") scored two points for flipping a jack");
 		}
+
 		showScores();
-		//let the user continue when done looking at flipped card
-		System.out.println("Press enter when ready");
-		input.nextLine();
 		System.out.println("Pegging cards");
 		peg();
 		System.out.println("Finished pegging");
@@ -222,7 +220,7 @@ public class Game {
 		System.out.println("\nCurrent scores");
 		System.out.println(player1+"'s score: "+player1.getScore());
 		System.out.println(player2+"'s score: "+player2.getScore());
-		System.out.println();
+		clearScreen();
 	}
 	/**
 	 * Clear the screen of the user when enter is pressed
@@ -245,7 +243,7 @@ public class Game {
 			for(int i = 1; i <= 2; i++){
 				if(p instanceof Bot){
 					currentCard =  p.discard(((Bot) p).discardAlgorithm());
-					System.out.println(p+" discards "+currentCard);
+					System.out.println(p+" discards a card");
 				}else{
 					System.out.println("Discard phase");
 					currentCard = p.discard(selectCard(p.getHand()));
@@ -261,6 +259,8 @@ public class Game {
 		//sets the pegging hands of all players. These are temporary will be manipulated and checked as pegging occurs
 		currentPone.readyPegging();
 		currentDealer.readyPegging();
+		System.out.println("Pone: "+currentPone);
+		System.out.println("Dealer: "+currentDealer);
 		//A turn counter
 		int counter = 0;
 		do {
@@ -295,9 +295,12 @@ public class Game {
 					System.out.println("You pegged "+peggingCard);
 				}
 				currentPlayer.pegCard(this,peggingCard);
-				currentPlayer.addScore(pegPoints(currentPegList));
-				System.out.println("Peg list: "+currentPegList+" (value: "+currentPegValue+")\nPress enter to continue");
-				input.nextLine();
+				int currentPegPoints = pegPoints(currentPegList);
+				currentPlayer.addScore(currentPegPoints);
+				System.out.println("Peg list: "+currentPegList+" (value: "+currentPegValue+")");
+				if(currentPegPoints > 0){
+					showScores();
+				}
 				showScores();
 				if(checkWinner()!= null) {
 					//we want to return instead of break; we do not care about any extra points now that someone has already won
