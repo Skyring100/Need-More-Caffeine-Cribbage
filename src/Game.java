@@ -300,6 +300,8 @@ public class Game {
 				System.out.println("Peg list: "+currentPegList+" (value: "+currentPegValue+")");
 				if(currentPegPoints > 0){
 					showScores();
+				}else{
+					clearScreen();
 				}
 				if(checkWinner()!= null) {
 					//we want to return instead of break; we do not care about any extra points now that someone has already won
@@ -319,8 +321,6 @@ public class Game {
 					currentPlayer.addScore(1);
 				}
 				showScores();
-				System.out.println("Press enter to continue");
-				input.nextLine();
 				if(checkWinner() != null) {
 					//we want to return instead of break; we do not care about any extra points now that someone has already won
 					return;
