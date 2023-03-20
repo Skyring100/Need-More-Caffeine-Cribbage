@@ -228,7 +228,7 @@ public class Game {
 	private void clearScreen(){
 		System.out.println("\nPress enter to continue");
 		input.nextLine();
-		for(int i = 1; i <= 50; i++){
+		for(int i = 1; i <= 5; i++){
 			System.out.println();
 		}
 	}
