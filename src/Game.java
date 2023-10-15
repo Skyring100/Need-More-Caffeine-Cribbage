@@ -6,6 +6,7 @@ import src.card.Rank;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * This holds all necessary rules and functionality to play a game of cribbage
@@ -22,12 +23,21 @@ public class Game {
 	private Card flippedCard;
 	private int currentPegValue;
 	private final Deck deck;
+	private Scanner input;
+	private boolean debugMode;
 	/**
-	 * Creates a two game with two human players
+	 * Sets up a game of cribbage between two players
 	 * @param one player one
 	 * @param two player two
+	 * 
 	 */
     public Game(Player one, Player two) {
+		//set debugging mode to true if both players are bots
+		if(one instanceof Bot && two instanceof Bot){
+			debugMode = true;
+		}else{
+			debugMode = false;
+		}
 		player1 = one;
 		player2 = two;
 		//this is an EXTREMELY compact way of getting a random dealer
@@ -38,7 +48,11 @@ public class Game {
 		}else{
 			currentPone = player1;
 		}
+		System.out.println("Dealer: "+currentDealer);
+		System.out.println("Pone: "+currentPone);
 		deck = new Deck();
+		//to get input from the user, we use a scanner
+		input = new Scanner(System.in);
 		run();
     }
 	/**
@@ -47,6 +61,16 @@ public class Game {
 	 */
 	public Game(Player p){
 		this(p, new Bot());
+	}
+
+	/**
+	 * Allows the creator to specify a game with debugging on, revealing data that is normally non-viewable
+	 * @param p the user
+	 * @param isDebug if debug is turned on manually or not
+	 */
+	public Game(Player p, boolean isDebug){
+		this(p);
+		debugMode = isDebug;
 	}
 	public Player getPlayer1() {
 		return player1;
@@ -66,30 +90,30 @@ public class Game {
 	 * The main game method, which executes a round in cribbage
 	 */
 	private void run(){
-		System.out.println("\nNew Round!\n");
-		
+		showScores();
+		System.out.println("Dealing cards");
 		dealPlayers();
-		
-		System.out.println("\nDealing");
-		System.out.println(player1+": "+player1.getHand());
-		System.out.println(player2+": "+player2.getHand());
+		handUpdate();
 		discardPhase();
-		System.out.println("\nDiscarding");
-		System.out.println(player1+": "+player1.getHand());
-		System.out.println(player2+": "+player2.getHand());
+		handUpdate();
+
 		flippedCard = deck.draw();
+		System.out.println("Flipping the deck's top card");
 		System.out.println("Flipped card: "+flippedCard);
 		if(flippedCard.getRank() == Rank.JACK) {
 			currentPone.addScore(2);
+			System.out.println("The pone ("+currentPone+") scored two points for flipping a jack");
 		}
+
+		showScores();
+		System.out.println("Pegging cards");
 		peg();
-		System.out.println(player1+": "+player1.getScore());
-		System.out.println(player2+": "+player2.getScore());
+		System.out.println("Finished pegging");
+		showScores();
 		winner = checkWinner();
 		if(winner != null){
 			System.out.println(winner+" is the winner");
-		}else if(player1 instanceof Bot && player2 instanceof Bot){
-			//if there are just bots playing, we can let them do the whole game without the need for a gui
+		}else{
 			reRun();
 		}
 	}
@@ -101,7 +125,6 @@ public class Game {
 		//this part might be added into the gui class when a "submit" button or something is pressed
 		//that way, the game will not run until the player presses a button
 		switchDealer();
-		System.out.println(deck.showDeck());
 		deck.shuffleDiscard();
 		run();
 	}
@@ -120,6 +143,98 @@ public class Game {
 			player2.addCard(c);
 		}
 	}
+
+	/**
+	 * Lets the player select one of the cards
+	 * @return the selected card
+	 */
+	private Card selectCard(ArrayList<Card> hand){
+		System.out.println("Select a card");
+		//print all cards in the hand
+		for(int i = 1; i <= hand.size(); i++){
+			System.out.print("("+i+"): "+hand.get(i-1)+" ");
+		}
+		System.out.println();
+		int index = -100;
+		String text;
+		//ask the user for input until there is a valid card selected
+		do{
+			System.out.println("Input the number corresponding to the card you want");
+			text = input.nextLine().strip();
+			if(isNumber(text)){
+				index = Integer.valueOf(text);
+			}
+		}while(index < 1 || index > hand.size());
+		index -= 1;
+		return hand.get(index);
+	}
+	/**
+	 * Checks if a string can be converted to a number
+	 * @param check the string to check
+	 * @return if the string is a number
+	 */
+	private boolean isNumber(String check){
+		char[] intWords = new char[]{'0','1','2','3','4','5','6','7','8','9'};
+		char[] letters = check.toCharArray();
+		//if the string is empty, it is not a number
+		if(check.equals("")){
+			return false;
+		}
+		//for each letter, check if it is a digit
+		for(char l : letters){
+			boolean isDigit = false;
+			for(char n : intWords){
+				//if there is a digit found, we know it isnt the other digits so break
+				if(l == n){
+					isDigit = true;
+					break;
+				}
+			}
+			if(!isDigit){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Shows a player's hand to the console
+	 * @param p the player that will have their hand shown
+	 */
+	private void showHand(Player p){
+		//if this is not a bot, show their hand
+		if(!(p instanceof Bot)){
+			System.out.println(p+"'s hand:");
+			for(Card c : p.getHand()){
+				System.out.print(c+" ");
+			}
+			//in case of two players, we will clear the screen when the user is done looking
+			clearScreen();
+		}
+	}
+	private void handUpdate(){
+		showHand(player1);
+		showHand(player2);
+	}
+	private void showScores(){
+		System.out.println("\nCurrent scores");
+		System.out.println(player1+"'s score: "+player1.getScore());
+		System.out.println(player2+"'s score: "+player2.getScore());
+		clearScreen();
+	}
+	/**
+	 * Clear the screen of the user when enter is pressed
+	 */
+	private void clearScreen(){
+		System.out.println("\nPress enter to continue");
+		input.nextLine();
+		for(int i = 1; i <= 5; i++){
+			System.out.println();
+		}
+	}
+	/**
+	 * Makes players discard two cards into the crib
+	 */
 	private void discardPhase() {
 		Card currentCard;
 		//loop through all 2 players
@@ -128,9 +243,11 @@ public class Game {
 			for(int i = 1; i <= 2; i++){
 				if(p instanceof Bot){
 					currentCard =  p.discard(((Bot) p).discardAlgorithm());
+					System.out.println(p+" discards a card");
 				}else{
-
-					currentCard = null;
+					System.out.println("Discard phase");
+					currentCard = p.discard(selectCard(p.getHand()));
+					System.out.println("You discard "+currentCard);
 				}
 				crib.add(currentCard);
 			}
@@ -138,83 +255,96 @@ public class Game {
 	}
 
 	private void peg(){
-		System.out.println("\nPegging start");
-		// this is the pegging section, hasn't been tested, however I do believe that it should work
-
 		Player currentPlayer;
-		//sets the pegging hands of all players. This will be manipulated and checked as pegging occurs
+		//sets the pegging hands of all players. These are temporary will be manipulated and checked as pegging occurs
 		currentPone.readyPegging();
 		currentDealer.readyPegging();
+		System.out.println("Pone: "+currentPone);
+		System.out.println("Dealer: "+currentDealer);
 		//A turn counter
 		int counter = 0;
 		do {
 			//if it's an even turn, the pone goes, else the dealer goes
 			if(counter % 2 == 0) {
 				currentPlayer = currentPone;
-				
-				
 			}else {
 				currentPlayer = currentDealer;
 				
 			}
+			System.out.println("-------------------------------------------------");
+			System.out.println("Pegging list (current value: "+currentPegValue+")");
+			System.out.println(currentPegList);
 
-			System.out.println(currentPlayer+"'s cards: "+currentPlayer.getPegHand());
-			System.out.println("Peg List:"+currentPegList);
-
-			//checks if the player has cards and is able to play a card
+			//checks if the player has cards and is able to play a card (if they have cards and can play at least one of those cards)
 			if(currentPlayer.getPegHand().size() != 0 && currentPlayer.canPeg(this)) {
 				Card peggingCard;
 				//if a player is a bot, use an algorithm to find a suitable card for pegging
 				if(currentPlayer instanceof Bot) {
 					peggingCard =  ((Bot) currentPlayer).pegAlgorithm(currentPegList,currentPegValue);
+					System.out.println(currentPlayer+" pegged "+peggingCard);
 				}
 				else {
-					peggingCard = currentPlayer.getPegHand().get(0);
-					// the card for this method will need to be changed to the card selected
+					do {
+						System.out.println("Pick a card to peg");
+						peggingCard = selectCard(currentPlayer.getPegHand());
+						//if the player chose an invalid card, loop again
+						if(!peggableCard(peggingCard)){
+							System.out.println("This card is too high, select another card");
+						}
+					}while(!peggableCard(peggingCard));
+					System.out.println("You pegged "+peggingCard);
 				}
 				currentPlayer.pegCard(this,peggingCard);
-				//gui for pegged card
-				currentPlayer.addScore(pegPoints(currentPegList));
+				int currentPegPoints = pegPoints(currentPegList);
+				currentPlayer.addScore(currentPegPoints);
+				System.out.println("Peg list: "+currentPegList+" (value: "+currentPegValue+")");
+				if(currentPegPoints > 0){
+					showScores();
+				}else{
+					clearScreen();
+				}
 				if(checkWinner()!= null) {
 					//we want to return instead of break; we do not care about any extra points now that someone has already won
 					//if we do not return, there is a chance the other player might appear to win as well which is not possible
 					return;
 				}
 			}
-			System.out.println("Peg List: "+currentPegList+" Peg value: "+currentPegValue);
-			System.out.println(currentPlayer+"'s cards: "+currentPlayer.getPegHand());
-			System.out.println(currentPlayer+"'s score "+currentPlayer.getScore());
-			System.out.println();
 			counter++;
-
-			if(!currentDealer.canPeg(this) && !currentPone.canPeg(this)) { // checking to see if both players can't play a card
-				System.out.println("No possible plays from either player, new peg list");
+			//checking to see if both players can't play a card
+			if(!currentDealer.canPeg(this) && !currentPone.canPeg(this)) {
+				System.out.println("No possible plays from either player");
+				//if you get exactly 31, get bonus points
 				if(currentPegValue == 31) {
 					currentPlayer.addScore(2);
-					//gui for hitting 31 exactly
 				}else {
+					//if you end last, get an extra point for it
 					currentPlayer.addScore(1);
-					//gui for finishing last
 				}
-				
+				showScores();
 				if(checkWinner() != null) {
 					//we want to return instead of break; we do not care about any extra points now that someone has already won
 					return;
 				}
-					currentPegList.clear();
-					currentPegValue = 0;
-					
+				//clear the pegging cards and start another round
+				currentPegList.clear();
+				currentPegValue = 0;
 			}
 		}while(currentDealer.getPegHand().size() != 0 || currentPone.getPegHand().size() != 0); // do the pegging while a player has at least 1 card in their hand
-		System.out.println("\nDone pegging");
-		System.out.printf("Crib: %s%n%s (Dealer): %s%n%s (Pone): %s%n",crib,currentDealer,currentDealer.getHand(),currentPone,currentPone.getHand());
+		System.out.println("\nDone pegging\nScoring hands");
+		System.out.printf("%s(Dealer)%n%s(Pone)%n",currentDealer,currentPone);
+		System.out.println("Crib: "+crib);
 		System.out.println("Flipped card: "+flippedCard);
+		System.out.println("Pres enter to continue");
+		input.nextLine();
+		//----------------------------------------------------------------------------SHOW HOW MUCH SCORE YOU GAIN HERE----------------
 		//adding the flipped card to the scoring hands
 		ArrayList<Card> tempHandScoring = combineFlippedCard(currentPone.getHand());
 		currentPone.addScore(countPoints(tempHandScoring)+countNob(tempHandScoring));
-
+		System.out.println("Pones Hand");
+		printScores(tempHandScoring);
 		tempHandScoring = combineFlippedCard(crib);
-
+		System.out.println("Crib Hand (to pone)");
+		printScores(tempHandScoring);
 		currentPone.addScore(countPoints(tempHandScoring)+countNob(tempHandScoring));
 		//in case the pone won here, return immediately
 		//this prevents both the pone and dealer winning at the same time
@@ -223,10 +353,34 @@ public class Game {
 		}
 
 		tempHandScoring = combineFlippedCard(currentDealer.getHand());
-
+		System.out.println("Dealer Hand");
+		printScores(tempHandScoring);
 		currentDealer.addScore(countPoints(tempHandScoring)+countNob(tempHandScoring));
 		//clear the crib for the next round
 		crib.clear();
+	}
+	public void printScores(ArrayList hand) {
+		for(int i = 0;i<getStraight(hand).size();i++) {
+			System.out.println("Straight"+getStraight(hand).get(i));
+		}
+		for(int i = 0;i<get15s(hand).size();i++) {
+			System.out.println("15s " + get15s(hand).get(i));
+		}
+		for(int i = 0;i<getPairs(hand).size();i++) {
+			System.out.println("Pairs " +getPairs(hand).get(i));
+		}
+		for(int i = 0;i<getFlush(hand).size();i++) {
+			System.out.println("Flush " + getFlush(hand).get(i));
+		}
+	}
+
+	/**
+	 * Determines if a card is playable in the current pegging list
+	 * @param card the card to be checked
+	 * @return if the card is able to be played
+	 */
+	private boolean peggableCard(Card card){
+		return card.getCribCount() <= 31 - getPegValue();
 	}
 	/**
 	 * determines a winner if a player has enough points
@@ -275,9 +429,9 @@ public class Game {
 	public int getPegValue() {
 		return currentPegValue;
 	}
-	
 	public static int botPegPoints(ArrayList<Card> list, Card c) {
-		ArrayList<Card> pegList = copyCards(list);
+		ArrayList<Card> pegList = new ArrayList<>();
+		pegList.addAll(list);
 		pegList.add(c);
 		int points = pegPoints(pegList);
 		pegList.remove(pegList.size()-1);
@@ -287,10 +441,6 @@ public class Game {
 		return points;
 		
 	}
-	
-	
-	
-	
 	//
     /**
      * Creates the power-set from a list. Used to find all combination possibilities
@@ -325,7 +475,6 @@ public class Game {
 			//check all subsets of size 2 and compare their face cards
 			if (set.size() == 2 && (set.get(0).getRank() == set.get(1).getRank())) {
 				count++;
-				break;
 			}
 		}
 		return count;
@@ -347,11 +496,10 @@ public class Game {
 			//check if there are 4 cards to count from
 			//we do NOT count the last index (the 4th index) here due to this representing the flipped card
 			if(list.size() == 4) {
-    if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit()) {
-				return 4;
+				if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit()) {
+					return 4;
+				}
 			}
-		}
-    	
 		//else, there is no flush, so return 0
     	return 0;
     }
@@ -427,6 +575,12 @@ public class Game {
 	public static int countPoints(ArrayList<Card> list) {
     	return count15s(list) * 2 + countFlush(list) + countPairs(list) * 2 + countStraight(list);
     }
+
+	/**
+	 * Gives a point if a nob occurred
+	 * @param list the hand to be checked
+	 * @return the amount of points gained
+	 */
 	public int countNob(ArrayList<Card> list) {
 		for(int i = 0;i<list.size();i++) {
 			if(list.get(i).getSuit() == flippedCard.getSuit() && list.get(i).getRank() == Rank.JACK) {
@@ -435,8 +589,13 @@ public class Game {
 		}
 		return 0;
 	}
-    
-    
+
+	/**
+	 * Finds the cards that give a pair. was supposed to be used for the GUI
+	 * @param list the hand to be checked for pairs
+	 * @return an array of pairs
+	 */
+	
     private static ArrayList<ArrayList<Card>> getPairs(ArrayList<Card> list) {
     	ArrayList<ArrayList<Card>> sets = makeSubset(list);
     	ArrayList<ArrayList<Card>> allPoints = new ArrayList<>();
@@ -447,18 +606,16 @@ public class Game {
 			//check all subsets of size 2 and compare their face cards
 			if (set.size() == 2 && (set.get(0).getRank() == set.get(1).getRank())) {
 				allPoints.add(set);
-				break;
 			}
 		}
 		return allPoints;
 	}
     /**
-     * 
+     * Finds cards that cause a flush. was supposed to be used for the GUI
      * @param list the hand which will be checked for a flush
      * @return the number of points for the flush, either 4, 5, or 0
      */
     private static ArrayList<ArrayList<Card>> getFlush(ArrayList<Card> list) {
-		//might want to review this: might be some edge cases missed and could be cleaner
 		//if all cards are the same
     	ArrayList<ArrayList<Card>> allPoints = new ArrayList<>();
 		ArrayList<Card> cardsInHand = new ArrayList<>();
@@ -471,8 +628,6 @@ public class Game {
     	    allPoints.add(cardsInHand);
     	    return allPoints;
 		//if 4 of the cards are the same
-		//this is where an edge case could be missed if the LAST card was the same as the other cards
-		//the current code ignores the last card so the case (D D D S D) would not be counted as a flush
     	}else if(list.get(0).getSuit() == list.get(1).getSuit() && list.get(2).getSuit() == list.get(1).getSuit() && list.get(3).getSuit() == list.get(1).getSuit()) {
     		cardsInHand.add(list.get(0));
     		cardsInHand.add(list.get(1));
@@ -487,7 +642,7 @@ public class Game {
     }
 
     /**
-     * 
+     * Finds cards that result in a 15. was supposed to be used for the GUI
      * @param list the hand which will be checked for possible 15s
      * @return the number of 15s which are in the hand
      */
@@ -512,7 +667,7 @@ public class Game {
 		return allPoints;
 	}
 	/**
-	 * 
+	 * Finds cards which form a straight in a hand. was supposed to be used for the GUI
 	 * @param list hand which will be checked for cards part of scoring straights
 	 * @return the cards part of scoring in straight
 	 */
@@ -550,6 +705,7 @@ public class Game {
 		}
 		return allPoints;
 		//hello
+		//
     }
 
 	/**
@@ -559,17 +715,18 @@ public class Game {
 	 */
 	public static int pegStraight(ArrayList<Card> pegList) {
 		//create a copy of the arraylist, so we do not modify the original
-		ArrayList<Card> list = copyCards(pegList);
-		Collections.reverse(list);
+		ArrayList<Card> list = new ArrayList<>();
+		list.addAll(pegList);
+		
 		if(list.size() == 8) { // a straight of 8 cannot exist
 			list.remove(0);
 		}
 		if(list.size() == 1 || list.size() == 2 || list.size() == 0) {
 			return 0;
 		}
-
+		Collections.reverse(list);
 		ArrayList<Integer> hand = new ArrayList<>();
-		if(list.size() >= 7) {
+		if(list.size() == 7) {
 			for(int i = 0;i<7;i++) {
 				hand.add(list.get(i).getValue());
 			}
@@ -577,9 +734,11 @@ public class Game {
 			if(hand.size() == 7) { // checking if it is a 7 length straight
 				if(hand.get(0) == (hand.get(1)-1) && hand.get(0) == (hand.get(2)-2) && hand.get(0) == (hand.get(3)-3) && hand.get(0) == (hand.get(4)-4) && hand.get(0) == (hand.get(5)-5)  && hand.get(0) == (hand.get(6)-6) ) {
 					return 7;
+				}else {
+					list.remove(list.size()-1);
 				}
 			}
-		}else if(list.size() >=6) {
+		}else if(list.size() ==6) {
 			hand.clear();
 			for(int i = 0;i<6;i++) {
 				hand.add(list.get(i).getValue());
@@ -588,9 +747,11 @@ public class Game {
 			if(hand.size() == 6) { // checking if it is a 6 length straight
 				if(hand.get(0) == (hand.get(1)-1) && hand.get(0) == (hand.get(2)-2) && hand.get(0) == (hand.get(3)-3) && hand.get(0) == (hand.get(4)-4) && hand.get(0) == (hand.get(5)-5)) {
 					return 6;
+				}else {
+					list.remove(list.size()-1);
 				}
 			}
-		}else if(list.size() >= 5) {
+		}else if(list.size() == 5) {
 			hand.clear();
 			for(int i = 0;i<5;i++) {
 				hand.add(list.get(i).getValue());
@@ -599,6 +760,8 @@ public class Game {
 			if(hand.size() == 5) { // checking if it is a 5 length straight
 				if(hand.get(0) == (hand.get(1)-1) && hand.get(0) == (hand.get(2)-2) && hand.get(0) == (hand.get(3)-3) && hand.get(0) == (hand.get(4)-4)) {
 					return 5;
+				}else {
+					list.remove(list.size()-1);
 				}
 			}
 		}else if(list.size() == 4) {
@@ -610,6 +773,8 @@ public class Game {
 			if(hand.size() == 4) { // checking if it is a 4 length straight
 				if(hand.get(0) == (hand.get(1)-1) && hand.get(0) == (hand.get(2)-2) && hand.get(0) == (hand.get(3)-3)) {
 					return 4;
+				}else {
+					list.remove(list.size()-1);
 				}
 			}
 		}else if(list.size() == 3) {
@@ -637,7 +802,8 @@ public class Game {
 	 */
 	public static int pegPairs(ArrayList<Card> pegList) {
 		//create a copy of the arraylist, so we do not modify the original
-		ArrayList<Card> list = copyCards(pegList);
+		ArrayList<Card> list = new ArrayList<>();
+		list.addAll(pegList);
 		// if the pegging list is of size 1, it will return 0 as there are no possible pair combination
 		if(list.size() == 1 || list.size() == 0){
 			return 0;
@@ -654,6 +820,8 @@ public class Game {
 		if(list.size() == 4) {
 			if(list.get(list.size()-1).getValue() == list.get(list.size()-2).getValue() && list.get(list.size()-1).getValue() == list.get(list.size()-3).getValue() && list.get(list.size()-1).getValue() == list.get(list.size()-4).getValue()  ) {
 				return 12;
+			}else {
+				list.remove(0);
 			}
 		}
 		// will remove the first index to reduce the number of cards to 3, then will check if all three cards are the same value
@@ -661,10 +829,11 @@ public class Game {
 			if(list.size() == 3) {
 				if(list.get(list.size()-1).getValue() == list.get(list.size()-2).getValue() && list.get(list.size()-1).getValue() == list.get(list.size()-3).getValue() ) {
 					return 6;
+				}else {
+					list.remove(0);
 				}
 			}
 			// will remove the first index to reduce the number of cards to 2, then will check if the 2 cards are the same value
-		
 		
 		if(list.size() == 2) {
 			if(list.get(list.size()-1).getValue() == list.get(list.size()-2).getValue()) {
@@ -688,19 +857,8 @@ public class Game {
 		return peg15(list) + pegPairs(list) + pegStraight(list);
 	}
 
-	/**
-	 * Duplicates a hand of cards. This is needed for the reference type nature of ArrayList where directly assigning
-	 * a card will result in the original being modified
-	 * @param src the hand that will be copied
-	 * @return a duplicate version of the hand that is free to modify
-	 */
-	private static ArrayList<Card> copyCards(ArrayList<Card> src){
-		ArrayList<Card> list = new ArrayList<>();
-		for(Card c : src){
-			list.add(c);
-		}
-		return list;
-	}
+
+	
 
 	/**
 	 * Creates a new temporary hand that includes the flipped card for scoring calculations
@@ -708,8 +866,10 @@ public class Game {
 	 * @return a copy of the hand that includes the flipped card
 	 */
 	private ArrayList<Card> combineFlippedCard(ArrayList<Card> hand){
-		ArrayList<Card> list = copyCards(hand);
+		ArrayList<Card> list = new ArrayList<>() ;
 		list.add(flippedCard);
+		list.addAll(hand);
+		
 		return list;
 	}
 }
